@@ -90,9 +90,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/roles",
                                                 "/rest/usersrole/**",
                                                 "/assets/admin/**")
-                                .hasAnyRole("STAFF", "DIRE")
-                                .antMatchers("/rest/authorities/**").hasRole("DIRE")
-                                .anyRequest().authenticated();
+                                .hasAnyRole("ADMIN")
+                                .antMatchers("/rest/authorities/**").hasRole("ADMIN")
+                                .anyRequest().permitAll(); // permitAll để code, debug dễ, nên để thành authenticated()
+                                                           // sau khi xong
 
                 http.formLogin()
                                 .loginPage("/security/login/form")
