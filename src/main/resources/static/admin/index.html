@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Store</title>
+
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <!-- angularjs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <!-- angularjs route -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <!-- font awsome -->
+    <script src="https://kit.fontawesome.com/e136359f35.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container" ng-app="shoe-store-app" ng-controller="main-controller">
+        <header ng-include="'./components/header.html'"></header>
+        <main class="row" style="min-height: 100vh;">
+            <article class="col-md-10">
+                <div ng-view></div>
+            </article>
+        </main>
+    </div>
+
+    <script>
+        let app = angular.module("shoe-store-app", ["ngRoute"]);
+
+        //routers
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/manage-user", {
+                    templateUrl: "./views/user.html"
+                })
+                .when("/manage-product", {
+                    templateUrl: "./views/product.html"
+                })
+                .when("/login", {
+                    templateUrl: "./views/login.html"
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+        });
+
+        //controllers
+        app.controller("main-controller", function ($scope, $http) {
+            let url = 'http://localhost:8080';
+
+            $scope.categories = [];
+            $scope.sub_categories = [];
+
+            $scope.initialize = function () {
+                $http.get(url + '/rest/categories').then(res => {
+                    console.log(res.data);
+                    $scope.categories = res.data;
+                }).catch(error => { console.error(error); });
+
+                $http.get(url + '/rest/sub-categories').then(res => {
+                    console.log(res.data);
+                    $scope.sub_categories = res.data;
+                }).catch(error => { console.error(error); });
+            };
+
+            $scope.initialize();
+        })
+    </script>
+</body>
+
+</html>

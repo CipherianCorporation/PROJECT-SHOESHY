@@ -106,7 +106,7 @@ public class ExcelExporter<T> {
                 createCell(row, colCount++, product.getPrice(), style);
                 createCell(row, colCount++, product.getImage(), style);
                 createCell(row, colCount++, product.getAvailable(), style);
-                createCell(row, colCount++, product.getCreate_date(), style);
+                createCell(row, colCount++, product.getCreated_at(), style);
                 createCell(row, colCount++, product.getCategory().getName(), style);
             } else if (item instanceof Category) {
                 Category category = (Category) item;
@@ -116,7 +116,7 @@ public class ExcelExporter<T> {
                 Order order = (Order) item;
                 createCell(row, colCount++, order.getId(), style);
                 createCell(row, colCount++, order.getAddress(), style);
-                createCell(row, colCount++, order.getCreate_date(), style);
+                createCell(row, colCount++, order.getCreated_at(), style);
                 createCell(row, colCount++, order.getUser().getUsername(), style);
             }
         }

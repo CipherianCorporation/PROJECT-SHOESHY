@@ -21,9 +21,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     UserRepository userRepo;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
-        return null;
+        Optional<User> user = userRepo.findByUsername(username);
+        user.orElseThrow(() -> new UsernameNotFoundException("User not found with username : " + username));
+        return user.map(CustomUserDetails::new).get();
     }
 
 

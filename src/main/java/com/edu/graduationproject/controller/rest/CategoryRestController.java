@@ -15,5 +15,9 @@ public class CategoryRestController {
     @Autowired
     CategoryService categoryService;
 
+    @GetMapping("/rest/categories")
+    public List<Category> getAll() {
+        return categoryService.findAll();
+    }
 
 }

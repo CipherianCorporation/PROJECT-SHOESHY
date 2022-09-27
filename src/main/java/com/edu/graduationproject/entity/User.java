@@ -1,6 +1,7 @@
 package com.edu.graduationproject.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +37,13 @@ public class User implements Serializable {
     private Boolean enabled;
     private String verify_code;
     private String reset_pwd_token;
+    // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
+    @Temporal(TemporalType.DATE)
+    private Date updated_at;
+    @Temporal(TemporalType.DATE)
+    private Date created_at = new Date();
+    @Temporal(TemporalType.DATE)
+    private Date deleted_at;
 
     // OneToMany cách mới của Codejava.com - Chạy được nhưng khi update User thì bên
     // UserRole sẽ bị xóa chứ ko cascade

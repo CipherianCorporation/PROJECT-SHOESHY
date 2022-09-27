@@ -1,0 +1,47 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!">Home</a></li>
+        <li class="breadcrumb-item active"><a href="#!products">Products</a></li>
+    </ol>
+</nav>
+<div class="accordion mb-2" id="accordionExample1">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="categoryHeading">
+            <button class="accordion-button text-reset" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne" aria-expanded="true"
+                aria-controls="collapseOne">
+                Category
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="categoryHeading" data-mdb-parent="#accordionExample1">
+            <div class="accordion-body">
+                <ul class="list-group list-group-light">
+                    <li class="list-group-item" ng-repeat="ca in categories">
+                        <!-- collapse button -->
+                        <strong>{{ca.name}}</strong>
+
+                        <!-- collapse content -->
+                        <ul class="list-group list-group-light" ng-init="showSubCates(ca.id)">
+                            <li class="list-group-item" ng-repeat="sub in sub_categories">+ {{sub.name}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="accordion mb-3" id="accordionExample2">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="filterHeading">
+            <button class="accordion-button text-reset" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseTwo" aria-expanded="true"
+                aria-controls="collapseTwo">
+                Filter
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="filterHeading" data-mdb-parent="#accordionExample2">
+            <div class="accordion-body">
+                asdasd
+            </div>
+        </div>
+    </div>
+</div>

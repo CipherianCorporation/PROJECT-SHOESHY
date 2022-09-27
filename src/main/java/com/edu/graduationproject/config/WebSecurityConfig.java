@@ -94,39 +94,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .antMatchers("/rest/authorities/**").hasRole("ADMIN")
                                 .anyRequest().permitAll(); // permitAll để code, debug dễ, nên để thành authenticated()
                                                            // sau khi xong
+                http.formLogin().disable()
+                                .httpBasic().disable()
+                                .logout().disable();
+                // http.formLogin()
+                // .loginPage("/security/login/form")
+                // .loginProcessingUrl("/security/login")
+                // .defaultSuccessUrl("/security/login/success", false)
+                // .failureUrl("/security/login/error");
+                // // .successHandler(databaseLoginSuccessHandler);
 
-                http.formLogin()
-                                .loginPage("/security/login/form")
-                                .loginProcessingUrl("/security/login")
-                                .defaultSuccessUrl("/security/login/success", false)
-                                .failureUrl("/security/login/error");
-                // .successHandler(databaseLoginSuccessHandler);
+                // http.rememberMe()
+                // .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21)) // expired after 21
+                // days
+                // .key("superhumanisnotsuperjustoverpowered")
+                // .userDetailsService(service);
+                // http.logout()
+                // .logoutUrl("/security/logoff")
+                // .logoutSuccessUrl("/security/logoff/success")
+                // .clearAuthentication(true)
+                // .invalidateHttpSession(true)
+                // .deleteCookies("JSESSIONID");
 
-                http.rememberMe()
-                                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21)) // expired after 21 days
-                                .key("superhumanisnotsuperjustoverpowered")
-                                .userDetailsService(service);
-                http.logout()
-                                .logoutUrl("/security/logoff")
-                                .logoutSuccessUrl("/security/logoff/success")
-                                .clearAuthentication(true)
-                                .invalidateHttpSession(true)
-                                .deleteCookies("JSESSIONID");
+                // http.exceptionHandling()
+                // .accessDeniedPage("/security/unauthorized");
 
-                http.exceptionHandling()
-                                .accessDeniedPage("/security/unauthorized");
-
-                http.oauth2Login()
-                                .loginPage("/security/login/form")
-                                .defaultSuccessUrl("/oauth2/login/success", true)
-                                .failureUrl("/security/login/error")
-                                .authorizationEndpoint()
-                                .baseUri("/oauth2/authorization")
-                                .and()
-                                .userInfoEndpoint()
-                                .userService(oauthUserService)
-                                .and()
-                                .successHandler(oauthLoginSuccessHandler);
+                // http.oauth2Login()
+                // .loginPage("/security/login/form")
+                // .defaultSuccessUrl("/oauth2/login/success", true)
+                // .failureUrl("/security/login/error")
+                // .authorizationEndpoint()
+                // .baseUri("/oauth2/authorization")
+                // .and()
+                // .userInfoEndpoint()
+                // .userService(oauthUserService)
+                // .and()
+                // .successHandler(oauthLoginSuccessHandler);
         }
 
         @Override

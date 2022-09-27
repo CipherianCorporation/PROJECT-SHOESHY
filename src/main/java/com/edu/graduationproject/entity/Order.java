@@ -25,11 +25,7 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Temporal(TemporalType.DATE)
-    private Date create_date = new Date();
     private String address;
-
-    private Double total;
 
     @Enumerated(EnumType.STRING)
     private PaypalPaymentMethod payment_method;
@@ -40,6 +36,20 @@ public class Order implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "voucher_id")
+    private Voucher voucher;
+
+    private Double total;
+
+    // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
+    @Temporal(TemporalType.DATE)
+    private Date updated_at;
+    @Temporal(TemporalType.DATE)
+    private Date created_at = new Date();
+    @Temporal(TemporalType.DATE)
+    private Date deleted_at;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")

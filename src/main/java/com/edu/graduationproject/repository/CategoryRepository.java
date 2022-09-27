@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.edu.graduationproject.entity.Category;
 
-public interface CategoryRepository extends JpaRepository<Category,String>{
-    
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
+
 }

@@ -1,6 +1,7 @@
 package com.edu.graduationproject.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users_role", uniqueConstraints = {
+@Table(name = "user_roles", uniqueConstraints = {
         @UniqueConstraint(columnNames = { "user_id", "role_id" })
 })
 public class UserRole implements Serializable {
@@ -34,6 +37,14 @@ public class UserRole implements Serializable {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
+    @Temporal(TemporalType.DATE)
+    private Date updated_at;
+    @Temporal(TemporalType.DATE)
+    private Date created_at = new Date();
+    @Temporal(TemporalType.DATE)
+    private Date deleted_at;
 
     public UserRole(User user, Role role) {
         this.user = user;

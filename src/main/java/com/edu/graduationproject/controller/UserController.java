@@ -22,7 +22,4 @@ import com.edu.graduationproject.utils.CommonUtils;
 @Controller
 public class UserController {
 
-    @Autowired
-    UserService userService;
-
 }

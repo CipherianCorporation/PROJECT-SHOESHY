@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoe Store</title>
+    <!-- angularjs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <!-- angularjs route -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body ng-app="shoe-store-app" ng-controller="main-controller">
+    <div class="container">
+        <!-- header -->
+        <header style="margin-bottom: 10vh;">
+            <div ng-include="'./components/_header.html'"></div>
+        </header>
+        <!-- main content -->
+        <main class="row" style="min-height: 100vh;">
+            <aside class="col-md-2">
+                <div ng-include="'./components/_aside.html'"></div>
+            </aside>
+            <article class="col-md-10">
+                <div ng-view></div>
+            </article>
+        </main>
+    </div>
+    <footer>
+        <div ng-include="'./components/_footer.html'"></div>
+    </footer>
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
+    <!-- chat box -->
+    <script type="text/javascript" src="https://popupsmart.com/freechat.js"></script>
+    <script> window.start.init({ title: "ShoeShy support", message: "Chào quý khách tôi là Putin nhân viên của ShoeShy, tôi có thể giúp gì cho quý khách ạ", color: "#1C86FA", position: "right", placeholder: "Enter your message", withText: "Write with", viaWhatsapp: "Or write us directly via Whatsapp", gty: "Go to your", awu: "and write us", connect: "Connect now", button: "Chat with us", device: "everywhere", logo: "https://d2r80wdbkwti6l.cloudfront.net/ktrwiL7KIHfTxDhRqKweEPOn49cU2I4v.jpg", person: "https://d2r80wdbkwti6l.cloudfront.net/J8r1vVGrGgPHMqvAeaGV6YLAV5quh6P5.jpg", services: [{ "name": "messenger", "content": "100084897218600" }] })</script>
+
+    <script>
+        let app = angular.module("shoe-store-app", ["ngRoute"]);
+
+        //routers
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/", {
+                    templateUrl: "./pages/products/products.html"
+                })
+                .when("/login", {
+                    templateUrl: "./pages/login/login.html"
+                })
+                .when("/signup", {
+                    templateUrl: "./pages/signup/signup.html"
+                })
+                .when("/forgot", {
+                    templateUrl: "./pages/forgot/forgot.html"
+                })
+                .when("/cart", {
+                    templateUrl: "./pages/cart/cart.html"
+                })
+                .when("/admin", {
+                    templateUrl: "./pages/admin.html"
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
+        });
+
+        //controllers
+        app.controller("main-controller", function ($scope, $http) {
+            let url = 'http://localhost:8080';
+            $scope.message = 'shit';
+            $scope.categories = [];
+            $scope.sub_categories = [];
+
+            $scope.initialize = function () {
+                $http.get(url + '/rest/categories').then(res => {
+                    console.log(res.data);
+                    $scope.categories = res.data;
+                }).catch(error => { console.error(error); });
+            };
+
+            $scope.showSubCates = function (category_id) {
+                $http.get(url + '/rest/sub-categories/' + category_id).then(res => {
+                    console.log(res.data);
+                    $scope.sub_categories = res.data;
+                }).catch(error => { console.error(error); });
+            };
+
+            $scope.initialize();
+        })
+    </script>
+
+
+</body>
+
+</html>

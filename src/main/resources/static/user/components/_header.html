@@ -1,0 +1,126 @@
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light mb-4">
+    <!-- Container wrapper -->
+    <div class="container">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="15" alt="MDB Logo" loading="lazy" />
+                <small>ShoeShy</small>
+            </a>
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="https://mwcstore.net/Resources/Category/2018/08/02/main-menut-icon-1-1fb5f7d8-af7e-4e50-809a-d3b1de092d53.png"
+                            class="rounded-circle" height="22" alt="Black and White Portrait of a Man" loading="lazy" />
+                        Giày nữ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="https://mwcstore.net/Resources/Category/2018/08/02/main-menu-icon-nam.png" class="rounded-circle" height="22"
+                            alt="Black and White Portrait of a Man" loading="lazy" />
+                        Giày nam
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="https://mwcstore.net/Resources/Category/2018/11/06/45434310-1970581836364173-1044894057681125376-n.jpg" class="rounded-circle"
+                            height="22" alt="Black and White Portrait of a Man" loading="lazy" />
+                        Phụ kiện
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="https://cdn2.iconfinder.com/data/icons/ecommerce-solid-icons-vol-2/64/088-512.png" class="rounded-circle" height="22"
+                            alt="Black and White Portrait of a Man" loading="lazy">
+                        Sale off
+                    </a>
+                </li>
+            </ul>
+            <!-- Left links -->
+            <form class="d-flex input-group w-auto ">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </span>
+            </form>
+        </div>
+        <!-- Right elements -->
+        <div class="d-flex align-items-center">
+
+            <!-- Icon Cart -->
+            <a class="text-reset me-3" href="#!cart">
+                <span><i class="fas fa-shopping-bag fa-lg"></i></span>
+            </a>
+
+            <!-- Icon Avatar -->
+            <div class="dropdown me-3">
+                <a class="dropdown-toggle d-flex align-items-center text-reset hidden-arrow" href="#" id="avatarDropdown" role="button"
+                    data-mdb-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
+                    <!-- appear when not login -->
+                    <li>
+                        <a class="dropdown-item" href="#!login">Login</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#!signup">Signup</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#!forgot">Forgot password</a>
+                    </li>
+
+                    <!-- appear only for admin -->
+                    <li>
+                        <a class="dropdown-item" href="/admin/index.html">Administrators</a>
+                    </li>
+
+                    <!-- appear when login -->
+                    <li>
+                        <a class="dropdown-item" href="#!edit-profile">Edit profile</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#!orders">Orders</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#!logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Icon dropdown -->
+            <div class="dropdown dropstart">
+                <a class="dropdown-toggle" href="#" id="langDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                    <i class="flag-vietnam flag m-0"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="langDropdown">
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <i class="flag-vietnam flag"></i>Vietnamese
+                            <i class="fa fa-check text-success ms-2"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English</a>
+                    </li>
+                </ul>
+                </li>
+            </div>
+            <!-- Right elements -->
+        </div>
+        <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->

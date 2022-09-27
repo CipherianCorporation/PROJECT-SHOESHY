@@ -27,7 +27,7 @@ public class CsvExporter<T> {
                 if (entity instanceof Product) {
                     Product product = (Product) entity;
                     csvPrinter.printRecord(product.getId(), product.getName(), product.getPrice(), product.getImage(),
-                            product.getAvailable(), product.getCreate_date().toString(),
+                            product.getAvailable(), product.getCreated_at().toString(),
                             product.getCategory().getName());
                 }
                 if (entity instanceof User) {
@@ -38,7 +38,7 @@ public class CsvExporter<T> {
                 }
                 if (entity instanceof Order) {
                     Order order = (Order) entity;
-                    csvPrinter.printRecord(order.getId(), order.getAddress(), order.getCreate_date().toString(),
+                    csvPrinter.printRecord(order.getId(), order.getAddress(), order.getCreated_at().toString(),
                             order.getUser().getUsername());
                 }
             }

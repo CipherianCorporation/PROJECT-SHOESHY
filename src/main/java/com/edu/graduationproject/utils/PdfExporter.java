@@ -109,13 +109,13 @@ public class PdfExporter<T> {
                 table.addCell(product.getPrice().toString());
                 table.addCell(product.getImage());
                 table.addCell(product.getAvailable().toString());
-                table.addCell(product.getCreate_date().toString());
+                table.addCell(product.getCreated_at().toString());
                 table.addCell(product.getCategory().getName());
             } else if (item instanceof Order) {
                 Order order = (Order) item;
                 table.addCell(order.getId().toString());
                 table.addCell(order.getAddress());
-                table.addCell(order.getCreate_date().toString());
+                table.addCell(order.getCreated_at().toString());
                 table.addCell(order.getUser().getId().toString());
             } else {
                 System.out.println("Error");
