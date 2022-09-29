@@ -61,8 +61,23 @@
                 .when("/forgot", {
                     templateUrl: "./pages/forgot/forgot.html"
                 })
+                .when("/edit-profile", {
+                    templateUrl: "./pages/edit-profile/edit-profile.html"
+                })
+                .when("/orders", {
+                    templateUrl: "./pages/order/order.html"
+                })
+                .when("/order-detail", {
+                    templateUrl: "./pages/order/order-detail.html"
+                })
+                .when("/product-detail", {
+                    templateUrl: "./pages/products/product-detail.html"
+                })
                 .when("/cart", {
                     templateUrl: "./pages/cart/cart.html"
+                })
+                .when("/checkout", {
+                    templateUrl: "./pages/checkout/checkout.html"
                 })
                 .when("/admin", {
                     templateUrl: "./pages/admin.html"
@@ -74,8 +89,7 @@
 
         //controllers
         app.controller("main-controller", function ($scope, $http) {
-            let url = 'http://localhost:8080';
-            $scope.message = 'shit';
+            let url = '';
             $scope.categories = [];
             $scope.sub_categories = [];
 

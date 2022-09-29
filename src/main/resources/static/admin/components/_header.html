@@ -1,0 +1,108 @@
+<!--Main Navigation-->
+<header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+        <div class="position-sticky">
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <a href="#!" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
+                </a>
+                <a href="#!product" class="list-group-item list-group-item-action py-2 ripple">
+                    <i class="fas fa-chart-area fa-fw me-3"></i><span>Products</span>
+                </a>
+                <a href="#!user" class="list-group-item list-group-item-action py-2 ripple"><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a>
+                <a href="#!order" class="list-group-item list-group-item-action py-2 ripple"><i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a>
+                <a href="#!category" class="list-group-item list-group-item-action py-2 ripple">
+                    <i class="fas fa-chart-pie fa-fw me-3"></i><span>Categories</span>
+                </a>
+                <a href="#!authorize" class="list-group-item list-group-item-action py-2 ripple">
+                    <i class="fa-solid fa-user-lock fa-fw me-3"></i><span>Authorize</span></a>
+                <a href="/user/index.html" class="list-group-item list-group-item-action py-2 ripple">
+                    &larr; <span>Go back</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">
+                <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" alt="" loading="lazy" />
+            </a>
+            <!-- Search form -->
+            <form class="d-none d-md-flex input-group w-auto my-auto">
+                <input autocomplete="off" type="search" class="form-control rounded" placeholder='Search...' style="min-width: 225px" />
+                <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+            </form>
+
+            <!-- Right links -->
+            <ul class="navbar-nav ms-auto d-flex flex-row">
+                <!-- Notification dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Some news</a></li>
+                        <li><a class="dropdown-item" href="#">Another news</a></li>
+                        <li>
+                            <a class="dropdown-item" href="#">Something else</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <!-- Icon dropdown -->
+                <li class="nav-item dropdown drop-start">
+                    <a class="nav-link me-3 me-lg-0 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="flag-vietnam flag m-0"></i>
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="langDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <i class="flag-vietnam flag"></i>Vietnamese
+                                <i class="fa fa-check text-success ms-2"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider" />
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English</a>
+                        </li>
+                    </ul>
+                </li>
+                </li>
+
+                <!-- Avatar -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-mdb-toggle="dropdown" aria-expanded="false">
+                        <div class="rounded-circle">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+</header>
