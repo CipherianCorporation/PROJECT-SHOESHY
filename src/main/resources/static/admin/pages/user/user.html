@@ -6,3 +6,201 @@
         </div>
     </div>
 </section>
+
+<div class="container">
+    <!-- Tabs navs -->
+    <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">Tạo
+                mới
+                người dùng</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">Chỉnh
+                sửa</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ex1-tab-3" data-mdb-toggle="tab" href="#ex1-tabs-3" role="tab" aria-controls="ex1-tabs-3" aria-selected="false">Danh sách
+                người
+                dùng</a>
+        </li>
+    </ul>
+    <!-- Tabs navs -->
+
+    <!-- Tabs content -->
+    <div class="tab-content" id="ex1-content">
+        <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+            <form class="form">
+                <!-- Text input -->
+                <div class="mb-2">
+                    <img src="https://i.pinimg.com/564x/4b/e7/99/4be799cfffa437d6c62a35fb7cae33c4.jpg" class="card-img image"
+                        style="max-width: 20vw; max-height: 20vh;" alt="User image" />
+                </div>
+                <div class="mb-4">
+                    <input type="file" class="form-control" id="customFile" />
+                </div>
+
+                <!-- Text input -->
+                <label for="form6Example3">Tên người dùng</label>
+                <div class="form-outline-primary mb-4">
+                    <input type="text" id="form6Example3" class="form-control" />
+                </div>
+
+                <!-- Text input -->
+                <label for="form6Example3">Mật khẩu</label>
+                <div class="form-outline-primary mb-4">
+                    <input type="password" id="form6Example4" class="form-control" />
+                </div>
+
+                <!-- Text input -->
+                <label for="form6Example3">Email</label>
+                <div class="form-outline-primary mb-4">
+                    <input type="email" id="form6Example4" class="form-control" />
+                </div>
+
+                <!-- Number input -->
+                <label for="form6Example3">Số điện thoại</label>
+                <div class="form-outline-primary mb-4">
+                    <input type="number" id="form6Example6" class="form-control" />
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-success btn-block mt-4 mb-4">Tạo mới</button>
+            </form>
+        </div>
+
+        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+            <form class="form">
+                <!-- Text input -->
+                <div class="mb-2">
+                    <img src="https://i.pinimg.com/564x/4b/e7/99/4be799cfffa437d6c62a35fb7cae33c4.jpg" class="card-img image"
+                        style="max-width: 20vw; max-height: 20vh;" alt="User image" />
+                </div>
+                <input type="file" class="form-control mb-4" id="customFile" />
+
+                <!-- Text input -->
+                <label for="form6Example3">Mã người dùng</label>
+                <div class=" mb-4">
+                    <input type="text" id="form6Example3" class="form-control" disabled />
+                </div>
+
+                <!-- Text input -->
+                <label for="form6Example3">Tên người dùng</label>
+                <div class=" mb-4">
+                    <input type="text" id="form6Example3" class="form-control" />
+                </div>
+
+                <!-- Text input -->
+                <label for="form6Example3">Mật khẩu</label>
+                <div class=" mb-4">
+                    <input type="password" id="form6Example4" class="form-control" />
+                </div>
+
+                <!-- Text input -->
+                <label for="form6Example3">Email</label>
+                <div class=" mb-4">
+                    <input type="email" id="form6Example4" class="form-control" />
+                </div>
+
+                <!-- Number input -->
+                <label for="form6Example3">Số điện thoại</label>
+                <div class=" mb-4">
+                    <input type="number" id="form6Example6" class="form-control" />
+                </div>
+
+                <!-- Default radio -->
+                <label for="form6Example3">Trạng thái hoạt động</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                    <label class="form-check-label" for="flexRadioDefault1"> Có </label>
+                </div>
+
+                <!-- Default checked radio -->
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
+                    <label class="form-check-label" for="flexRadioDefault2"> Không </label>
+                </div>
+
+                <!-- Text input -->
+                <label for="form6Example3">Mã xác minh</label>
+                <div class=" mb-4">
+                    <input type="text" id="form6Example3" class="form-control" disabled />
+                </div>
+
+                <!-- Text input -->
+                <label for="form6Example3">Đặt lại mật khẩu Token</label>
+                <div class=" mb-4">
+                    <input type="text" id="form6Example3" class="form-control" disabled />
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-success btn-block mt-4 mb-4">Cập nhập</button>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã người dùng</th>
+                            <th>Tên người dùng</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Ảnh</th>
+                            <th>Nhà cung cấp</th>
+                            <th>Trạng thái hoạt động</th>
+                            <th>Mã xác minh</th>
+                            <th>Mật khẩu Token</th>
+                            <th>Roles</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-dark">Edit</button>
+                                <button type="button" class="btn btn-danger">Del</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class=" d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tabs content -->
+</div>

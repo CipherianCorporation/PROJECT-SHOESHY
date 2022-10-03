@@ -2,7 +2,248 @@
 <section class="mb-4">
     <div class="card">
         <div class="card-header py-3">
-            <h5 class="mb-0 text-center"><strong>Category</strong></h5>
+            <h5 class="mb-0 text-center"><strong>Category & Sub-category</strong></h5>
         </div>
     </div>
 </section>
+
+<div class="container">
+    <!-- Tabs navs -->
+    <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+        <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1" role="tab" aria-controls="ex1-tabs-1"
+                    aria-selected="true">New</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">Edit</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="ex1-tab-3" data-mdb-toggle="tab" href="#ex1-tabs-3" role="tab" aria-controls="ex1-tabs-3" aria-selected="false">List</a>
+            </li>
+        </ul>
+        <!-- Tabs navs -->
+    </ul>
+    <!-- Tabs navs -->
+
+    <!-- Tabs content -->
+    <div class="tab-content" id="ex1-content">
+
+        <!-- new tab -->
+        <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+            <div class="row justify-content-between">
+                <div class="col-md-5 col-sm-12 mb-4">
+                    <div class="text-center">
+                        <strong>Category</strong>
+                    </div>
+                    <div class="form-outline-primary mb-4">
+                        <label class="form-label" for="form12">Name</label>
+                        <input type="text" id="form12" class="form-control" />
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block">CREATE</button>
+
+                </div>
+
+                <!-- sub-category -->
+                <div class="col-md-5 col-sm-12">
+                    <div class="text-center">
+                        <strong>Sub-Category</strong>
+                    </div>
+                    <div class="form-outline-primary mb-2">
+                        <label class="form-label" for="form12">Category ID</label><br>
+                        <select class="select">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="6">Six</option>
+                            <option value="7">Seven</option>
+                            <option value="8">Eight</option>
+                        </select>
+                    </div>
+                    <div class="form-outline-primary mb-4">
+                        <label class="form-label" for="form12">Name</label>
+                        <input type="text" id="form12" class="form-control" />
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block">CREATE</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- edit tab -->
+        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 mb-4">
+                    <div class="text-center">
+                        <strong>Category</strong>
+                    </div>
+                    <div class="form-outline-primary mb-2">
+                        <label class="form-label" for="form12">ID</label>
+                        <input type="text" id="form12" class="form-control" disabled />
+                    </div>
+                    <div class="form-outline-primary mb-4">
+                        <label class="form-label" for="form12">Name</label>
+                        <input type="text" id="form12" class="form-control" />
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block">CREATE</button>
+                </div>
+
+                <!-- sub-category -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="text-center">
+                        <strong>Sub-Category</strong>
+                    </div>
+                    <div class="form-outline-primary mb-2">
+                        <label class="form-label" for="form12">ID</label>
+                        <input type="text" id="form12" class="form-control" disabled />
+                    </div>
+                    <div class="form-outline-primary mb-2">
+                        <label class="form-label" for="form12">Category name</label><br>
+                        <select class="select">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="6">Six</option>
+                            <option value="7">Seven</option>
+                            <option value="8">Eight</option>
+                        </select>
+                    </div>
+                    <div class="form-outline-primary mb-4">
+                        <label class="form-label" for="form12">Name</label>
+                        <input type="text" id="form12" class="form-control" />
+                    </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="btn btn-primary btn-block">CREATE</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- list -->
+        <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+            <!-- start row 1 -->
+            <div class="row">
+                <div class="text-center">
+                    <strong>Category List</strong>
+                </div>
+                <table class="table align-middle mb-0 bg-white">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100001</td>
+                            <td>Giày nam</td>
+                            <td>
+                                <button class="btn btn-secondary">
+                                    Edit
+                                </button>
+                                <button class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class=" d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- end row 1 -->
+            
+            <hr class="my-5">
+
+            <!-- start row 2 -->
+            <div class="row">
+                <div class="text-center">
+                    <strong>Sub-Category List</strong>
+                </div>
+                <table class="table align-middle mb-0 bg-white">
+                    <thead class="bg-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Category ID</th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100001</td>
+                            <td>Giày tây nam</td>
+                            <td>100002</td>
+                            <td>
+                                <button class="btn btn-secondary">
+                                    Edit
+                                </button>
+                                <button class="btn btn-danger">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class=" d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- end row 2 -->
+        </div>
+    </div>
+</div>
+<!-- Tabs content -->
+</div>

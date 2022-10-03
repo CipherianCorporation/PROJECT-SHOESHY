@@ -9,7 +9,7 @@
                                 <div class="col-lg-8">
                                     <div class="p-5">
                                         <div class="d-flex justify-content-between align-items-center mb-5">
-                                            <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                            <h1 class="fw-bold mb-0 text-black">Giỏ hàng</h1>
                                             <h6 class="mb-0 text-muted">{{cart.count}}</h6>
                                         </div>
 
@@ -42,7 +42,7 @@
                                                 </button>
                                             </div>
                                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1  mb-2">
-                                                <h6 class="mb-0">Total: <sup>đ</sup> {{item.qty * item.price | number:0}}</h6>
+                                                <h6 class="mb-0">Tổng: <sup>đ</sup> {{item.qty * item.price | number:0}}</h6>
                                             </div>
                                             <div class="col-md-1 col-lg-1 col-xl-1 text-end  mb-2">
                                                 <!-- remove button -->
@@ -56,15 +56,14 @@
 
                                         <!-- back to shop -->
                                         <div class="d-flex justify-content-between pt-5">
-                                            <h6 class="mb-0"><a href="#!" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Back to
-                                                    shop</a></h6>
-                                            <h6 class="mb-0"><button ng-click="cart.clear()" class="btn btn-danger">Clear</button></h6>
+                                            <h6 class="mb-0"><a href="#!" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Quay lại</a></h6>
+                                            <h6 class="mb-0"><button ng-click="cart.clear()" class="btn btn-danger">Xóa hết</button></h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 bg-grey">
                                     <div class="p-5">
-                                        <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                        <h3 class="fw-bold mb-5 mt-2 pt-1">Tổng quan</h3>
 
                                         <!-- <hr class="my-4"> -->
                                         <!-- <div class="d-flex justify-content-between mb-4">
@@ -89,7 +88,7 @@
                                         <!-- voucher discount code -->
                                         <div class="mb-5">
                                             <div class="form-outline-secondary">
-                                                <label class="form-label" for="form3Examplea2">Enter voucher code</label>
+                                                <label class="form-label" for="form3Examplea2">Nhập voucher code</label>
                                                 <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
                                             </div>
                                         </div>
@@ -98,12 +97,12 @@
 
                                         <!-- total price -->
                                         <div class="d-flex justify-content-between mb-5">
-                                            <h5 class="text-uppercase">Total price</h5>
+                                            <h5 class="text-uppercase">Tổng giá trị</h5>
                                             <h5><sup>đ</sup> {{cart.amount | number:0}}</h5>
                                         </div>
 
                                         <!-- proceed checkout -->
-                                        <a href="#!checkout" class="btn btn-dark btn-block btn-lg">Checkout</a>
+                                        <a href="#!checkout" class="btn btn-dark btn-block btn-lg">Thanh toán</a>
 
                                     </div>
                                 </div>
