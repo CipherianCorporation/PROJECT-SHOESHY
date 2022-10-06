@@ -16,52 +16,42 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return repo.findAll();
     }
 
     @Override
     public List<Product> findAll(Sort sort) {
-        // TODO Auto-generated method stub
-        return null;
+        return repo.findAll(sort);
     }
 
     @Override
     public Product findById(Integer id) {
-        // TODO Auto-generated method stub
-        return null;
+        return repo.findById(id).get();
     }
 
     @Override
     public List<Product> findByCategoryId(Integer cid) {
-        // TODO Auto-generated method stub
-        return null;
+        return repo.findByCategoryId(cid);
     }
 
     @Override
     public List<Product> searchProducts(String query) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Product create(Product product) {
-        // TODO Auto-generated method stub
-        return null;
+        return repo.save(product);
     }
 
     @Override
     public Product update(Product product) {
-        // TODO Auto-generated method stub
-        return null;
+        return repo.save(product);
     }
 
     @Override
     public void delete(Integer id) {
-        // TODO Auto-generated method stub
-        
+        repo.deleteById(id);
     }
-
-
 
 }

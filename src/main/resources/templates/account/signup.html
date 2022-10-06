@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <section>
+        <div class="row d-flex justify-content-center align-content-start align-items-center">
+            <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+                <div class="card rounded-4 shadow">
+                    <div class="card-body p-md-5 p-sm-2 ">
+                        <h2 class="fw-bold mb-4">Đăng ký </h2>
+                        <form>
+                            <div>
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control rounded-3" />
+                                        <label for="floatingUsername">Tên đăng nhập </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3  ">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control rounded-3" />
+                                        <label for="floatingEmail">E-mail </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3  ">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control  rounded-3" />
+                                        <label for="password">Mật khẩu </label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control  rounded-3" />
+                                        <label for="floatingRetype">Nhập lại mật khẩu </label>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="d-grid gap-2 mb-2">
+                                    <small class="text-dark"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />Đồng ý các <a
+                                            href="" data-bs-toggle="modal" data-bs-target="#termModal"><b>điều khoản</b></a> của dịch vụ
+                                    </small>
+                                    <button type="submit" class="btn btn-lg rounded-3 btn-success">Đăng Ký</button>
+                                </div>
+
+                                <hr class="my-4">
+                                <h2 class="fs-5 fw-bold mb-3 text-center">Đăng nhập với</h2>
+                                <a th:href="@{/oauth2/authorization/google}" class="w-100 py-2 mb-2 btn btn-outline-danger rounded-3">
+                                    <i class="fab fa-google me-2"></i>Đăng nhập với tài khoản Google
+                                </a>
+                                <a th:href="@{/oauth2/authorization/facebook}" class="w-100 py-2 mb-4 btn btn-outline-primary rounded-3">
+                                    <i class="fab fa-facebook me-2"></i>Đăng nhập với tài khoản Facebook
+                                </a>
+                                <div class="d-grid gap-2">
+                                    <span class="badge rounded-pill badge-danger mb-2 p-3">[(${message})]</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

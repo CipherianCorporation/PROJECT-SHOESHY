@@ -32,5 +32,8 @@ public class ForgotPasswordController {
     @Autowired
     ForgotPasswordService passService;
 
-   
+    @GetMapping("/account/forgotpassword/form")
+    public String form() {
+        return "account/forgot_password";
+    }
 }

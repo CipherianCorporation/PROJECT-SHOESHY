@@ -21,5 +21,20 @@ import com.edu.graduationproject.utils.CommonUtils;
 
 @Controller
 public class UserController {
+    @Autowired
+    UserService userService;
 
+    @GetMapping("/account/signup")
+    public String form(Model model) {
+        model.addAttribute("user", new User());
+        return "account/signup";
+    }
+
+    @GetMapping("/account/editprofile")
+    public String editprofile(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> loggedinUser = userService.findByUsername(auth.getName());
+        model.addAttribute("user", loggedinUser.orElse(new User()));
+        return "account/edit_profile";
+    }
 }

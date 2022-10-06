@@ -16,5 +16,23 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @RequestMapping("/order/checkout")
+    public String checkout() {
+        return "order/checkout";
+    }
 
+    @RequestMapping("/order/list")
+    public String list(Model model, HttpServletRequest request) {
+        String username = request.getRemoteUser();
+        model.addAttribute("orders", orderService.findByUsername(username));
+        return "order/list";
+    }
+
+    @RequestMapping("/order/detail/{id}")
+    public String detail(@PathVariable("id") Long id, Model model) throws JsonProcessingException {
+        // System.out.println(new
+        // ObjectMapper().writeValueAsString(orderService.findById(id).getOrder_details()));
+        model.addAttribute("order", orderService.findById(id));
+        return "order/detail";
+    }
 }

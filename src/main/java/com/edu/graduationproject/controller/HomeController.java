@@ -8,8 +8,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HomeController {
-    @GetMapping({ "/", "/index" })
+    @GetMapping({ "/", "/home/index" })
+    public String home(ModelMap model, @RequestParam(required = false) String message,
+            @RequestParam(required = false) Boolean isPaymentSuccess,
+            RedirectAttributes redirAttrs) {
+        redirAttrs.addFlashAttribute("message", message);
+        redirAttrs.addFlashAttribute("isPaymentSuccess", isPaymentSuccess);
+        return "redirect:/product/list";
+    }
+
+    @GetMapping({ "/admin", "/admin/home/index" })
     public String admin() {
-        return "redirect:/user/index.html";
+        return "redirect:/admin/index.html";
     }
 }

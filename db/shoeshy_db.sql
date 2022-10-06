@@ -1,10 +1,8 @@
 
-CREATE DATABASE [shoestore]
+CREATE DATABASE [shoeshy]
 go
-use [shoestore]
-
-use [master]
-DROP DATABASE shoestore
+use [shoeshy]
+go
 
 CREATE TABLE [dbo].[categories] (
     [id]         INT           IDENTITY (100001, 1) NOT NULL,
@@ -141,6 +139,11 @@ INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100001',N'Giày t
 INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100001',N'Giày tây & slippon')
 INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100001',N'Dép nam')
 INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100001',N'Sandal nam')
+
+INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100002',N'Giày thể thao nữ')
+INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100002',N'Giày cao gót')
+INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100002',N'Sandal nữ')
+INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100002',N'Dép nữ')
 
 select c.name, s.name from categories c inner join sub_categories s 
 on c.id = s.category_id 

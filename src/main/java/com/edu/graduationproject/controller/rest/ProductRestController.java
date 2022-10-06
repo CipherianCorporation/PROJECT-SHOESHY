@@ -27,5 +27,38 @@ public class ProductRestController {
     @Autowired
     ProductService productService;
 
+    @GetMapping("/rest/products")
+    public ResponseEntity<List<Product>> getAll(@RequestParam("sort") Optional<String> sort) {
+        if (sort.isPresent()) {
+            if (sort.get().equalsIgnoreCase("all")) {
+                return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+            }
+            if (sort.get().equalsIgnoreCase("price_asc")) {
+                return new ResponseEntity<>(productService.findAll(Sort.by("price").ascending()),
+                        HttpStatus.OK);
+            }
+            if (sort.get().equalsIgnoreCase("price_desc")) {
+                return new ResponseEntity<>(productService.findAll(Sort.by("price").descending()),
+                        HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/rest/products/{id}")
+    public ResponseEntity<Product> getOne(@PathVariable("id") Integer id) {
+        try {
+            Product product = productService.findById(id);
+            return new ResponseEntity<Product>(product, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/rest/products/category/{categoryId}")
+    public ResponseEntity<List<Product>> findProductByCategory(
+            @PathVariable("categoryId") Optional<Integer> categoryId) {
+        return ResponseEntity.ok(productService.findByCategoryId(categoryId.get()));
+    }
 
 }

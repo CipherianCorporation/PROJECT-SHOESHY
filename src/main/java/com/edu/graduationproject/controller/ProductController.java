@@ -18,5 +18,15 @@ public class ProductController {
     @Autowired
     ProductService service;
 
+    @RequestMapping("/product/list")
+    public String list(ModelMap model, @RequestParam("cid") Optional<Integer> cid) {
+        return "product/list";
+    }
 
+    @RequestMapping("/product/detail/{id}")
+    public String detail(ModelMap model, @PathVariable("id") Integer id) {
+        Product item = service.findById(id);
+        model.addAttribute("item", item);
+        return "product/detail";
+    }
 }

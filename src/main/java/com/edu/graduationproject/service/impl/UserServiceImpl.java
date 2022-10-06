@@ -44,20 +44,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findById(Integer id) {
-        // TODO Auto-generated method stub
-        return Optional.empty();
+        return userRepo.findById(id);
     }
 
     @Override
     public Optional<User> findByUsername(String username) {
-        // TODO Auto-generated method stub
-        return Optional.empty();
+        return userRepo.findByUsername(username);
     }
 
     @Override
     public Optional<User> findByEmail(String email) {
-        // TODO Auto-generated method stub
-        return Optional.empty();
+        return userRepo.findByEmail(email);
     }
 
     @Override
@@ -75,31 +72,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteByUsername(String id) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public List<User> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return userRepo.findAll();
     }
 
     @Override
     public List<User> getAdministators() {
-        // TODO Auto-generated method stub
-        return null;
+        return userRepo.getAdministrators();
     }
 
     @Override
     public void register(User user, String url) throws MessagingException {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void sendVerifyEmail(User user, String url) throws MessagingException {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -111,21 +106,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void processOAuthPostLogin(String username, String email, String image, String oauth2ClientName) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void updateAuthenticationTypeOAuth(String username, String oauth2ClientName) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void updateAuthenticationTypeDB(String username, String oauth2ClientName) {
         // TODO Auto-generated method stub
-        
-    }
 
-    
+    }
 
 }

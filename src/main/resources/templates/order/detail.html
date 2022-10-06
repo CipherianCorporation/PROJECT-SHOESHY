@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <section>
+        <div class="card mb-4">
+            <div class="card-header">
+                <b>
+                    <h3>Thông Tin Đơn Hàng</h3>
+                </b>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="mb-2 col-sm-4">
+                        <div><b>Mã đơn hàng</b></div>
+                        <input type="text" class="form-control" readonly="readonly">
+                    </div>
+                    <div class="mb-2 col-sm-4">
+                        <div><b>Người đặt hàng</b></div>
+                        <input type="text" class="form-control" readonly="readonly">
+                    </div>
+                    <div class="mb-2 col-sm-4">
+                        <div><b>Ngày đặt hàng</b></div>
+                        <input type="text" class="form-control" readonly="readonly">
+                    </div>
+                    <div class="mb-2 col-sm-4">
+                        <div><b>Giá Tiền</b></div>
+                        <input type="text" class="form-control" readonly="readonly">
+                    </div>
+                    <div class="mb-2 col-sm-4">
+                        <div><b>Phương thức thanh toán</b></div>
+                        <input type="text" class="form-control" readonly="readonly">
+                    </div>
+
+                    <div class="mb-2 col-sm-4">
+                        <div><b>Trạng thái đơn hàng</b></div>
+                        <input type="text" class="form-control" readonly="readonly">
+                    </div>
+                    <div class="mb-2 ">
+                        <div><b>Địa chỉ giao hàng</b></div>
+                        <textarea class="form-control" readonly="readonly"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <b>
+                    <h3>Đơn Đặt Hàng</h3>
+                </b>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><b>Mã Đơn Hàng</b></th>
+                                <th><b>Tên Sản Phẩm</b></th>
+                                <th><b>Giá Sản Phẩm</b></th>
+                                <th><b>Số Lượng</b></th>
+                                <th><b>Tổng Cộng</b></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>0001</b></td>
+                                <td>Nike Air F1</td>
+                                <td>1.000.000</td>
+                                <td>2</td>
+                                <td><b>2.000.000</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div>
+            <a th:href="@{/order/list}"><button class="btn btn-lg btn-danger">Back</button></a>
+        </div>
+    </section>
+</body>
+
+</html>

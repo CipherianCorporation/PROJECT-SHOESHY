@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic(~{::section})}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <section class="container" ng-controller="user-ctrl">
+        <div class="card">
+            <div class="card-body">
+                <form action="">
+                    <div class="form-group mb-3">
+                        <label path="image">Ảnh:</label>
+                        <figure>
+                            <img ng-src="" class="img-fluid img-thumbnail" width="120" height="120">
+                        </figure>
+                        <input type="file" class="form-control" id="customFile" />
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="">Tên đăng nhập</label>
+                            <input type="text" class="form-control" placeholder="UserName">
+
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="">Email </label>
+                            <input type="text" class="form-control" placeholder="Email ">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label for="">SDT</label>
+                            <input type="text" class="form-control" placeholder="Phone ">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="">Địa chỉ</label>
+                            <input type="text" class="form-control" placeholder="Adress">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="form-group col-6">
+                            <label for="">Mật khẩu</label>
+                            <input type="text" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="">Nhập lại</label>
+                            <input type="text" class="form-control" placeholder="Retype">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col text-center">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Lưu
+                            </button>
+                            <button type="submit" class="btn btn-danger">
+                                Hủy
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -24,7 +24,7 @@ public class DatabaseLoginSuccessHandler extends SavedRequestAwareAuthentication
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws ServletException, IOException {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        userService.updateAuthenticationTypeDB(userDetails.getUsername(), "database");
+        userService.updateAuthenticationTypeDB(userDetails.getUsername(), "DATABASE");
         getRedirectStrategy().sendRedirect(request, response, "/security/login/success");
     }
 }
