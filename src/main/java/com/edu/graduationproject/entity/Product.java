@@ -46,6 +46,7 @@ public class Product implements Serializable {
     private Integer size;
     private Double sale_off;
     private Long sold;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

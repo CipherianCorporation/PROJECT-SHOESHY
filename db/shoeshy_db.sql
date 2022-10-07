@@ -43,26 +43,29 @@ CREATE TABLE [dbo].[users] (
     CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 
+drop table products
+
 CREATE TABLE [dbo].[products] (
-    [id]          INT           IDENTITY (100001, 1) NOT NULL,
-    [name]        NVARCHAR (50) NOT NULL,
-    [image]       NVARCHAR (50) DEFAULT (N'default-product.jpg') NOT NULL,
-    [price]       FLOAT (53)    DEFAULT ((0)) NOT NULL,
-    [available]   BIT           DEFAULT ((1)) NOT NULL,
-    [color]       NVARCHAR (50) NOT NULL,
-    [size]        INT           NOT NULL,
-    [sale_off]    FLOAT         DEFAULT ((0)) NULL,
-    [sold]        BIGINT        DEFAULT ((0)) NOT NULL,
-    [category_id] INT           NOT NULL,
-    [sub_category_id] INT       NOT NULL,
-    [created_by]  INT           NOT NULL,
-    [updated_at]  DATE          NULL,
-    [created_at]  DATE          DEFAULT (getdate()) NOT NULL,
-    [deleted_at]  DATE          NULL,
+    [id]              INT            IDENTITY (100001, 1) NOT NULL,
+    [name]            NVARCHAR (50)  NOT NULL,
+    [image]           NVARCHAR (50)  DEFAULT (N'default-product.jpg') NOT NULL,
+    [price]           FLOAT (53)     DEFAULT ((0)) NOT NULL,
+    [available]       BIT            DEFAULT ((1)) NOT NULL,
+    [color]           NVARCHAR (50)  NOT NULL,
+    [size]            INT            NOT NULL,
+    [sale_off]        FLOAT (53)     DEFAULT ((0)) NULL,
+    [sold]            BIGINT         DEFAULT ((0)) NOT NULL,
+    [description]     NVARCHAR (255) DEFAULT (N'') NULL,
+    [category_id]     INT            NOT NULL,
+    [sub_category_id] INT            NOT NULL,
+    [created_by]      INT            NOT NULL,
+    [updated_at]      DATE           NULL,
+    [created_at]      DATE           DEFAULT (getdate()) NOT NULL,
+    [deleted_at]      DATE           NULL,
     CONSTRAINT [PK_products] PRIMARY KEY CLUSTERED ([id] ASC),
-    CONSTRAINT [FK_9] FOREIGN KEY ([category_id]) REFERENCES [dbo].[categories] ([id]) ON DELETE CASCADE,
-    CONSTRAINT [FK_33] FOREIGN KEY ([sub_category_id]) REFERENCES [dbo].[sub_categories] ([id]) ON DELETE NO ACTION,
-    CONSTRAINT [FK_7] FOREIGN KEY ([created_by]) REFERENCES [dbo].[users] ([id])
+    CONSTRAINT [FK_33] FOREIGN KEY ([sub_category_id]) REFERENCES [dbo].[sub_categories] ([id]),
+    CONSTRAINT [FK_7] FOREIGN KEY ([created_by]) REFERENCES [dbo].[users] ([id]),
+    CONSTRAINT [FK_9] FOREIGN KEY ([category_id]) REFERENCES [dbo].[categories] ([id]) ON DELETE CASCADE
 );
 
 CREATE TABLE [dbo].[roles] (
@@ -147,3 +150,11 @@ INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100002',N'DÃ©p ná
 
 select c.name, s.name from categories c inner join sub_categories s 
 on c.id = s.category_id 
+
+select * from categories
+select * from sub_categories
+select * from products
+select * from users
+select * from roles
+select * from user_roles
+
