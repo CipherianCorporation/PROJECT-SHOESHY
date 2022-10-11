@@ -54,17 +54,19 @@
             </div>
             <!-- end product list -->
 
+            <!-- paging - START -->
             <div class="d-flex justify-content-center">
                 <nav aria-label="Page navigation example">
                     <div class="justify-content-center btn-group btn-group-xs">
                         <button class="btn btn-secondary btn-sm" ng-click="pager.first()"> &lArr;</button>
                         <button class="btn btn-secondary btn-sm" ng-click="pager.prev()">&larr; </button>
-                        <button class="btn btn-secondary btn-sm">{{pager.page+1}} of {{pager.count}}</button>
+                        <button class="btn btn-secondary btn-sm">{{pager.page+1}} - {{pager.count}}</button>
                         <button class="btn btn-secondary btn-sm" ng-click="pager.next()"> &rarr; </button>
                         <button class="btn btn-secondary btn-sm" ng-click="pager.last()">&rArr; </button>
                     </div>
                 </nav>
             </div>
+            <!-- paging - END -->
         </div>
 
         <script th:inline="javascript">
