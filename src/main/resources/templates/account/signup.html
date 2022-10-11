@@ -15,32 +15,32 @@
                 <div class="card rounded-4 shadow">
                     <div class="card-body p-md-5 p-sm-2 ">
                         <h2 class="fw-bold mb-4">Đăng ký </h2>
-                        <form>
+                        <form th:action="@{/account/register}" th:object="${user}" method="post" >
                             <div>
                                 <div class="mb-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control rounded-3" />
+                                        <input type="text" th:field="*{username}" id="floatingUsername" class="form-control rounded-3" />
                                         <label for="floatingUsername">Tên đăng nhập </label>
                                     </div>
                                 </div>
 
                                 <div class="mb-3  ">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control rounded-3" />
+                                        <input type="email" th:field="*{email}" id="floatingEmail" class="form-control rounded-3" />
                                         <label for="floatingEmail">E-mail </label>
                                     </div>
                                 </div>
 
                                 <div class="mb-3  ">
                                     <div class="form-floating">
-                                        <input type="password" class="form-control  rounded-3" />
+                                        <input type="password" id="password" th:field="*{password}" class="form-control  rounded-3" />
                                         <label for="password">Mật khẩu </label>
                                     </div>
                                 </div>
 
                                 <div class="mb-3">
                                     <div class="form-floating">
-                                        <input type="password" class="form-control  rounded-3" />
+                                        <input type="password" id="floatingRetype"  class="form-control  rounded-3" />
                                         <label for="floatingRetype">Nhập lại mật khẩu </label>
                                     </div>
                                 </div>

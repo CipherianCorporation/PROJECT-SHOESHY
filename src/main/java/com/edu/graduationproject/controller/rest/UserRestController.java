@@ -34,20 +34,15 @@ public class UserRestController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/rest/users/principal")
-    public ResponseEntity<Object> getAuthenticatedUser(Authentication authentication) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        try {
-            Optional<User> loggedinUser = userService.findByUsername(authentication.getName());
-            map.put("id", loggedinUser.get().getId());
-            map.put("username", loggedinUser.get().getUsername());
-            map.put("phone", loggedinUser.get().getPhone());
-            map.put("email", loggedinUser.get().getEmail());
-            map.put("image_url", loggedinUser.get().getImage_url());
-            return ResponseEntity.ok(map);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/rest/users")
+    public ResponseEntity<List<User>> getAccounts(@RequestParam("admin") Optional<Boolean> admin) {
+        if (admin.orElse(false)) {
+            return ResponseEntity.ok(userService.getAdministators());
         }
+        return ResponseEntity.ok(userService.findAll());
     }
+    
+
+    
 
 }

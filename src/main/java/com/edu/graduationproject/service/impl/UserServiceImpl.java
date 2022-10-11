@@ -59,9 +59,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+		return user;
+    	   
+       }
 
     @Override
     public User update(User user) {
@@ -87,21 +87,52 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(User user, String url) throws MessagingException {
-        // TODO Auto-generated method stub
+    	 String encodedPassword = encoder.encode(user.getPassword());
+         String randomCode = RandomString.make(64);
+         user.setPassword(encodedPassword);
+         user.setVerify_code(randomCode);
+         user.setEnabled(false);
+         user.setProvider(AuthProvider.DATABASE);
+         User save = userRepo.save(user);
+
+         // set role CUST (Customer) to user vì nếu là người dùng bình thường đăng ký thì
+         // chỉ set
+         // role là CUST
+//         Optional<Role> role = roleRepo.findById("CUST");
+//         userRoleRepo.save(new UserRole(user, role.get()));
+         sendVerifyEmail(user, url);
 
     }
 
     @Override
     public void sendVerifyEmail(User user, String url) throws MessagingException {
-        // TODO Auto-generated method stub
+        MailInfo mail = new MailInfo();
+        mail.setTo(user.getEmail());
+        mail.setSubject("TXT Vaperium - Verify your email");
+        String content = "Dear [[name]],<br>"
+                + "Please click the link below to verify your registration:<br>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Thank you,<br>";
 
+        content = content.replace("[[name]]", user.getUsername());
+        String verifyURL = url + "/verify?code=" + user.getVerify_code();
+        content = content.replace("[[URL]]", verifyURL);
+        mail.setBody(content);
+        mailer.queue(mail);
     }
 
     @Override
     public boolean verify(String verifyCode) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+    	  User user = userRepo.findByVerifyCode(verifyCode);
+          if (user == null || user.getEnabled()) {
+              return false;
+          } else {
+              user.setVerify_code("0");
+              user.setEnabled(true);
+              userRepo.save(user);
+              return true;
+          }
+      }
 
     @Override
     public void processOAuthPostLogin(String username, String email, String image, String oauth2ClientName) {

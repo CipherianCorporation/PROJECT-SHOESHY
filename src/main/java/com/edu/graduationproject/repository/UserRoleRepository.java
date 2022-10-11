@@ -10,5 +10,8 @@ import com.edu.graduationproject.entity.UserRole;
 import com.edu.graduationproject.model.UserRoleCount;
 
 public interface UserRoleRepository extends JpaRepository<UserRole, Integer> {
+	   @Query("SELECT DISTINCT a FROM UserRole a WHERE a.user IN ?1")
+	    List<UserRole> authoritiesOf(List<User> accounts);
 
+	  
 }
