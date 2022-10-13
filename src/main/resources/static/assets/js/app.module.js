@@ -1,1 +1,1 @@
-angular.module("shoeshy-app", []);
+let app = angular.module("shoeshy-app", []);

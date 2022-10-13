@@ -17,7 +17,7 @@
                         <h2 class="fw-bold mb-4">Đăng ký </h2>
                         <form th:action="@{/account/register}" method="post" class="row g-3 needs-validation" novalidate th:object="${user}">
                             <div>
-                                <div class="mb-4">
+                                <div class="mb-4 py-1">
                                     <div class="form-outline">
                                         <input type="text" th:field="*{username}" id="floatingUsername" class="form-control form-control-lg rounded-3"
                                             required />
@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-4  ">
+                                <div class="mb-4 py-1">
                                     <div class="form-outline">
                                         <input type="email" th:field="*{email}" id="floatingEmail" class="form-control form-control-lg rounded-3" required />
                                         <label class="form-label" for="floatingEmail">E-mail </label>
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-4  ">
+                                <div class="mb-4 py-1">
                                     <div class="form-outline">
                                         <input type="password" id="password" th:field="*{password}" class="form-control form-control-lg rounded-3" minlength="6"
                                             maxlength="10" required />
@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-4">
+                                <div class="mb-4 py-1">
                                     <div class="form-outline">
                                         <input type="password" id="floatingRetype" class="form-control form-control-lg rounded-3" minlength="6" maxlength="10"
                                             oninput="checkPasswordMatch(this);" required />
@@ -58,7 +58,7 @@
                                         <label class="form-check-label" for="termCheck">
                                             Đồng ý các <a href="" data-bs-toggle="modal" data-bs-target="#termModal"><b>điều khoản</b></a> của dịch vụ
                                         </label>
-                                        <div class="invalid-feedback">Bạn phải đồng ý với các điều khoản của dịch vụ..</div>
+                                        <div class="invalid-feedback">Bạn phải đồng ý với các điều khoản của dịch vụ.</div>
                                     </small>
                                     <button type="submit" class="btn btn-lg rounded-3 btn-success">Đăng Ký</button>
                                 </div>
