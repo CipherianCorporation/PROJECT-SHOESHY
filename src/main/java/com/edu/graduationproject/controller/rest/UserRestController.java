@@ -50,4 +50,12 @@ public class UserRestController {
         }
     }
 
+    @GetMapping("/rest/users")
+    public ResponseEntity<List<User>> getAccounts(@RequestParam("admin") Optional<Boolean> admin) {
+        if (admin.orElse(false)) {
+            return ResponseEntity.ok(userService.getAdministators());
+        }
+        return ResponseEntity.ok(userService.findAll());
+    }
+
 }

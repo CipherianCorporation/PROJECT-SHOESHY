@@ -37,4 +37,31 @@ public class UserController {
         model.addAttribute("user", loggedinUser.orElse(new User()));
         return "account/edit_profile";
     }
+
+    @PostMapping("/account/register")
+    public String register(Model model, @ModelAttribute User user, HttpServletRequest req) throws MessagingException {
+        Optional<User> existUserByEmail = userService.findByEmail(user.getEmail());
+        Optional<User> existUserByUsername = userService.findByUsername(user.getUsername());
+        if (existUserByEmail.isPresent()) {
+            model.addAttribute("message", "User with email " + user.getEmail() + " is already registered");
+            return "account/signup";
+        }
+        if (existUserByUsername.isPresent()) {
+            model.addAttribute("message", "User with username " + user.getUsername() + " is already registered");
+            return "account/signup";
+        }
+        userService.register(user, CommonUtils.getSiteURL(req));
+        model.addAttribute("message", "Please check your email to verify your account");
+        return "account/signup";
+    }
+
+    @GetMapping("/verify")
+    public String verifyAcc(@RequestParam String code) {
+        if (userService.verify(code)) {
+            return "account/verify-success";
+        } else {
+            return "account/verify-fail";
+        }
+
+    }
 }

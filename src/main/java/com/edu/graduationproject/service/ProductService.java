@@ -15,6 +15,10 @@ public interface ProductService {
 
     List<Product> findByCategoryId(Integer cid);
 
+    List<Product> findAllBySaleOff();
+
+    List<Product> findAllByPriceRange(Double low, Double high);
+
     List<Product> searchProducts(String query);
 
     Product create(Product product);

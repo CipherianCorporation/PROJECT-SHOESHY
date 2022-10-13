@@ -1,27 +1,102 @@
-angular.module("shoeshy-app").controller("product-ctrl", productController);
+app.controller("product-ctrl", productController);
+
+app.filter('rangeFilter', function () {
+    return function (items, attr, min, max) {
+        var range = [],
+            min = parseFloat(min),
+            max = parseFloat(max);
+        for (var i = 0, l = items.length; i < l; ++i) {
+            var item = items[i];
+            if (item[attr] <= max && item[attr] >= min) {
+                range.push(item);
+            }
+        }
+        return range;
+    };
+});
 
 function productController($scope, $http, $interval) {
     $scope.loading = true;
     $scope.productList = [];
     $scope.categories = [];
     $scope.sub_categories = [];
+    $scope.selectedColor = '';
+    $scope.priceRange = 0;
+    $scope.filteredProducts = [];
+    $scope.rangeUI = {
+        min: 0,
+        max: 2000000,
+        step: 100000,
+        value: 2000000
+    };
+    $scope.colorArr = [
+        {
+            "id": UID(), "name": "BLACK", "value": "Đen",
+        },
+        {
+            "id": UID(), "name": "WHITE", "value": "Trắng",
+        }
+        ,
+        {
+            "id": UID(), "name": "YELLOW", "value": "Vàng",
+        }
+        ,
+        {
+            "id": UID(), "name": "BLUE", "value": "Xanh biển",
+        },
+        {
+            "id": UID(), "name": "GREEN", "value": "Xanh lá cây",
+        }
+    ];
+    $scope.priceRangeArr = [
+        {
+            "id": UID(), "name": "Dưới 100.000đ",
+        },
+        {
+            "id": UID(), "name": "100.000đ - 200.000đ",
+        }
+        ,
+        {
+            "id": UID(), "name": "200.000đ - 300.000đ",
+        }
+        ,
+        {
+            "id": UID(), "name": "400.000đ - 500.000đ",
+        }
+        ,
+        {
+            "id": UID(), "name": "Trên 500.000đ",
+        }
+    ];
 
+    // gọi 2 api khi trang web vừa load xong để lấy list products, categories 
     $scope.initialize = function () {
+        $scope.getProductList();
+        $scope.getCategoryList();
+    };
+
+    $scope.getProductList = function () {
         $http.get('/rest/products').then(res => {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
                 $scope.loading = false;
             });
+    };
 
+    $scope.getCategoryList = function () {
         $http.get('/rest/categories').then(res => {
             $scope.categories = res.data;
         }).catch(error => { console.error(error); });
     };
 
+    // generate random ID ngẫu nhiên để set cho id và for cho 2 tag <input> và <label> ở ng-repeat màu sắc trong components/_aside.html
+    function UID() {
+        return Math.floor(Math.random() * Math.floor(Math.random() * Date.now()));
+    }
+
     $scope.showSubCates = function (category_id) {
-        $http.get(url + '/rest/sub-categories/' + category_id).then(res => {
-            console.log(res.data);
+        $http.get('/rest/sub-categories/' + category_id).then(res => {
             $scope.sub_categories = res.data;
         }).catch(error => { console.error(error); });
     };
@@ -37,9 +112,38 @@ function productController($scope, $http, $interval) {
             });
     };
 
+    $scope.filterProductBySaleOff = function () {
+        $scope.productList = [];
+        $scope.loading = true;
+        $http.get('/rest/products/sale-off/').then(res => {
+            $scope.productList = res.data;
+        }).catch(error => { console.error(error); })
+            .finally(function () {
+                $scope.loading = false;
+            });
+    };
+
+    $scope.filterProductByPriceRange = function () {
+        $scope.productList = [];
+        $scope.loading = true;
+        $http.get('/rest/products/sale-off/').then(res => {
+            $scope.productList = res.data;
+        }).catch(error => { console.error(error); })
+            .finally(function () {
+                $scope.loading = false;
+            });
+    };
+
+
+    $scope.filterProductsBySelectedColor = function (selectedColor) {
+        // ở product/list.html phần ng-repeat đã thêm filter : selectedColor nên ở đây chỉ cần
+        // set $scope.selectedColor = selectedColor
+        $scope.selectedColor = selectedColor;
+    };
+
     $scope.pager = {
         page: 0,
-        size: 10,
+        size: 8,
         get productList() {
             let start = this.page * this.size;
             return $scope.productList.slice(start, start + this.size);

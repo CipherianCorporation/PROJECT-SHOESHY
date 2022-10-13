@@ -55,10 +55,37 @@ public class ProductRestController {
         }
     }
 
+
+    // return all products by category id
     @GetMapping("/rest/products/category/{categoryId}")
     public ResponseEntity<List<Product>> findProductByCategory(
             @PathVariable("categoryId") Optional<Integer> categoryId) {
         return ResponseEntity.ok(productService.findByCategoryId(categoryId.get()));
     }
+
+    // return all products if sale_off field isn't null or not equal to 0
+    @GetMapping("/rest/products/sale-off")
+    public ResponseEntity<List<Product>> findProductBySaleOff() {
+        return ResponseEntity.ok(productService.findAllBySaleOff());
+    }
+
+    // return all products by price range
+    @GetMapping("/rest/products/price-range/{min}/{max}")
+    public ResponseEntity<List<Product>> findProductByPriceRange(@PathVariable("min") Optional<Double> min,
+            @PathVariable("max") Optional<Double> max) {
+        Double _min = min.orElse(0d);
+        Double _max = max.orElse(0d);
+        if (_min < _max) {
+            return ResponseEntity.ok(productService.findAllByPriceRange(_min, _max));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+
+    // under development, do not use this api
+    // @GetMapping("/rest/products/color/{colorId}")
+    // public ResponseEntity<List<Product>> findProductByColor() {
+    //     return null;
+    // }
 
 }

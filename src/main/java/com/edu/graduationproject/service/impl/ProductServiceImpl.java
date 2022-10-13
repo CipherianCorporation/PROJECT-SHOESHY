@@ -25,6 +25,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findAllBySaleOff() {
+        return repo.findAllBySaleOff();
+    }
+
+    @Override
+    public List<Product> findAllByPriceRange(Double min, Double max) {
+        return repo.findAllByPriceRange(min, max);
+    }
+
+    @Override
     public Product findById(Integer id) {
         return repo.findById(id).get();
     }

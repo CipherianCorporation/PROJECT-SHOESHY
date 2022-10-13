@@ -5,11 +5,12 @@ use [shoeshy]
 go
 
 CREATE TABLE [dbo].[categories] (
-    [id]         INT           IDENTITY (100001, 1) NOT NULL,
-    [name]       NVARCHAR (50) NULL,
-    [updated_at] DATE          NULL,
-    [created_at] DATE          DEFAULT (getdate()) NOT NULL,
-    [deleted_at] DATE          NULL,
+    [id]         INT            IDENTITY (100001, 1) NOT NULL,
+    [name]       NVARCHAR (50)  NULL,
+    [image_url]  NVARCHAR (255) NULL
+    [updated_at] DATE           NULL,
+    [created_at] DATE           DEFAULT (getdate()) NOT NULL,
+    [deleted_at] DATE           NULL,
     CONSTRAINT [PK_categories] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 
@@ -31,6 +32,7 @@ CREATE TABLE [dbo].[users] (
     [password]        NVARCHAR (255) NULL,
     [email]           NVARCHAR (255) NULL,
     [phone]           NVARCHAR (50)  NULL,
+    [address]         NVARCHAR (255) NULL,
     [image_url]       NVARCHAR (255) NULL,
     [provider]        NVARCHAR (50)  NULL,
     [provider_id]     NVARCHAR (50)  NULL,
@@ -52,7 +54,7 @@ CREATE TABLE [dbo].[products] (
     [price]           FLOAT (53)     DEFAULT ((0)) NOT NULL,
     [available]       BIT            DEFAULT ((1)) NOT NULL,
     [color]           NVARCHAR (50)  NOT NULL,
-    [size]            INT            NOT NULL,
+    [size]            INT            NULL,
     [sale_off]        FLOAT (53)     DEFAULT ((0)) NULL,
     [sold]            BIGINT         DEFAULT ((0)) NOT NULL,
     [description]     NVARCHAR (255) DEFAULT (N'') NULL,
@@ -148,7 +150,7 @@ INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100002',N'Giày c
 INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100002',N'Sandal nữ')
 INSERT [dbo].[sub_categories] ([category_id], [name]) VALUES ('100002',N'Dép nữ')
 
-select c.name, s.name from categories c inner join sub_categories s 
+select c.id as 'CategoryID', c.name, s.id as 'SubCatesID',s.name from categories c inner join sub_categories s 
 on c.id = s.category_id 
 
 select * from categories
@@ -158,3 +160,5 @@ select * from users
 select * from roles
 select * from user_roles
 
+alter table categories
+add [image_url] NVARCHAR (255) NULL
