@@ -86,9 +86,9 @@ public class ForgotPasswordController {
         model.addAttribute("token", token);
         if (userOpt.isPresent() == false){
             model.addAttribute("message","Mã không hợp lệ");
-            return "message";
+            return "account/reset_password_form";
         }
-        return "account/reset_password";
+        return "account/reset_password_form";
     }
 
     @PostMapping("/reset_password")
@@ -99,13 +99,14 @@ public class ForgotPasswordController {
         Optional<User> userOtp = passService.getByResetPasswordToken(token);
         model.addAttribute("message","Đặt lại mật khẩu của bạn");
 
-        if (userOtp.isPresent() == false){
+        if (!userOtp.isPresent()){
             model.addAttribute("message","Mã không hợp lệ");
-            return "message";
+            return "account/reset_password_form";
         }else{
+
             passService.updatePassword(userOtp.get(),password);
             model.addAttribute("message","Bạn đã đổi mật khẩu thành công");
         }
-        return "message";
+        return "account/reset_password_form";
     }
 }
