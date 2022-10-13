@@ -29,15 +29,19 @@
                     </a>
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- category list START -->
                         <li class="nav-item" ng-repeat="ca in categories">
                             <a class="nav-link" href="#" ng-click="filterProductByCategory(ca.id)">
-                                <img src="https://mwcstore.net/Resources/Category/2018/08/02/main-menut-icon-1-1fb5f7d8-af7e-4e50-809a-d3b1de092d53.png"
-                                    class="rounded-circle" height="22" alt="Black and White Portrait of a Man" loading="lazy" />
+                                <img ng-src="{{'/assets/images/'+ ca.image_url}}"
+                                    class="rounded-circle" height="22" alt="category icon" loading="lazy" />
                                 {{ca.name}}
                             </a>
                         </li>
+                        <!-- category list END -->
+
+                        
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#" ng-click="filterProductBySaleOff()">
                                 <img src="https://cdn2.iconfinder.com/data/icons/ecommerce-solid-icons-vol-2/64/088-512.png" class="rounded-circle" height="22"
                                     alt="Black and White Portrait of a Man" loading="lazy">
                                 Sale off

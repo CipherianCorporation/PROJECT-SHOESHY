@@ -61,4 +61,20 @@ public class ProductRestController {
         return ResponseEntity.ok(productService.findByCategoryId(categoryId.get()));
     }
 
+    @GetMapping("/rest/products/sale-off")
+    public ResponseEntity<List<Product>> findProductBySaleOff() {
+        return ResponseEntity.ok(productService.findAllBySaleOff());
+    }
+
+    @GetMapping("/rest/products/price-range/{min}/{max}")
+    public ResponseEntity<List<Product>> findProductByPriceRange(@PathVariable("min") Optional<Double> min,
+            @PathVariable("max") Optional<Double> max) {
+        Double _min = min.orElse(0d);
+        Double _max = max.orElse(0d);
+        if (_min < _max) {
+            return ResponseEntity.ok(productService.findAllByPriceRange(_min, _max));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
 }
