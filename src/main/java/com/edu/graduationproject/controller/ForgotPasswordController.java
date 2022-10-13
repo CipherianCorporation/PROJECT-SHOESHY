@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.edu.graduationproject.entity.User;
 import com.edu.graduationproject.utils.Utility;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,6 +21,7 @@ import com.edu.graduationproject.service.ForgotPasswordService;
 import com.edu.graduationproject.service.MailerService;
 
 import net.bytebuddy.utility.RandomString;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
@@ -45,8 +47,8 @@ public class ForgotPasswordController {
         return "account/forgot_password";
     }
 
-    @PostMapping("/forgot_password")
-    public String processForgotPassword(HttpServletRequest request, Model model){
+    @PostMapping("/account/forgotpassword")
+    public String processForgotPassword(HttpServletRequest request, Model model) throws MessagingException{
         String email = request.getParameter("email");
         String token = RandomString.make(30);
 
@@ -62,30 +64,23 @@ public class ForgotPasswordController {
             model.addAttribute("error", e.getMessage());
             throw new RuntimeException(e);
         }
-        return null;
+        return "account/forgot_password";
     }
 
     public void sendMail(String recipientEmail,String link) throws MessagingException, UnsupportedEncodingException {
-        MimeMessage message  = mailSender.createMineMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message);
-
-        helper.setFrom("contact@gmail.com","hshs");
-        helper.setTo(recipientEmail);
         String subject = "Đây là link để bạn lấy lại mật khẩu!!!";
 
         String content = "<p>Xin chảo</p>"
                 +"<p>Bạn đã yêu cầu đặt lại mật khẩu của mình.</p>"
                 +"<p>Nhấp vào liên kết bên dưới để dổi mật khậu của bạn.</p>"
-                +"<p><a href="+link+">Đổi mật khẩu của tôi</p>"
+                +"<p><a href=\""+link+"\">Đổi mật khẩu của tôi</p>"
                 +"<p>Bỏ qua Email này nếu bạn nhớ mật khẩu của mình,"
                 + "hoặc bạn chưa đưa ra yêu cầu.</p>";
 
-        helper.setSubject(subject);
-        helper.setText(content,true);
-        mailSender.send(message);
+        mailer.send(recipientEmail,subject,content);
     }
 
-    @GetMapping("/account/resetpassword/form")
+    @GetMapping("/reset_password")
     public String showResetPasswordForm(@Param(value="token") String token,Model model){
         Optional<User> userOpt = passService.getByResetPasswordToken(token);
         model.addAttribute("token", token);

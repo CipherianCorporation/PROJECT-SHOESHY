@@ -20,5 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT DISTINCT ur.user FROM UserRole ur WHERE ur.role.id IN ('USER','ADMIN','STAF')")
     public List<User> getAdministrators();
 
+    @Query("SELECT u FROM User u WHERE u.reset_pwd_token = ?1")
     public Optional<User> findByResestPasswordToken(String token);
 }

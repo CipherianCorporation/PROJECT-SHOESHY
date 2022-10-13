@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,7 +20,7 @@ import com.edu.graduationproject.service.MailerService;
 @Service
 public class MailerServiceImpl implements MailerService {
     @Autowired
-    JavaMailSender sender;
+    private JavaMailSender sender;
 
     List<MailInfo> list = new ArrayList<>();
 
