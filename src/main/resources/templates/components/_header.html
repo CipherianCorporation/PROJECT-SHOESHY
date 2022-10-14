@@ -32,14 +32,12 @@
                         <!-- category list START -->
                         <li class="nav-item" ng-repeat="ca in categories">
                             <a class="nav-link" href="#" ng-click="filterProductByCategory(ca.id)">
-                                <img ng-src="{{'/assets/images/'+ ca.image_url}}"
-                                    class="rounded-circle" height="22" alt="category icon" loading="lazy" />
+                                <img ng-src="{{'/assets/images/'+ ca.image_url}}" class="rounded-circle" height="22" alt="category icon" loading="lazy" />
                                 {{ca.name}}
                             </a>
                         </li>
                         <!-- category list END -->
 
-                        
                         <li class="nav-item">
                             <a class="nav-link" href="#" ng-click="filterProductBySaleOff()">
                                 <img src="https://cdn2.iconfinder.com/data/icons/ecommerce-solid-icons-vol-2/64/088-512.png" class="rounded-circle" height="22"
@@ -48,7 +46,7 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- Left links -->
+                    <!-- search input -->
                     <form class="d-flex input-group w-auto ">
                         <input type="search" class="form-control rounded" placeholder="Tìm..." aria-label="Search" aria-describedby="search-addon" />
                         <span class="input-group-text border-0" id="search-addon">
@@ -60,8 +58,14 @@
                 <div class="d-flex align-items-center">
 
                     <!-- Icon Cart -->
-                    <a class="text-reset me-3" th:href="@{/cart/view}">
-                        <span><i class="fas fa-shopping-bag fa-lg"></i>{{cart.count}}</span>
+                    <a class="text-reset position-relative me-3" th:href="@{/cart/view}">
+                        <i class="fas fa-shopping-bag fa-lg me-2"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-success">
+                            {{cart.count}}
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+
+                        <!-- <span class="badge badge-success">{{cart.count}}</span> -->
                     </a>
 
                     <!-- Icon Avatar -->
