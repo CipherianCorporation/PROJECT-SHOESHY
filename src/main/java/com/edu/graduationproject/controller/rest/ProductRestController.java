@@ -4,17 +4,15 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +22,9 @@ import com.edu.graduationproject.service.ProductService;
 @CrossOrigin("*")
 @RestController
 public class ProductRestController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductRestController.class);
+
     @Autowired
     ProductService productService;
 
@@ -51,10 +52,10 @@ public class ProductRestController {
             Product product = productService.findById(id);
             return new ResponseEntity<Product>(product, HttpStatus.OK);
         } catch (NoSuchElementException e) {
+            LOGGER.error("Error when getting product by id", e);
             return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     // return all products by category id
     @GetMapping("/rest/products/category/{categoryId}")
@@ -81,11 +82,10 @@ public class ProductRestController {
         return ResponseEntity.badRequest().build();
     }
 
-
     // under development, do not use this api
     // @GetMapping("/rest/products/color/{colorId}")
     // public ResponseEntity<List<Product>> findProductByColor() {
-    //     return null;
+    // return null;
     // }
 
 }
