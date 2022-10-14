@@ -2,6 +2,7 @@ package com.edu.graduationproject.service;
 
 import com.edu.graduationproject.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 public interface ForgotPasswordService {
@@ -12,4 +13,8 @@ public interface ForgotPasswordService {
     void updatePassword(User account, String newPass);
 
     void sendEmail(String recipientEmail, String link);
+
+    String sendMailForgotPassword(String token, String email, HttpServletRequest request);
+
+    String resetPassWord(String token, String password);
 }
