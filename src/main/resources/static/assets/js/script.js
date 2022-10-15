@@ -1,12 +1,12 @@
 
 
-// delete message after 3 seconds
+// delete message after 5 seconds
 function functionToDisappearInnerHTML(elementPos) {
     setTimeout(() => {
         document.querySelectorAll(elementPos).forEach(function (el) {
             el.innerHTML = ''; //Clears the innerHTML
         });
-    }, 3000);
+    }, 5000);
 }
 functionToDisappearInnerHTML('.message');
 

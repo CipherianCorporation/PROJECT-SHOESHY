@@ -22,7 +22,6 @@ function productController($scope, $http, $interval) {
     $scope.sub_categories = [];
     $scope.selectedColor = '';
     $scope.priceRange = 0;
-    $scope.filteredProducts = [];
     $scope.rangeUI = {
         min: 0,
         max: 2000000,
@@ -140,6 +139,11 @@ function productController($scope, $http, $interval) {
         // set $scope.selectedColor = selectedColor
         $scope.selectedColor = selectedColor;
     };
+
+    $scope.removeAllFilters = function () {
+        $scope.selectedColor = '';
+        $scope.priceRange = $scope.rangeUI.max;
+    }
 
     $scope.pager = {
         page: 0,

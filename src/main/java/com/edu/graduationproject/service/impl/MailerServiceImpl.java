@@ -19,7 +19,7 @@ import com.edu.graduationproject.service.MailerService;
 @Service
 public class MailerServiceImpl implements MailerService {
     @Autowired
-    JavaMailSender sender;
+    private JavaMailSender sender;
 
     List<MailInfo> list = new ArrayList<>();
 

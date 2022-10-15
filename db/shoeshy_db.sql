@@ -109,7 +109,7 @@ CREATE TABLE [dbo].[orders] (
     [payment_method] NVARCHAR (50)  DEFAULT ('') NOT NULL,
     [order_status]   NVARCHAR (50)  DEFAULT ('') NOT NULL,
     [user_id]        INT            NOT NULL,
-    [voucher_id]     INT            NOT NULL,
+    [voucher_id]     INT            NULL,
     [total]          FLOAT (53)     DEFAULT ((0)) NOT NULL,
     [updated_at]     INT            NULL,
     [created_at]     DATE           DEFAULT (getdate()) NOT NULL,
@@ -155,10 +155,16 @@ on c.id = s.category_id
 
 select * from categories
 select * from sub_categories
-select * from products
+select * from products p WHERE p.price BETWEEN '0' AND '100000'
 select * from users
 select * from roles
 select * from user_roles
+select * from orders
+select * from order_details
 
-alter table categories
-add [image_url] NVARCHAR (255) NULL
+
+-- Delete rows from table '[users]' in schema '[dbo]'
+DELETE FROM [dbo].[users]
+WHERE /* add search conditions here */
+id = '100020'
+GO

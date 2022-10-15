@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/verify/**",
                                                 "/oauth2/**",
                                                 "/account/forgotpassword/**",
-                                                "/reset_password",
+                                                "/reset_password/**",
                                                 "/product/**",
                                                 "/callback/",
                                                 "/webjars/**",
