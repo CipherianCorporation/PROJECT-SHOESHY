@@ -14,14 +14,20 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="categoryHeading" data-mdb-parent="#accordionExample1">
             <div class="accordion-body">
+                <div class="d-grid gap-2">
+                    <!-- remove all filters button -->
+                    <button class="btn btn-secondary" ng-click="removeAllFilters()">Bỏ lọc</button>
+                </div>
                 <ul class="list-group list-group-light">
                     <li class="list-group-item" ng-repeat="ca in categories">
                         <!-- collapse button -->
                         <strong>{{ca.name}}</strong>
 
                         <!-- collapse content -->
-                        <ul class="list-group list-group-light" ng-init="showSubCates(ca.id)">
-                            <li class="list-group-item" ng-repeat="sub in sub_categories">+ {{sub.name}}</li>
+                        <ul class="list-group list-group-light">
+                            <li class="list-group-item" ng-repeat="sub in sub_categories | filter: {category: {id: ca.id }}">
+                                <a href="" class="text-dark" ng-click="filterProductBySubCategory(sub.id)">> {{sub.name}}</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -38,7 +44,7 @@
                 Lọc sản phẩm
             </button>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="filterHeading" data-mdb-parent="#accordionExample2">
+        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="filterHeading" data-mdb-parent="#accordionExample2">
             <div class="accordion-body">
                 <div class="d-grid gap-2">
                     <!-- remove all filters button -->

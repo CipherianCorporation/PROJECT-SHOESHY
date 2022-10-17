@@ -28,6 +28,14 @@ function productController($scope, $http, $interval) {
         step: 100000,
         value: 2000000
     };
+
+    $scope.sortUI = [
+        { code: 'price_asc', name: 'Giá (Tăng dần)' },
+        { code: 'price_desc', name: 'Giá (Giảm dần)' },
+        { code: 'date_newest', name: 'Mới nhất' },
+        { code: 'sold_best_seller', name: 'Bán chạy nhất' },
+    ];
+
     $scope.colorArr = [
         {
             "id": UID(), "name": "BLACK", "value": "Đen",
@@ -72,6 +80,7 @@ function productController($scope, $http, $interval) {
     $scope.initialize = function () {
         $scope.getProductList();
         $scope.getCategoryList();
+        $scope.getSubCategoryList();
     };
 
     $scope.getProductList = function () {
@@ -89,21 +98,43 @@ function productController($scope, $http, $interval) {
         }).catch(error => { console.error(error); });
     };
 
+    $scope.getSubCategoryList = function () {
+        $http.get('/rest/sub-categories').then(res => {
+            $scope.sub_categories = res.data;
+        }).catch(error => { console.error(error); });
+    };
+
     // generate random ID ngẫu nhiên để set cho id và for cho 2 tag <input> và <label> ở ng-repeat màu sắc trong components/_aside.html
     function UID() {
         return Math.floor(Math.random() * Math.floor(Math.random() * Date.now()));
     }
 
-    $scope.showSubCates = function (category_id) {
-        $http.get('/rest/sub-categories/' + category_id).then(res => {
-            $scope.sub_categories = res.data;
-        }).catch(error => { console.error(error); });
+    $scope.sortProducts = function (sortCode) {
+        $scope.productList = [];
+        $scope.loading = true;
+        $http.get('/rest/products?sort=' + sortCode).then(res => {
+            $scope.productList = res.data;
+        }).catch(error => { console.error(error); })
+            .finally(function () {
+                $scope.loading = false;
+            });
     };
 
     $scope.filterProductByCategory = function (categoryId) {
         $scope.productList = [];
         $scope.loading = true;
         $http.get('/rest/products/category/' + categoryId).then(res => {
+            $scope.productList = res.data;
+        }).catch(error => { console.error(error); })
+            .finally(function () {
+                $scope.loading = false;
+            });
+    };
+
+    $scope.filterProductBySubCategory = function (subCategoryId) {
+        $scope.productList = [];
+        $scope.loading = true;
+        $http.get('/rest/products/sub-category/' + subCategoryId).then(res => {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
@@ -141,9 +172,12 @@ function productController($scope, $http, $interval) {
     };
 
     $scope.removeAllFilters = function () {
+        $scope.productList = [];
+        $scope.loading = true;
+        $scope.getProductList();
         $scope.selectedColor = '';
         $scope.priceRange = $scope.rangeUI.max;
-    }
+    };
 
     $scope.pager = {
         page: 0,

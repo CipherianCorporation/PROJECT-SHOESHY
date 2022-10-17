@@ -21,11 +21,13 @@ public class SubCategoryRestController {
     @Autowired
     SubCategoryService service;
 
+    // return list of sub-categories
     @GetMapping("/rest/sub-categories")
     public List<SubCategory> getAll() {
         return service.findAll();
     }
 
+    // return list of sub-categories by category_id
     @GetMapping("/rest/sub-categories/{category_id}")
     public List<SubCategory> getSubCatesByCatesId(@PathVariable Integer category_id) {
         return service.findAllByCatesId(category_id);
