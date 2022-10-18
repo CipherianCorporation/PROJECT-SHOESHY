@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#!">Trang chủ</a></li>
-        <li class="breadcrumb-item active"><a href="#!products">Sản phẩm</a></li>
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active"><a href="/">Sản phẩm</a></li>
     </ol>
 </nav>
 <div class="accordion mb-2" id="accordionExample1">
@@ -14,14 +14,20 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="categoryHeading" data-mdb-parent="#accordionExample1">
             <div class="accordion-body">
+                <div class="d-grid gap-2">
+                    <!-- remove all filters button -->
+                    <button class="btn btn-secondary" ng-click="removeAllFilters()">Bỏ lọc</button>
+                </div>
                 <ul class="list-group list-group-light">
                     <li class="list-group-item" ng-repeat="ca in categories">
                         <!-- collapse button -->
                         <strong>{{ca.name}}</strong>
 
                         <!-- collapse content -->
-                        <ul class="list-group list-group-light" ng-init="showSubCates(ca.id)">
-                            <li class="list-group-item" ng-repeat="sub in sub_categories">+ {{sub.name}}</li>
+                        <ul class="list-group list-group-light">
+                            <li class="list-group-item" ng-repeat="sub in sub_categories | filter: {category: {id: ca.id }}">
+                                <a href="" class="text-dark" ng-click="filterProductBySubCategory(sub.id)">> {{sub.name}}</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -35,12 +41,52 @@
         <h2 class="accordion-header" id="filterHeading">
             <button class="accordion-button text-reset" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseTwo" aria-expanded="true"
                 aria-controls="collapseTwo">
-                Lọc giá
+                Lọc sản phẩm
             </button>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="filterHeading" data-mdb-parent="#accordionExample2">
+        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="filterHeading" data-mdb-parent="#accordionExample2">
             <div class="accordion-body">
-                asdasd
+                <div class="d-grid gap-2">
+                    <!-- remove all filters button -->
+                    <button class="btn btn-secondary" ng-click="removeAllFilters()">Bỏ lọc</button>
+                </div>
+                <ul class="list-group list-group-light">
+                    <li class="list-group-item">
+                        <!-- collapse button -->
+                        <strong>Màu sắc</strong>
+
+                        <!-- collapse content -->
+                        <ul class="list-group list-group-light">
+                            <li class="list-group-item">
+                                <!-- Default checkbox -->
+                                <div class="form-check" ng-repeat="p in colorArr">
+                                    <input class="form-check-input" type="radio" id="{{p.id}}" ng-model="p.name"
+                                        ng-click="filterProductsBySelectedColor(p.name)" name="filterColor" value="{{p.name}}" />
+                                    <label class="form-check-label" for="{{p.id}}">{{p.value}}</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="list-group list-group-light">
+                    <li class="list-group-item">
+                        <!-- collapse button -->
+                        <strong>Giá</strong>
+
+                        <!-- collapse content -->
+                        <ul class="list-group list-group-light">
+                            <li class="list-group-item">
+                                <!-- Default checkbox -->
+                                <div class="range">
+                                    <input type="range" class="form-range" min="{{rangeUI.min}}" max="{{rangeUI.max}}" value="{{rangeUI.value}}"
+                                        step="{{rangeUI.step}}" id="priceRange" ng-model="priceRange" />
+                                </div>
+                                <span ng-hide="priceRange === 0">đ0 - </span>{{priceRange | currency:"đ":0}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

@@ -106,7 +106,7 @@ public class ExcelExporter<T> {
                 createCell(row, colCount++, product.getPrice(), style);
                 createCell(row, colCount++, product.getImage(), style);
                 createCell(row, colCount++, product.getAvailable(), style);
-                createCell(row, colCount++, product.getCreated_at(), style);
+                createCell(row, colCount++, product.getCreatedAt(), style);
                 createCell(row, colCount++, product.getCategory().getName(), style);
             } else if (item instanceof Category) {
                 Category category = (Category) item;

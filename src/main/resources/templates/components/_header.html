@@ -24,27 +24,29 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Navbar brand -->
                     <a class="navbar-brand mt-2 mt-lg-0" th:href="@{/}">
-                        <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="15" alt="MDB Logo" loading="lazy" />
-                        <small>ShoeShy</small>
+                        <img src="/assets/images/shoeshy-logo.png" height="35" alt="ShoeShy Logo" loading="lazy" />
+                        <!-- <small>ShoeShy</small> -->
                     </a>
                     <!-- Left links -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- category list START -->
                         <li class="nav-item" ng-repeat="ca in categories">
                             <a class="nav-link" href="#" ng-click="filterProductByCategory(ca.id)">
-                                <img src="https://mwcstore.net/Resources/Category/2018/08/02/main-menut-icon-1-1fb5f7d8-af7e-4e50-809a-d3b1de092d53.png"
-                                    class="rounded-circle" height="22" alt="Black and White Portrait of a Man" loading="lazy" />
+                                <img ng-src="{{'/assets/images/'+ ca.image_url}}" class="rounded-circle" height="22" alt="category icon" loading="lazy" />
                                 {{ca.name}}
                             </a>
                         </li>
+                        <!-- category list END -->
+
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#" ng-click="filterProductBySaleOff()">
                                 <img src="https://cdn2.iconfinder.com/data/icons/ecommerce-solid-icons-vol-2/64/088-512.png" class="rounded-circle" height="22"
                                     alt="Black and White Portrait of a Man" loading="lazy">
                                 Sale off
                             </a>
                         </li>
                     </ul>
-                    <!-- Left links -->
+                    <!-- search input -->
                     <form class="d-flex input-group w-auto ">
                         <input type="search" class="form-control rounded" placeholder="Tìm..." aria-label="Search" aria-describedby="search-addon" />
                         <span class="input-group-text border-0" id="search-addon">
@@ -56,8 +58,14 @@
                 <div class="d-flex align-items-center">
 
                     <!-- Icon Cart -->
-                    <a class="text-reset me-3" th:href="@{/cart/view}">
-                        <span><i class="fas fa-shopping-bag fa-lg"></i>{{cart.count}}</span>
+                    <a class="text-reset position-relative me-3" th:href="@{/cart/view}">
+                        <i class="fas fa-shopping-bag fa-lg me-2"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill badge-success">
+                            {{cart.count}}
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+
+                        <!-- <span class="badge badge-success">{{cart.count}}</span> -->
                     </a>
 
                     <!-- Icon Avatar -->
@@ -79,9 +87,8 @@
                                     <a class="dropdown-item" th:href="@{/order/list}">Đơn hàng</a>
                                 </li>
                                 <!-- appear only for admin or staff -->
-                                <li>
-                                    <a class="dropdown-item" th:if="${#request.isUserInRole('ROLE_ADMIN') or #request.isUserInRole('ROLE_STAFF')}"
-                                        th:href="@{/admin/home/index}">Quản trị</a>
+                                <li th:if="${#request.isUserInRole('ROLE_ADMIN') or #request.isUserInRole('ROLE_STAFF')}">
+                                    <a class="dropdown-item" th:href="@{/admin/home/index}">Quản trị</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" th:href="@{/security/logoff}">Đăng xuất</a>

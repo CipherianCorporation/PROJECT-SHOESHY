@@ -5,6 +5,8 @@ import java.util.Optional;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +23,9 @@ import com.edu.graduationproject.utils.CommonUtils;
 
 @Controller
 public class UserController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     UserService userService;
 
@@ -36,5 +41,32 @@ public class UserController {
         Optional<User> loggedinUser = userService.findByUsername(auth.getName());
         model.addAttribute("user", loggedinUser.orElse(new User()));
         return "account/edit_profile";
+    }
+
+    @PostMapping("/account/register")
+    public String register(Model model, @ModelAttribute User user, HttpServletRequest req) throws MessagingException {
+        Optional<User> existUserByEmail = userService.findByEmail(user.getEmail());
+        Optional<User> existUserByUsername = userService.findByUsername(user.getUsername());
+        if (existUserByEmail.isPresent()) {
+            model.addAttribute("message", "User with email " + user.getEmail() + " is already registered");
+            return "account/signup";
+        }
+        if (existUserByUsername.isPresent()) {
+            model.addAttribute("message", "User with username " + user.getUsername() + " is already registered");
+            return "account/signup";
+        }
+        userService.register(user, CommonUtils.getSiteURL(req));
+        model.addAttribute("message", "Please check your email to verify your account");
+        return "account/signup";
+    }
+
+    @GetMapping("/verify")
+    public String verifyAcc(@RequestParam String code) {
+        if (userService.verify(code)) {
+            return "account/verify-success";
+        } else {
+            return "account/verify-fail";
+        }
+
     }
 }

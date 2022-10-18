@@ -26,6 +26,7 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String phone;
+    private String address;
 
     // đặt tên là image_url vì khi user login bằng GG,FB thì lưu url ảnh
     // user signup theo dạng database thì chỉ lưu tên ảnh <tên>.jpg

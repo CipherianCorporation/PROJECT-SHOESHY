@@ -17,9 +17,31 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.email = ?1")
     public Optional<User> findByEmail(String email);
 
-    @Query("SELECT DISTINCT ur.user FROM UserRole ur WHERE ur.role.id IN ('USER','ADMIN','STAF')")
+    @Query("SELECT DISTINCT ur.user FROM UserRole ur WHERE ur.role.id IN ('USER','ADMIN','STAFF')")
     public List<User> getAdministrators();
 
     @Query("SELECT u FROM User u WHERE u.reset_pwd_token = ?1")
-    public Optional<User> findByResestPasswordToken(String token);
+    public Optional<User> findByResetPasswordToken(String token);
+
+    @Query("SELECT o FROM User o WHERE verify_code=?1")
+    public User findByVerifyCode(String code);
+
+    // Derived Query - for checking if User exist by email
+    public boolean existsUserByEmail(String email);
+
+    // Derived Query - for checking if User exist by id
+    public boolean existsUserById(String id);
+
+    // @Query("SELECT o FROM User o WHERE username=?1")
+    @Modifying
+    @Query("DELETE FROM User u WHERE u.username=?1")
+    public void deleteByUsername(String username);
+
+    @Modifying
+    @Query("UPDATE User u SET u.provider = ?2 WHERE u.email = ?1")
+    public void updateAuthenticationTypeOAuth(String email, AuthProvider provider);
+
+    @Modifying
+    @Query("UPDATE User u SET u.provider = ?2 WHERE u.username = ?1")
+    public void updateAuthenticationTypeDB(String username, AuthProvider provider);
 }

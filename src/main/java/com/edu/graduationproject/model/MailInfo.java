@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MailInfo {
-    String from = "Shoestore";
+    String from = "ShoeShy";
     String to;
     String[] cc;
     String[] bcc;

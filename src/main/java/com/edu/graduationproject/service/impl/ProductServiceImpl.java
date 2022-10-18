@@ -18,10 +18,20 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAll() {
         return repo.findAll();
     }
-
+    
     @Override
     public List<Product> findAll(Sort sort) {
         return repo.findAll(sort);
+    }
+    
+    @Override
+    public List<Product> findAllBySaleOff() {
+        return repo.findAllBySaleOff();
+    }
+
+    @Override
+    public List<Product> findAllByPriceRange(Double min, Double max) {
+        return repo.findAllByPriceRange(min, max);
     }
 
     @Override
@@ -32,6 +42,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findByCategoryId(Integer cid) {
         return repo.findByCategoryId(cid);
+    }
+
+    @Override
+    public List<Product> findBySubCategoryId(Integer sid) {
+        return repo.findBySubCategoryId(sid);
     }
 
     @Override
@@ -53,5 +68,6 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+
 
 }

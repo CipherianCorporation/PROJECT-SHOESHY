@@ -1,0 +1,27 @@
+<!-- Section: Main chart -->
+<section class="mb-4">
+    <div class="card">
+        <div class="card-header py-3">
+            <h5 class="mb-0 text-center"><strong>Orders</strong></h5>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-mdb-toggle="tab" role="tab" href="#home" aria-selected="true">Danh Sách Đơn Hàng</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-mdb-toggle="tab" role="tab" href="#menu1" aria-selected="true">Chi Tiết Đơn Hàng</a>
+        </li>
+    </ul>
+    <div class="tab-content pt-2">
+        <div id="home" class="container tab-pane active" role="tabpanel">
+            <div ng-include="'/admin/pages/order/list.html'"></div>
+        </div>
+        <div id="menu1" class="container tab-pane fade" role="tabpanel">
+            <div ng-include="'/admin/pages/order/detail.html'"></div>
+        </div>
+    </div>
+</div>

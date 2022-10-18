@@ -26,7 +26,6 @@ public class MailerServiceImpl implements MailerService {
 
     @Override
     public void send(MailInfo mail) throws MessagingException {
-        // TODO Auto-generated method stub
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 
@@ -55,20 +54,29 @@ public class MailerServiceImpl implements MailerService {
 
     @Override
     public void send(String to, String subject, String body) throws MessagingException {
-        // TODO Auto-generated method stub
         this.send(new MailInfo(to, subject, body));
     }
 
     @Override
     public void queue(MailInfo mail) {
-        // TODO Auto-generated method stub
         list.add(mail);
     }
 
     @Override
     public void queue(String to, String subject, String body) {
-        // TODO Auto-generated method stub
         queue(new MailInfo(to, subject, body));
+    }
+
+    @Scheduled(fixedDelay = 2000)
+    public void run() {
+        while (!list.isEmpty()) {
+            MailInfo mail = list.remove(0);
+            try {
+                this.send(mail);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

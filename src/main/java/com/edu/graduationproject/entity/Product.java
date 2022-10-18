@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -62,11 +63,14 @@ public class Product implements Serializable {
 
     // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
     @Temporal(TemporalType.DATE)
-    private Date updated_at;
+    @Column(name="updated_at")
+    private Date updatedAt;
     @Temporal(TemporalType.DATE)
-    private Date created_at = new Date();
+    @Column(name="created_at")
+    private Date createdAt = new Date();
     @Temporal(TemporalType.DATE)
-    private Date deleted_at;
+    @Column(name="deleted_at")
+    private Date deletedAt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")

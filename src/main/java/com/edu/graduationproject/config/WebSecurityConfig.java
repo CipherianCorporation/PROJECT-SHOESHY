@@ -67,8 +67,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/products/**",
                                                 "/rest/categories/**",
                                                 "/rest/upload/**",
-//                                                "/rest/order/**",
-//                                                "/order/**",
+                                                "/rest/order/**",
+                                                "/order/**",
+                                                "/rest/sub-categories/**",
                                                 "/cart/**",
                                                 "/account/**",
                                                 "/verify/**",
@@ -94,8 +95,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/assets/admin/**")
                                 .hasAnyRole("ADMIN")
                                 .antMatchers("/rest/authorities/**").hasRole("ADMIN")
-                                .anyRequest().authenticated(); // permitAll để code, debug dễ, nên để thành authenticated()
-                                                           // sau khi xong
+                                .anyRequest().authenticated(); // permitAll để code, debug dễ, nên để thành
+                                                               // authenticated()
+                                                               // sau khi xong
                 http.formLogin().disable()
                                 .httpBasic().disable()
                                 .logout().disable();

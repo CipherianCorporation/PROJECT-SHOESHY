@@ -11,9 +11,9 @@
     <main>
         <div>
             <section class="h-100 h-custom">
-                <div class="container mb-4 h-100">
+                <div class="mb-4 h-100">
                     <div class="row d-flex justify-content-center align-items-center h-100">
-                        <div class="col-12">
+                        <div class="col-sm-12">
                             <div class="card card-registration card-registration-2 shadow" style="border-radius: 15px;">
                                 <div class="card-body p-0">
                                     <div class="row g-0">
@@ -67,7 +67,8 @@
 
                                                 <!-- back to shop -->
                                                 <div class="d-flex justify-content-between pt-5">
-                                                    <h6 class="mb-0"><a href="/" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Quay lại</a>
+                                                    <h6 class="mb-0"><a th:href="@{/}" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Quay
+                                                            lại</a>
                                                     </h6>
                                                     <h6 class="mb-0"><button ng-click="cart.clear()" class="btn btn-danger">Xóa hết</button></h6>
                                                 </div>

@@ -15,6 +15,12 @@ public interface ProductService {
 
     List<Product> findByCategoryId(Integer cid);
 
+    List<Product> findBySubCategoryId(Integer sid);
+
+    List<Product> findAllBySaleOff();
+
+    List<Product> findAllByPriceRange(Double low, Double high);
+
     List<Product> searchProducts(String query);
 
     Product create(Product product);
@@ -22,4 +28,5 @@ public interface ProductService {
     Product update(Product product);
 
     void delete(Integer id);
+
 }

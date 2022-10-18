@@ -1,5 +1,7 @@
 package com.edu.graduationproject.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SecurityController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityController.class);
 
     @GetMapping("/login")
     public String showLoginForm(Model model) {
@@ -29,25 +33,25 @@ public class SecurityController {
 
     @RequestMapping("/security/login/success")
     public String loginSuccess(Model model) {
-        model.addAttribute("message", "Login success!");
+        model.addAttribute("message", "Đăng nhập thành công!");
         return "security/login";
     }
 
     @RequestMapping("/security/login/error")
     public String loginError(Model model) {
-        model.addAttribute("message", "Wrong credentials or account haven't activated yet!");
+        model.addAttribute("message", "Sai thông tin hoặc tài khoản chưa được kích hoạt!");
         return "security/login";
     }
 
     @RequestMapping("/security/unauthorized")
     public String unauthoried(Model model) {
-        model.addAttribute("message", "Access denied!");
+        model.addAttribute("message", "Từ chối truy cập!");
         return "security/login";
     }
 
     @RequestMapping("/security/logoff/success")
     public String logoffSuccess(Model model) {
-        model.addAttribute("message", "You have log out!");
+        model.addAttribute("message", "Bạn đã đăng xuất!");
         return "security/login";
     }
 

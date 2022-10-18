@@ -26,37 +26,31 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order create(JsonNode orderData) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Order findById(long id) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public List<Order> findByUsername(String username) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public List<Order> findAll() {
-        // TODO Auto-generated method stub
         return orderRepo.findAll();
     }
 
     @Override
-    public List<Order> findByUser(int userId) {
-        return orderRepo.findByUser(userId);
+    public List<Order> findByUserId(Integer userId) {
+        return orderRepo.findByUserId(userId);
     }
 
     @Override
-    public List<OrderDetails> findOrderDetailsByOrder(long orderId) {
-        return orderDetailRepo.findOrderDetailsByOrder(orderId);
+    public List<OrderDetails> findOrderDetailsByOrderId(Long orderId) {
+        return orderDetailRepo.findOrderDetailsByOrderId(orderId);
     }
-
-
 }

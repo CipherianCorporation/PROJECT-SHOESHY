@@ -109,7 +109,7 @@ public class PdfExporter<T> {
                 table.addCell(product.getPrice().toString());
                 table.addCell(product.getImage());
                 table.addCell(product.getAvailable().toString());
-                table.addCell(product.getCreated_at().toString());
+                table.addCell(product.getCreatedAt().toString());
                 table.addCell(product.getCategory().getName());
             } else if (item instanceof Order) {
                 Order order = (Order) item;

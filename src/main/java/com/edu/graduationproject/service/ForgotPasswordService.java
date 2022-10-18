@@ -1,5 +1,11 @@
 package com.edu.graduationproject.service;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Optional;
+
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+
 import com.edu.graduationproject.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,9 +18,9 @@ public interface ForgotPasswordService {
 
     void updatePassword(User account, String newPass);
 
-    void sendEmail(String recipientEmail, String link);
+    void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException;
 
-    String sendMailForgotPassword(String token, String email, HttpServletRequest request);
+    String sendEMailForgotPassword(String token, String email, HttpServletRequest request);
 
-    String resetPassWord(String token, String password);
+    String resetPassword(String token, String password);
 }
