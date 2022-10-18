@@ -19,32 +19,32 @@
                 <div class="row">
                     <div class="mb-2 col-sm-4">
                         <div><b>Mã đơn hàng</b></div>
-                        <input type="text" class="form-control" readonly="readonly">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="  form.order.id">
                     </div>
                     <div class="mb-2 col-sm-4">
                         <div><b>Người đặt hàng</b></div>
-                        <input type="text" class="form-control" readonly="readonly">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.user.username">
                     </div>
                     <div class="mb-2 col-sm-4">
                         <div><b>Ngày đặt hàng</b></div>
-                        <input type="text" class="form-control" readonly="readonly">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.created_at">
                     </div>
                     <div class="mb-2 col-sm-4">
                         <div><b>Giá Tiền</b></div>
-                        <input type="text" class="form-control" readonly="readonly">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.total">
                     </div>
                     <div class="mb-2 col-sm-4">
                         <div><b>Phương thức thanh toán</b></div>
-                        <input type="text" class="form-control" readonly="readonly">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.payment_method">
                     </div>
 
                     <div class="mb-2 col-sm-4">
                         <div><b>Trạng thái đơn hàng</b></div>
-                        <input type="text" class="form-control" readonly="readonly">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.order_status">
                     </div>
                     <div class="mb-2 ">
                         <div><b>Địa chỉ giao hàng</b></div>
-                        <textarea class="form-control" readonly="readonly"></textarea>
+                        <textarea class="form-control" readonly="readonly" ng-model="form.order.address"></textarea>
                     </div>
                 </div>
             </div>
@@ -68,12 +68,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><b>0001</b></td>
-                                <td>Nike Air F1</td>
-                                <td>1.000.000</td>
-                                <td>2</td>
-                                <td><b>2.000.000</b></td>
+                            <tr ng-repeat="item in detail_items">
+                                <td><b>{{item.order.id}}</b></td>
+                                <td>{{item.product.name}}</td>
+                                <td>{{item.product.price}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td><b>{{item.product.price*item.quantity}}</b></td>
                             </tr>
                         </tbody>
                     </table>

@@ -23,7 +23,7 @@
         <!-- header -->
         <header th:replace="components/_header.html :: header"></header>
 
-        <main class="row" style="min-height: 100vh;">
+        <main class="row" style="min-height: 100vh;" ng-controller="order-ctrl">
             <!-- aside -->
             <aside class="col-md-2">
                 <div th:replace="components/_aside.html"></div>
@@ -49,6 +49,7 @@
     <script th:src="@{/assets/js/product.controller.js}"></script>
     <script th:src="@{/assets/js/cart.controller.js}"></script>
     <script th:src="@{/assets/js/user.controller.js}"></script>
+    <script th:src="@{/assets/js/order.controller.js}"></script>
     <!-- custom js -->
     <script th:src="@{/assets/js/script.js}"></script>
 

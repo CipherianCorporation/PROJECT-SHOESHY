@@ -2,19 +2,15 @@ package com.edu.graduationproject.service.impl;
 
 import com.edu.graduationproject.entity.Order;
 import com.edu.graduationproject.entity.OrderDetails;
-import com.edu.graduationproject.entity.User;
 import com.edu.graduationproject.repository.OrderDetailRepository;
 import com.edu.graduationproject.repository.OrderRepository;
 import com.edu.graduationproject.service.OrderService;
 import com.edu.graduationproject.service.UserService;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -49,8 +45,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findAll() {
         // TODO Auto-generated method stub
-        return null;
+        return orderRepo.findAll();
     }
 
-    
+    @Override
+    public List<Order> findByUser(int userId) {
+        return orderRepo.findByUser(userId);
+    }
+
+    @Override
+    public List<OrderDetails> findOrderDetailsByOrder(long orderId) {
+        return orderDetailRepo.findOrderDetailsByOrder(orderId);
+    }
+
+
 }
