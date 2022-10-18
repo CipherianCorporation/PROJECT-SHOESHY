@@ -6,14 +6,16 @@ function orderCtrl($scope, $http, $window) {
     $scope.form = {};
     $scope.initializez = function () {
         let list;
-        if (localStorage.getItem('list') !== null) {
-            list = JSON.parse(localStorage.getItem('list'));
-        }
+
         $http.get("/rest/order/list/100018").then(resp => {
             $scope.list_items = resp.data;
             console.log(resp.data);
         });
-        $scope.detail(list.id);
+
+        if (localStorage.getItem('list') !== null) {
+            list = JSON.parse(localStorage.getItem('list'));
+            $scope.detail(list.id);
+        }
     };
     $scope.switchPage = function (list) {
         localStorage.setItem("list", JSON.stringify(list));
@@ -28,7 +30,7 @@ function orderCtrl($scope, $http, $window) {
             console.log($scope.form);
         });
     };
-    
+
     $scope.initializez();
 
 }
