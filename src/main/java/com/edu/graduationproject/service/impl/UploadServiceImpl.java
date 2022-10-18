@@ -17,9 +17,26 @@ public class UploadServiceImpl implements UploadService {
 
     @Override
     public File save(MultipartFile file, String folder) {
-        // TODO Auto-generated method stub
-        return null;
+        if (file.isEmpty()) {
+            throw new RuntimeException("File is empty, please choose a file.");
+        }
+        try {
+            File dir = new File(context.getRealPath("upload/" + folder).toString());
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            String filename = "upload-" + System.currentTimeMillis() + "-"
+                    + Integer.toHexString(file.getOriginalFilename().hashCode());
+            // String name = Integer.toHexString(s.hashCode()) +
+            // s.substring(s.lastIndexOf("."));
+            File savedFile = new File(dir, filename);
+            file.transferTo(savedFile);
+            System.out.println(savedFile.getAbsolutePath());
+            return savedFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
-
 
 }
