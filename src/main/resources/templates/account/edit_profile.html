@@ -11,52 +11,48 @@
     <section class="container" ng-controller="user-ctrl">
         <div class="card">
             <div class="card-body">
-                <form action="">
+                <form class="needs-validation" name="myform" novalidate>
                     <div class="form-group mb-3">
-                        <label path="image">Ảnh:</label>
+                        <label for="customFile">Ảnh:</label>
                         <figure>
-                            <img ng-src="" class="img-fluid img-thumbnail" width="120" height="120">
+                            <img ng-src="{{ (form.image_url.startsWith('upload')?'/upload/images/':'/assets/images/') + (form.image_url || 'default-user.jpg') }}"
+                                class="img-fluid img-thumbnail" width="120" height="120">
                         </figure>
-                        <input type="file" class="form-control" id="customFile" />
+                        <input ng-model="form.image_url" onchange="angular.element(this).scope().imageChanged(this.files)" type="file" class="form-control"
+                            id="customFile" />
                     </div>
                     <div class="row">
-                        <div class="form-group col-6">
-                            <label for="">Tên đăng nhập</label>
-                            <input type="text" class="form-control" placeholder="UserName">
-
+                        <div class="form-group col-6 mb-2">
+                            <label for="username">Tên đăng nhập</label>
+                            <input ng-model="form.username" name="txtName" type="text" class="form-control" placeholder="Tên đăng nhập.." required>
+                            <label ng-show="myform.txtName.$invalid" class="badge badge-danger my-2 p-2">Xin hãy nhập tên tài khoản! </label>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="">Email </label>
-                            <input type="text" class="form-control" placeholder="Email ">
+                        <div class="form-group col-6 mb-2">
+                            <label for="email">Email </label>
+                            <input ng-model="form.email" type="text" name="txtEmail" class="form-control" placeholder="name@example.com" required>
+                            <label ng-show="myform.txtEmail.$invalid" class="badge badge-danger my-2 p-2">Xin hãy nhập email! </label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-6">
-                            <label for="">SDT</label>
-                            <input type="text" class="form-control" placeholder="Phone ">
+                        <div class="form-group col-6 mb-2">
+                            <label for="phone">Số điện thoại</label>
+                            <input ng-model="form.phone" name="txtPhone" type="tel" id="floatingPhone" class="form-control" placeholder="0xxxxxxxxx"
+                                required pattern="(\+84|0)\d{9,10}">
+                            <label ng-show="myform.txtPhone.$invalid" class="badge badge-danger my-2 p-2">Xin hãy nhập SDT!</label>
                         </div>
-                        <div class="form-group col-6">
-                            <label for="">Địa chỉ</label>
-                            <input type="text" class="form-control" placeholder="Adress">
+                        <div class="form-group col-6 mb-2">
+                            <label for="address">Địa chỉ</label>
+                            <input ng-model="form.address" name="txtAddress" type="text" class="form-control" placeholder="Địa chỉ.." required>
+                            <label ng-show="myform.txtAddress.$invalid" class="badge badge-danger my-2 p-2">Xin hãy nhập địa chỉ! </label>
                         </div>
                     </div>
                     <hr>
-                    <div class="row mb-3">
-                        <div class="form-group col-6">
-                            <label for="">Mật khẩu</label>
-                            <input type="text" class="form-control" placeholder="Password">
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="">Nhập lại</label>
-                            <input type="text" class="form-control" placeholder="Retype">
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="form-group col text-center">
-                            <button type="submit" class="btn btn-primary">
+                            <button ng-disabled="myform.$invalid" ng-click="update()" type="submit" id="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Lưu
                             </button>
-                            <button type="submit" class="btn btn-danger">
+                            <button ng-click="reset()" type="submit" class="btn btn-danger">
                                 Hủy
                             </button>
                         </div>
@@ -65,6 +61,7 @@
             </div>
         </div>
     </section>
+
 </body>
 
 </html>

@@ -30,6 +30,7 @@ CREATE TABLE [dbo].[users] (
     [id]              INT            IDENTITY (100001, 1) NOT NULL,
     [username]        NVARCHAR (50)  NULL,
     [password]        NVARCHAR (255) NULL,
+    [fullname]        NVARCHAR (255) NULL,
     [email]           NVARCHAR (255) NULL,
     [phone]           NVARCHAR (50)  NULL,
     [address]         NVARCHAR (255) NULL,
@@ -163,8 +164,5 @@ select * from orders
 select * from order_details
 
 
--- Delete rows from table '[users]' in schema '[dbo]'
-DELETE FROM [dbo].[users]
-WHERE /* add search conditions here */
-id = '100020'
-GO
+ALTER TABLE users
+ADD Email varchar(255);
