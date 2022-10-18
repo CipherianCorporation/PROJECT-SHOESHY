@@ -31,20 +31,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr ng-repeat="list in list_items">
                                 <td><b>1</b></td>
-                                <td>0001</td>
-                                <td>27/09/2022</td>
+                                <td>{{list.id}}</td>
+                                <td>{{list.created_at}}</td>
                                 <td><b>
-                                        <h6>2.000.000</h6>
+                                        <h6>{{list.total}}</h6>
                                     </b></td>
-                                <td><b class="text-success">Đang vận chuyển</b></td>
-                                <td>Ship COD</td>
-                                <td>167 Đặng Thùy Trâm, p13, Bình Thạnh</td>
+                                <td><b class="text-success">{{list.order_status}}</b></td>
+                                <td>{{list.payment_method}}</td>
+                                <td>{{list.address}}</td>
                                 <td>
-                                    <a href="#!order-detail" class="btn btn-secondary">
+                                    <button class="btn btn-secondary" ng-click="switchPage(list)">
                                         <i class="fas fa-arrow-right"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                         </tbody>
