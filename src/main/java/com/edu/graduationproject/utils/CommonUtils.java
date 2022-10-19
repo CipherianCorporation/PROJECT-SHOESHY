@@ -35,7 +35,7 @@ public class CommonUtils {
                 .build();
         // sync request
         Response response = client.newCall(request).execute(); 
-
+       
         JsonNode rootNode = mapper.readTree(response.body().string());
         System.out.println(rootNode.toString());
         result = rootNode.get("result").asDouble();
