@@ -34,7 +34,6 @@ function orderCtrl($scope, $http, $window) {
 
         $http.get(`/rest/order/list/${id}`).then(resp => {
             $scope.list_items = resp.data;
-            console.log(resp.data);
         }).catch(error => {
             console.log("Error", error);
         });
@@ -46,15 +45,12 @@ function orderCtrl($scope, $http, $window) {
         localStorage.setItem("list", JSON.stringify(list.id));
         var url = "http://" + $window.location.host + "/order/detail";
         $window.location.href = url;
-        console.log('order id: ' + list.id);
     };
 
     $scope.detail = function (list) {
-        console.log(list)
         $http.get(`/rest/order/detail/${list}`).then(resp => {
             $scope.detail_items = resp.data;
             $scope.form = angular.copy($scope.detail_items[0]);
-            console.log($scope.form);
         }).catch(error => {
             console.log("Error", error);
         });
@@ -62,7 +58,6 @@ function orderCtrl($scope, $http, $window) {
 
     $scope.check = function () {
         $scope.get_user_id();
-        console.log(localStorage.getItem('user'))
         if (localStorage.getItem('user') == null || localStorage.getItem('user') == "undefined") {
             return ;
         }
