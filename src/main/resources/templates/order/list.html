@@ -33,8 +33,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="list in list_items">
-                                <td><b>1</b></td>
+                            <tr ng-repeat="list in list_items | orderBy : '-created_at'">
+                                <td><b>{{$index+1}}</b></td>
                                 <td>{{list.id}}</td>
                                 <td>{{list.created_at}}</td>
                                 <td><b>

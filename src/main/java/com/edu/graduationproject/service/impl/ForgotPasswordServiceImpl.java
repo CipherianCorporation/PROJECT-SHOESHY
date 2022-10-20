@@ -93,51 +93,6 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
         }
     }
 
-    @Override
-    public String sendMailForgotPassword(String token, String email, HttpServletRequest request) {
-        try {
-            Optional<User> userOtp = userService.findByEmail(email);
-            if (!userOtp.isPresent()){
-                return "Tài khoản của bạn không tồn tại";
-            }else {
-                this.updateResetPasswordToken(token, email);
-                String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
-                sendMail(email,resetPasswordLink);
-                return "Chúng tôi đã gửi liên kết để đặt lại đến email cảu bạn. Vui lòng kiểm tra!!!";
-            }
-
-        }  catch (UnsupportedEncodingException | MessagingException  e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public String resetPassWord(String token, String password) {
-        Optional<User> userOtp = this.getByResetPasswordToken(token);
-        if (!userOtp.isPresent()){
-            return "Mã không hợp lệ";
-        }else{
-            this.updatePassword(userOtp.get(),password);
-            return "Bạn đã đổi mật khẩu thành công";
-        }
-    }
-
-
-    public void sendMail(String recipientEmail,String link) throws MessagingException, UnsupportedEncodingException {
-        String subject = "Đây là link để bạn lấy lại mật khẩu!!!";
-
-        String content = "<p>Xin chào</p>"
-                +"<p>Bạn đã yêu cầu đặt lại mật khẩu của mình.</p>"
-                +"<p>Nhấp vào liên kết bên dưới để dổi mật khậu của bạn.</p>"
-                +"<p><a href=\""+link+"\">Đổi mật khẩu của tôi</p>"
-                +"<p>Bỏ qua Email này nếu bạn nhớ mật khẩu của mình,"
-                + "hoặc bạn chưa đưa ra yêu cầu.</p>";
-
-        mailer.send(recipientEmail,subject,content);
-    }
-
     public String resetPassword(String token, String password) {
         Optional<User> userOtp = this.getByResetPasswordToken(token);
         if (!userOtp.isPresent()) {
