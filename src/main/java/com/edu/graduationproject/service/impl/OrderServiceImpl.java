@@ -53,4 +53,9 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDetails> findOrderDetailsByOrderId(Long orderId) {
         return orderDetailRepo.findOrderDetailsByOrderId(orderId);
     }
+
+    @Override
+    public List<Order> findAllSortStatus() {
+        return orderRepo.findSortWithStatus();
+    }
 }

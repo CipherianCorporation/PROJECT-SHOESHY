@@ -22,4 +22,6 @@ public interface OrderService {
     List<Order> findByUserId(Integer userId);
 
     List<OrderDetails> findOrderDetailsByOrderId(Long orderId);
+
+    List<Order> findAllSortStatus();
 }

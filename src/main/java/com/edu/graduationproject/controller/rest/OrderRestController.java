@@ -39,4 +39,9 @@ public class OrderRestController {
         return orderService.findOrderDetailsByOrderId(orderId);
     }
 
+    @GetMapping("/rest/order/sortstatus")
+    public List<Order> findOderSortStatus(){
+        return orderService.findAllSortStatus();
+    }
+
 }
