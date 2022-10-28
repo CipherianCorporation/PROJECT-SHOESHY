@@ -95,7 +95,9 @@ function shoppingCartCtrl($scope, $http) {
         total: parseFloat($scope.cart.amount),
         address: '',
         payment_method: "",
-        order_status: "processing",
+        orderStatus: {
+            name: "processing"
+        },
         user: {
             username: '',
         },

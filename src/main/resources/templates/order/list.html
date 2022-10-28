@@ -37,10 +37,12 @@
                                 <td><b>{{$index+1}}</b></td>
                                 <td>{{list.id}}</td>
                                 <td>{{list.createdAt}}</td>
-                                <td><b>
-                                        <h6>{{list.total}}</h6>
-                                    </b></td>
-                                <td><b class="text-success">{{list.order_status}}</b></td>
+                                <td>
+                                    <b>
+                                        <h6>{{list.total | currency :'đ':0}}</h6>
+                                    </b>
+                                </td>
+                                <td><b class="text-success">{{list.orderStatus.name}}</b></td>
                                 <td>{{list.payment_method}}</td>
                                 <td>{{list.address}}</td>
                                 <td>

@@ -36,7 +36,7 @@
             <!-- product list -->
             <div class="row row-cols-1 row-cols-md-4 g-4 mb-4" style="min-height: 50vh;">
                 <div class="col-md-3 col-lg-3 col-sm-12"
-                    ng-repeat="p in pager.productList | filter : {color: selectedColor} | rangeFilter:'price':0:priceRange">
+                    ng-repeat="p in pager.productList | filter : {color: {name: selectedColor}} | rangeFilter:'price':0:priceRange">
 
                     <!-- product card START-->
                     <div class="card">
@@ -50,7 +50,7 @@
 
                         <div class="card-body">
                             <h5 class="card-title">{{p.name}}</h5>
-                            <p>{{p.color}}</p>
+                            <p>{{p.color.name}}</p>
                             <p class="card-text d-flex justify-content-between">
                                 <span><sup>đ</sup> {{p.price | number:0}}</span>
                                 <span style="color: grey;">Đã bán {{p.sold}}</span>
