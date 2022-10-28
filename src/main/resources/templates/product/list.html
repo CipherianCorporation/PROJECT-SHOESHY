@@ -43,11 +43,16 @@
                         <a href="{{'/product/detail/' + p.id}}">
                             <img ng-src="{{'/assets/images/'+ p.image}}" class="card-img-top" alt="Product image" />
                         </a>
+
+                        <div ng-show="p.sale_off != 0" class="label-top bg-danger shadow-sm">
+                            <a class="text-white" href="#">Sale: {{p.sale_off | number: 0}}%</a>
+                        </div>
+
                         <div class="card-body">
                             <h5 class="card-title">{{p.name}}</h5>
                             <p>{{p.color}}</p>
                             <p class="card-text d-flex justify-content-between">
-                                <span style="color: red;"><sup>đ</sup> {{p.price | number:0}}</span>
+                                <span><sup>đ</sup> {{p.price | number:0}}</span>
                                 <span style="color: grey;">Đã bán {{p.sold}}</span>
                             </p>
                             <div class="d-grid gap-2">

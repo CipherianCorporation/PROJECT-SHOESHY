@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 public interface OrderService {
     Order create(JsonNode orderData);
 
-    Order findById(long id);
+    Order findById(Long id);
 
     List<Order> findByUsername(String username);
 

@@ -112,9 +112,9 @@ CREATE TABLE [dbo].[orders] (
     [user_id]        INT            NOT NULL,
     [voucher_id]     INT            NULL,
     [total]          FLOAT (53)     DEFAULT ((0)) NOT NULL,
-    [updated_at]     INT            NULL,
+    [updated_at]     DATE           NULL,
     [created_at]     DATE           DEFAULT (getdate()) NOT NULL,
-    [deleted_at]     INT            NULL,
+    [deleted_at]     DATE           NULL,
     CONSTRAINT [PK_orders] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_4] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_71] FOREIGN KEY ([voucher_id]) REFERENCES [dbo].[vouchers] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
@@ -164,5 +164,14 @@ select * from orders
 select * from order_details
 
 
-ALTER TABLE users
-ADD Email varchar(255);
+-- Update rows in table '[TableName]' in schema '[dbo]'
+UPDATE [dbo].[users]
+SET
+    fullname = 'Nguyen Tran Batman'
+    -- Add more columns and values here
+WHERE /* add search conditions here */
+id = '100001'
+GO
+
+alter table orders
+alter column [updated_at]  DATE

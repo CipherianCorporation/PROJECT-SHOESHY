@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,13 +34,17 @@ public class Voucher implements Serializable {
     private String code;
     private String description;
     private Double value;
+
     // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
     @Temporal(TemporalType.DATE)
-    private Date start_date = new Date();
+    @Column(name = "start_date")
+    private Date startDate = new Date();
     @Temporal(TemporalType.DATE)
-    private Date end_date;
+    @Column(name = "end_date")
+    private Date endDate;
     @Temporal(TemporalType.DATE)
-    private Date updated_at;
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "voucher")
