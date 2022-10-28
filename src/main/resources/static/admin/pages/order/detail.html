@@ -15,13 +15,12 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    <tr ng-repeat="details in orderDetails">
-                        <td>0001</td>
-                        <td>Nike Air F1</td>
-                        <td>1.000.000</td>
-                        <td>2</td>
-                        <td>2.000.000</td>
+                    <tr ng-repeat="details in detail_items">
+                        <td>{{details.product.id}}</td>
+                        <td>{{details.product.name}}</td>
+                        <td>{{details.product.price}}</td>
+                        <td>{{details.quantity}}</td>
+                        <td>{{details.product.price * details.quantity}}</td>
                     </tr>
                 </tbody>
             </table>

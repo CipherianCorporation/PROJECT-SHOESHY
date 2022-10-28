@@ -24,21 +24,25 @@
                         <th>STT</th>
                         <th>Mã Đơn Hàng.</th>
                         <th>Ngày Đặt Hàng</th>
+                        <th>Trạng thái đơn hàng</th>
                         <th>Địa Chỉ Giao Hàng</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>0001</td>
-                        <td>27/03/2022</td>
-                        <td>167 Đặng Thùy Trâm, p13, Bình Thạnh</td>
+                    <tr ng-repeat="item in list_items">
+                        <td>{{$index+1}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.created_at}}</td>
+                        <td>{{item.order_status}}</td>
+                        <td>{{item.address}}</td>
                         <td>
-                            <a class="btn btn-secondary">
+                            <button ng-show="item.order_status == 'processing'" class="btn btn-secondary" ng-click="update_status(item)">
+                                Success
+                            </button>
+                            <button class="btn btn-secondary" ng-click="order_detail(item)">
                                 <i class="fas fa-arrow-right"></i>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 </tbody>

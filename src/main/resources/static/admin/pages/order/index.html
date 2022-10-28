@@ -10,17 +10,32 @@
 <div class="container">
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" data-mdb-toggle="tab" role="tab" href="#home" aria-selected="true">Danh Sách Đơn Hàng</a>
+            <a class="nav-link active"
+               id="ex1-tab-1"
+               data-mdb-toggle="tab"
+               href="#ex1-tabs-1"
+               role="tab"
+               aria-controls="ex1-tabs-1"
+               aria-selected="true">Danh Sách Đơn Hàng</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-mdb-toggle="tab" role="tab" href="#menu1" aria-selected="true">Chi Tiết Đơn Hàng</a>
+            <a class="nav-link"
+               id="ex1-tab-2"
+               data-mdb-toggle="tab"
+               href="#ex1-tabs-2"
+               role="tab"
+               aria-controls="ex1-tabs-2"
+               aria-selected="false">Chi Tiết Đơn Hàng</a>
         </li>
     </ul>
     <div class="tab-content pt-2">
-        <div id="home" class="container tab-pane active" role="tabpanel">
+        <div class="container tab-pane fade show active"
+             id="ex1-tabs-1"
+             role="tabpanel"
+             aria-labelledby="ex1-tab-1">
             <div ng-include="'/admin/pages/order/list.html'"></div>
         </div>
-        <div id="menu1" class="container tab-pane fade" role="tabpanel">
+        <div class="container tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
             <div ng-include="'/admin/pages/order/detail.html'"></div>
         </div>
     </div>
