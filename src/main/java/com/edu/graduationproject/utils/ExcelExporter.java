@@ -1,6 +1,7 @@
 package com.edu.graduationproject.utils;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -128,6 +129,8 @@ public class ExcelExporter<T> {
         Cell cell = row.createCell(colCount);
         if (value instanceof Boolean) {
             cell.setCellValue((Boolean) value);
+        } else if (value instanceof Long) {
+            cell.setCellValue((Long) value);
         } else if (value instanceof String) {
             cell.setCellValue((String) value);
         } else if (value instanceof Double) {
@@ -135,7 +138,7 @@ public class ExcelExporter<T> {
         } else if (value instanceof Integer) {
             cell.setCellValue((Integer) value);
         } else if (value instanceof Date) {
-            cell.setCellValue((Date) value);
+            cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd").format(value));
         } else if (value instanceof LocalDate) {
             cell.setCellValue(((LocalDate) value).format(DateTimeFormatter.ISO_DATE));
         } else if (value instanceof Enum) {
