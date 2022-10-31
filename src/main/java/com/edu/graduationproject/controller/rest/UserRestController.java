@@ -55,6 +55,7 @@ public class UserRestController {
             map.put("phone", loggedinUser.get().getPhone());
             map.put("email", loggedinUser.get().getEmail());
             map.put("address", loggedinUser.get().getAddress());
+            map.put("fullname", loggedinUser.get().getFullname());
             map.put("image_url", loggedinUser.get().getImage_url());
             return ResponseEntity.ok(map);
         } catch (NoSuchElementException e) {
@@ -100,7 +101,7 @@ public class UserRestController {
             if (user.getProvider() != AuthProvider.DATABASE) {
                 user.setProvider(AuthProvider.DATABASE);
             }
-            user.setUpdated_at(new Date());
+            user.setUpdatedAt(new Date());
             user.setPassword(existingUser.get().getPassword());
             ;
             System.out

@@ -6,13 +6,12 @@ function orderCtrl($scope, $http, $window) {
     $scope.detail_items = [];
     $scope.form = {};
     $scope.user = {};
-
-    $scope.swich_order_list = function (){
+    $scope.swich_order_list = function () {
         var url = "http://" + $window.location.host + "/order/list";
         $window.location.href = url;
-    }
+    };
 
-    $scope.get_user_id = function (){
+    $scope.get_user_id = function () {
         $http.get("/rest/users/principal").then(resp => {
             $scope.user = resp.data;
             localStorage.setItem("user", JSON.stringify(resp.data.id));
@@ -20,6 +19,7 @@ function orderCtrl($scope, $http, $window) {
             console.log("Error", error);
         });
     }
+    };
 
     $scope.initializez = function () {
         let list;
@@ -63,6 +63,10 @@ function orderCtrl($scope, $http, $window) {
         }
         $scope.initializez();
     }
+            return;
+        }
+        $scope.initializez();
+    };
 
     $scope.check();
 

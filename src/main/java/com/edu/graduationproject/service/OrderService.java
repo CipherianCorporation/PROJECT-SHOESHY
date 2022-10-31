@@ -9,7 +9,7 @@ import java.util.List;
 public interface OrderService {
     Order create(JsonNode orderData);
 
-    Order findById(long id);
+    Order findById(Long id);
 
     List<Order> findByUsername(String username);
 

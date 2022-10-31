@@ -31,7 +31,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <!-- category list START -->
                         <li class="nav-item" ng-repeat="ca in categories">
-                            <a class="nav-link" href="#" ng-click="filterProductByCategory(ca.id)">
+                            <a class="nav-link" href="" ng-click="filterProductByCategory(ca.id)">
                                 <img ng-src="{{'/assets/images/'+ ca.image_url}}" class="rounded-circle" height="22" alt="category icon" loading="lazy" />
                                 {{ca.name}}
                             </a>
@@ -39,7 +39,7 @@
                         <!-- category list END -->
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#" ng-click="filterProductBySaleOff()">
+                            <a class="nav-link" href="" ng-click="filterProductBySaleOff()">
                                 <img src="https://cdn2.iconfinder.com/data/icons/ecommerce-solid-icons-vol-2/64/088-512.png" class="rounded-circle" height="22"
                                     alt="Black and White Portrait of a Man" loading="lazy">
                                 Sale off

@@ -25,4 +25,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "UPDATE orders SET order_status = ? WHERE id = ?",
             nativeQuery = true)
     public int updateStatus(String orderStatus, Long orderId);
+    @Query("SELECT o FROM Order o WHERE o.user.username=?1")
+    List<Order> findByUsername(String username);
 }
