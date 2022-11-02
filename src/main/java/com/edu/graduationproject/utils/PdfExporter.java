@@ -31,7 +31,8 @@ public class PdfExporter<T> {
     private String[] userHeaders = { "ID", "Username", "Password", "Email", "Phone", "ImageUrl", "Enabled", "Provider",
             "Authorities", };
     // private String[] categoryHeaders = { "ID", "Category Name" };
-    private String[] productHeaders = { "ID", "Name", "Price", "Image", "Available", "Create Date", "Category Name" };
+    private String[] productHeaders = { "ID", "Name", "Image", "Price", "Available", "Color", "Size", "Sale off",
+            "Sold", "Description", "Category", "SubCategory", "Created By", "Updated At", "Created At" };
     private String[] orderHeaders = { "ID", "Address", "Create Date", "Username" };
 
     public PdfExporter(List<T> list, String title) throws DocumentException, IOException {
@@ -80,7 +81,7 @@ public class PdfExporter<T> {
         cell.setBackgroundColor(CMYKColor.LIGHT_GRAY);
         cell.setPadding(5);
         // set table header font
-        Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 10, Font.BOLD);
+        Font font = FontFactory.getFont(FontFactory.TIMES_ROMAN, 8, Font.BOLD);
         font.setColor(CMYKColor.WHITE);
         // create table header data
         for (String str : headers) {
@@ -89,7 +90,7 @@ public class PdfExporter<T> {
         }
 
         // create table data
-        Font tableCellFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 10, Font.NORMAL);
+        Font tableCellFont = FontFactory.getFont(FontFactory.TIMES_ROMAN, 7, Font.NORMAL);
         for (T item : list) {
             if (item instanceof User) {
                 User user = (User) item;
@@ -106,11 +107,19 @@ public class PdfExporter<T> {
                 Product product = (Product) item;
                 table.addCell(product.getId().toString());
                 table.addCell(product.getName());
-                table.addCell(product.getPrice().toString());
                 table.addCell(product.getImage());
+                table.addCell(product.getPrice().toString());
                 table.addCell(product.getAvailable().toString());
-                table.addCell(product.getCreatedAt().toString());
-                table.addCell(product.getCategory().getName());
+                table.addCell(String.valueOf(product.getColor().getName()));
+                table.addCell(
+                        product.getSize() == null ? "" : CommonUtils.integerToString(product.getSize().getValue()));
+                table.addCell(String.valueOf(product.getSale_off()));
+                table.addCell(String.valueOf(product.getSold()));
+                table.addCell("" + product.getCategory().getName());
+                table.addCell("" + product.getSubCategory().getName());
+                table.addCell(product.getUser().getUsername());
+                table.addCell(DateUtils.formatDateTime(product.getUpdatedAt()));
+                table.addCell(DateUtils.formatDateTime(product.getCreatedAt()));
             } else if (item instanceof Order) {
                 Order order = (Order) item;
                 table.addCell(order.getId().toString());

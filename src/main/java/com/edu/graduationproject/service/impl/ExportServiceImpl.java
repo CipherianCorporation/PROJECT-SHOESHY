@@ -34,7 +34,6 @@ public class ExportServiceImpl implements ExportService {
 
     @Override
     public void exportExcel(Object entity, String fileAndSheetName, HttpServletResponse response) throws IOException {
-        // TODO Auto-generated method stub
         response.setContentType("appplication/octet-stream;charset=UTF-8");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -52,12 +51,10 @@ public class ExportServiceImpl implements ExportService {
             ExcelExporter<Order> excelExporter = new ExcelExporter<Order>(orderService.findAll(), fileAndSheetName);
             excelExporter.export(response);
         }
-        
     }
 
     @Override
     public void exportPDF(Object entity, String fileAndTitleName, HttpServletResponse response) throws IOException {
-        // TODO Auto-generated method stub
         response.setContentType("appplication/pdf;charset=UTF-8");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -80,7 +77,6 @@ public class ExportServiceImpl implements ExportService {
 
     @Override
     public void exportCSV(Object entity, String fileAndTitleName, HttpServletResponse response) throws IOException {
-        // TODO Auto-generated method stub
         response.setContentType("text/csv;charset=UTF-8");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -101,5 +97,4 @@ public class ExportServiceImpl implements ExportService {
         }
     }
 
-   
 }

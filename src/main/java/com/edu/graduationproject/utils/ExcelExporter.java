@@ -34,7 +34,8 @@ public class ExcelExporter<T> {
     String[] userHeaders = { "ID", "Username", "Password", "Email", "Phone", "ImageUrl", "Enabled", "Provider",
             "Authorities", };
     String[] categoryHeaders = { "ID", "Category Name" };
-    String[] productHeaders = { "ID", "Name", "Price", "Image", "Available", "Create Date", "Category Name" };
+    String[] productHeaders = { "ID", "Name", "Image", "Price", "Available", "Color", "Size", "Sale off", "Sold",
+            "Description", "Category", "SubCategory", "Created By", "Updated At", "Created At" };
     String[] orderHeaders = { "ID", "Address", "Create Date", "Username" };
 
     public ExcelExporter(List<T> list, String sheetName) {
@@ -101,14 +102,21 @@ public class ExcelExporter<T> {
                 createCell(row, colCount++, user.getAuthorities(), style);
             } else if (item instanceof Product) {
                 Product product = (Product) item;
-                // System.out.println(product.toString());
                 createCell(row, colCount++, product.getId(), style);
                 createCell(row, colCount++, product.getName(), style);
-                createCell(row, colCount++, product.getPrice(), style);
                 createCell(row, colCount++, product.getImage(), style);
+                createCell(row, colCount++, product.getPrice(), style);
                 createCell(row, colCount++, product.getAvailable(), style);
-                createCell(row, colCount++, product.getCreatedAt(), style);
+                createCell(row, colCount++, product.getColor().getName(), style);
+                createCell(row, colCount++, product.getSize() == null ? "" : product.getSize().getValue(), style);
+                createCell(row, colCount++, product.getSale_off(), style);
+                createCell(row, colCount++, product.getSold(), style);
+                createCell(row, colCount++, product.getDescription() == null ? "" : product.getDescription(), style);
                 createCell(row, colCount++, product.getCategory().getName(), style);
+                createCell(row, colCount++, product.getSubCategory().getName(), style);
+                createCell(row, colCount++, product.getUser().getUsername(), style);
+                createCell(row, colCount++, DateUtils.formatDateTime(product.getUpdatedAt()), style);
+                createCell(row, colCount++, DateUtils.formatDateTime(product.getCreatedAt()), style);
             } else if (item instanceof Category) {
                 Category category = (Category) item;
                 createCell(row, colCount++, category.getId(), style);

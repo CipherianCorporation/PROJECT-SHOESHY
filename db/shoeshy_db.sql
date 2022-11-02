@@ -143,7 +143,7 @@ CREATE TABLE [dbo].[orders] (
     CONSTRAINT [PK_orders] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_4] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_71] FOREIGN KEY ([voucher_id]) REFERENCES [dbo].[vouchers] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT [FK_711] FOREIGN KEY ([order_status]) REFERENCES [dbo].[order_statuses] ([name]) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT [FK_711] FOREIGN KEY ([order_status]) REFERENCES [dbo].[order_statuses] ([name]) 
 );
 
 CREATE TABLE [dbo].[order_details] (
@@ -188,6 +188,7 @@ select * from roles
 select * from user_roles
 select * from orders
 select * from order_details
+select * from order_statuses
 select * from vouchers
 
 
@@ -200,3 +201,16 @@ WHERE /* add search conditions here */
 id = '100015'
 GO
 
+ CONSTRAINT [FK_711] FOREIGN KEY ([order_status]) REFERENCES [dbo].[order_statuses] ([name])
+
+ ALTER TABLE orders 
+ add CONSTRAINT [FK_711] FOREIGN KEY ([order_status]) REFERENCES [dbo].[order_statuses] ([name]) 
+
+ -- Update rows in table '[TableName]' in schema '[dbo]'
+ UPDATE [dbo].[orders]
+ SET
+    order_status = 'success'
+     -- Add more columns and values here
+ WHERE /* add search conditions here */
+ id = '100002'
+ GO

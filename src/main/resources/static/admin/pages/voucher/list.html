@@ -3,17 +3,12 @@
         <thead class="table-light">
             <tr>
                 <th>ID</th>
-                <th>Tên</th>
-                <th>Giá</th>
-                <th>Có sẵn?</th>
-                <th>Màu</th>
-                <th>Size</th>
-                <th>Sale off</th>
-                <th>Đã bán</th>
-                <th>Danh mục</th>
-                <th>Danh mục con</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Giá trị giảm</th>
+                <th>Ngày hiệu lực</th>
+                <th>Ngày kết thúc</th>
                 <th>Ngày update</th>
-                <th>Ngày tạo</th>
                 <th></th>
             </tr>
         </thead>
@@ -29,17 +24,12 @@
             </tr>
             <tr ng-repeat="item in pager.items">
                 <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.price | currency:'đ':0}}</td>
-                <td>{{item.available ? 'Có':'Không'}}</td>
-                <td>{{item.color.name}}</td>
-                <td>{{item.size.value}}</td>
-                <td>{{item.sale_off}}%</td>
-                <td>{{item.sold}}</td>
-                <td>{{item.category.name}}</td>
-                <td>{{item.subCategory.name}}</td>
-                <td>{{item.updatedAt | date:'dd-MM-yyyy'}}</td>
-                <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
+                <td>{{item.code}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.value}}%</td>
+                <td>{{item.startDate | date:'dd-MM-yyyy'}}}}</td>
+                <td>{{item.endDate | date:'dd-MM-yyyy'}}}}</td>
+                <td>{{item.updatedAt | date:'dd-MM-yyyy'}}}}</td>
                 <td>
                     <button type="button" class="btn btn-dark" ng-click="edit(item)">Edit</button>
                     <button type="button" class="btn btn-danger" ng-click="delete(item)">Del</button>

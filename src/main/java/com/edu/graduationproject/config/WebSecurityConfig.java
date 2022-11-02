@@ -80,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/webjars/**",
                                                 "/error**",
                                                 "/assets/**",
+                                                "/upload/images/**",
                                                 "/file/**/*.*",
                                                 "/*.html",
                                                 "/favicon.ico",
@@ -89,7 +90,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .permitAll()
                                 .antMatchers("/account/editprofile")
                                 .authenticated()
-                                .antMatchers("/admin/**",
+                                .antMatchers("/admin/products/**",
                                                 "/rest/roles",
                                                 "/rest/usersrole/**",
                                                 "/assets/admin/**")
