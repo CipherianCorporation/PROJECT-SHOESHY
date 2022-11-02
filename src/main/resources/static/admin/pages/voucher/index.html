@@ -1,0 +1,48 @@
+<!-- Section: Main chart -->
+<section class="mb-4">
+    <div class="card">
+        <div class="card-header py-3">
+            <h5 class="mb-0 text-center"><strong>Voucher</strong></h5>
+        </div>
+    </div>
+</section>
+
+<div class="container" ng-controller="voucher-ctrl">
+    <!-- Tabs navs -->
+    <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">Tạo
+                mới
+                voucher</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">Chỉnh
+                sửa</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="ex1-tab-3" data-mdb-toggle="tab" href="#ex1-tabs-3" role="tab" aria-controls="ex1-tabs-3" aria-selected="false">Danh sách
+                voucher</a>
+        </li>
+    </ul>
+    <!-- Tabs navs -->
+
+    <!-- Tabs content -->
+    <div class="tab-content" id="ex1-content">
+
+        <!-- new product form -->
+        <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+            <div ng-include="'/admin/pages/voucher/new.html'"></div>
+        </div>
+
+        <!-- edit product form -->
+        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+            <div ng-include="'/admin/pages/voucher/edit.html'"></div>
+        </div>
+
+        <!-- list products -->
+        <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+            <div ng-include="'/admin/pages/voucher/list.html'"></div>
+        </div>
+    </div>
+    <!-- Tabs content -->
+</div>

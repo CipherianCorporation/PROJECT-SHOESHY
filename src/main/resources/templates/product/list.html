@@ -41,7 +41,8 @@
                     <!-- product card START-->
                     <div class="card">
                         <a href="{{'/product/detail/' + p.id}}">
-                            <img ng-src="{{'/assets/images/'+ p.image}}" class="card-img-top" alt="Product image" />
+                            <img ng-src="{{ (p.image.startsWith('upload')?'/upload/images/':'/assets/images/') + (p.image || 'default-product.jpg') }}"
+                                class="card-img-top" alt="Product image" />
                         </a>
 
                         <div ng-show="p.sale_off != 0" class="label-top bg-danger shadow-sm">
