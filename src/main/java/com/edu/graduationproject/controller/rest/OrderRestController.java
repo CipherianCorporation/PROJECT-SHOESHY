@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.edu.graduationproject.entity.OrderDetails;
+
+import com.edu.graduationproject.model.OrderStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import com.edu.graduationproject.entity.Order;
 import com.edu.graduationproject.entity.OrderDetails;
@@ -58,6 +65,12 @@ public class OrderRestController {
     @GetMapping("/rest/order/sortstatus")
     public List<Order> findOderSortStatus(){
         return orderService.findAllSortStatus();
+    }
+
+    @PutMapping("/rest/order/order-status/{orderId}")
+    public int updateOrder(@PathVariable("orderId") Long orderId, @RequestBody Order order){
+        OrderStatus orderStatus ;
+        return orderService.updateStatus(String.valueOf(order.getOrder_status()),orderId);
     }
 
 }
