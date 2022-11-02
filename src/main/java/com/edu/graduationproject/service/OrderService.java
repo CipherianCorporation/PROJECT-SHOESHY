@@ -3,6 +3,10 @@ package com.edu.graduationproject.service;
 
 import java.util.List;
 
+import com.edu.graduationproject.entity.Order;
+import com.edu.graduationproject.entity.OrderDetails;
+import com.fasterxml.jackson.databind.JsonNode;
+
 public interface OrderService {
     Order create(JsonNode orderData);
 

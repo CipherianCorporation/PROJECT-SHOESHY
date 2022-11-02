@@ -43,7 +43,7 @@ public class OrderRestController {
 
     @Autowired
     ExportService exportService;
-    
+
     @GetMapping("/rest/orders")
     public ResponseEntity<List<Order>> getOrders() {
         return ResponseEntity.ok(orderService.findAll());
@@ -73,14 +73,14 @@ public class OrderRestController {
     }
 
     @GetMapping("/rest/order/sortstatus")
-    public List<Order> findOderSortStatus(){
+    public List<Order> findOderSortStatus() {
         return orderService.findAllSortStatus();
     }
 
     @PutMapping("/rest/order/order-status/{orderId}")
-    public int updateOrder(@PathVariable("orderId") Long orderId, @RequestBody Order order){
-        OrderStatus orderStatus ;
-        return orderService.updateStatus(String.valueOf(order.getOrder_status()),orderId);
+    public int updateOrder(@PathVariable("orderId") Long orderId, @RequestBody Order order) {
+        OrderStatus orderStatus;
+        return orderService.updateStatus(String.valueOf(order.getOrderStatus()), orderId);
     }
 
 }

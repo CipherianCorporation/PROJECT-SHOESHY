@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.openqa.selenium.json.JsonException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +16,9 @@ import com.edu.graduationproject.repository.OrderRepository;
 import com.edu.graduationproject.service.OrderService;
 import com.edu.graduationproject.service.ProductService;
 import com.edu.graduationproject.service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 @Service
 public class OrderServiceImpl implements OrderService {
