@@ -13,4 +13,12 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o WHERE o.user.username=?1")
     List<Order> findByUsername(String username);
+
+    @Query("SELECT o FROM Order o ORDER BY CASE " +
+            "WHEN o.order_status = 'processing' THEN 1 " +
+            "WHEN o.order_status = 'cancel' THEN 2 " +
+            "ELSE 3 " +
+            "END ASC")
+    public List<Order> findSortWithStatus();
+
 }
