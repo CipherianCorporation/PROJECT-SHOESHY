@@ -83,10 +83,9 @@ public class OrderRestController {
         return orderService.findAllSortStatus();
     }
 
-    @PutMapping("/rest/order/order-status/{orderId}")
+    @PutMapping("/rest/order/orderstatus/{orderId}")
     public int updateOrder(@PathVariable("orderId") Long orderId, @RequestBody Order order) {
-        OrderStatus orderStatus;
-        return orderService.updateStatus(String.valueOf(order.getOrderStatus()), orderId);
+        return orderService.updateStatus(String.valueOf(order.getOrderStatus().getName()), orderId);
     }
 
 }

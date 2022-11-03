@@ -46,6 +46,9 @@
                                 <td>{{list.payment_method}}</td>
                                 <td>{{list.address}}</td>
                                 <td>
+                                    <button ng-show="list.orderStatus.name == 'processing'" class="btn btn-secondary" ng-click="update_status(list)">
+                                        Hủy đơn hàng
+                                    </button>
                                     <button class="btn btn-secondary" ng-click="switchPage(list)">
                                         <i class="fas fa-arrow-right"></i>
                                     </button>

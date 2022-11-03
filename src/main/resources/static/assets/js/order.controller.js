@@ -19,7 +19,6 @@ function orderCtrl($scope, $http, $window) {
             console.log("Error", error);
         });
     }
-    };
 
     $scope.initializez = function () {
         let list;
@@ -62,12 +61,19 @@ function orderCtrl($scope, $http, $window) {
             return ;
         }
         $scope.initializez();
-    }
-            return;
-        }
-        $scope.initializez();
     };
 
     $scope.check();
 
+    $scope.update_status = function (item) {
+        item.orderStatus.name = "cancel";
+        $http.put(`/rest/order/orderstatus/${item.id}`,item).then(resp=>{
+            $scope.initialize();
+            alert("Cập nhập trạng thái đơn hàng thành công")
+        }).catch(error=>{
+            alert("Lỗi cập nhập trạng thái");
+            $scope.initialize();
+            console.log("Error",error);
+        })
+    }
 }
