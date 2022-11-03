@@ -88,4 +88,8 @@ public class OrderRestController {
         return orderService.updateStatus(String.valueOf(order.getOrderStatus().getName()), orderId);
     }
 
+    @GetMapping("/rest/order/{orderId}")
+    public  List<Order> findByIdForSearch(@PathVariable("orderId") Long orderId){
+        return orderService.searchByOrderId(orderId);
+    }
 }

@@ -8,16 +8,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <select class="form-select" aria-label="User select">
-                <option>
-                    <div class="d-flex justify-content-center my-4">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                </option>
-                <option>Nguyễn Thanh Tâm</option>
-            </select>
+            <input type="text" class="form-control" placeholder="Mã đơn hàng" ng-keyup="search(text)" ng-model="text">
             <table class="table">
                 <thead>
                     <tr>

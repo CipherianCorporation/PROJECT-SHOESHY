@@ -36,4 +36,17 @@ app.controller("order-ctrl", function ($scope, $http) {
             console.log("Error", error);
         });
     }
+
+    $scope.search = function (text) {
+        if(text){
+            $http.get(`/rest/order/${text}`).then(resp => {
+                $scope.list_items = resp.data;
+            }).catch(error => {
+                console.log("Error", error);
+            });
+        }else {
+            $scope.initialize();
+        }
+
+    }
 });

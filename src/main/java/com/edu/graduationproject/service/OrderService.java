@@ -22,4 +22,6 @@ public interface OrderService {
     List<Order> findAllSortStatus();
 
     int updateStatus(String orderStatus, Long orderId);
+
+    List<Order> searchByOrderId(Long orderId);
 }
