@@ -1,6 +1,7 @@
 package com.edu.graduationproject.utils;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -33,7 +34,8 @@ public class ExcelExporter<T> {
     String[] userHeaders = { "ID", "Username", "Password", "Fullname","Email", "Phone", "Address", "ImageUrl", "Enabled", "Provider",
            "Verify_code", "Reset_pwd_token", "Authorities", };
     String[] categoryHeaders = { "ID", "Category Name" };
-    String[] productHeaders = { "ID", "Name", "Price", "Image", "Available", "Create Date", "Category Name" };
+    String[] productHeaders = { "ID", "Name", "Image", "Price", "Available", "Color", "Size", "Sale off", "Sold",
+            "Description", "Category", "SubCategory", "Created By", "Updated At", "Created At" };
     String[] orderHeaders = { "ID", "Address", "Create Date", "Username" };
 
     public ExcelExporter(List<T> list, String sheetName) {
@@ -104,14 +106,21 @@ public class ExcelExporter<T> {
                 createCell(row, colCount++, user.getAuthorities(), style);
             } else if (item instanceof Product) {
                 Product product = (Product) item;
-                // System.out.println(product.toString());
                 createCell(row, colCount++, product.getId(), style);
                 createCell(row, colCount++, product.getName(), style);
-                createCell(row, colCount++, product.getPrice(), style);
                 createCell(row, colCount++, product.getImage(), style);
+                createCell(row, colCount++, product.getPrice(), style);
                 createCell(row, colCount++, product.getAvailable(), style);
-                createCell(row, colCount++, product.getCreatedAt(), style);
+                createCell(row, colCount++, product.getColor().getName(), style);
+                createCell(row, colCount++, product.getSize() == null ? "" : product.getSize().getValue(), style);
+                createCell(row, colCount++, product.getSale_off(), style);
+                createCell(row, colCount++, product.getSold(), style);
+                createCell(row, colCount++, product.getDescription() == null ? "" : product.getDescription(), style);
                 createCell(row, colCount++, product.getCategory().getName(), style);
+                createCell(row, colCount++, product.getSubCategory().getName(), style);
+                createCell(row, colCount++, product.getUser().getUsername(), style);
+                createCell(row, colCount++, DateUtils.formatDateTime(product.getUpdatedAt()), style);
+                createCell(row, colCount++, DateUtils.formatDateTime(product.getCreatedAt()), style);
             } else if (item instanceof Category) {
                 Category category = (Category) item;
                 createCell(row, colCount++, category.getId(), style);
@@ -120,7 +129,7 @@ public class ExcelExporter<T> {
                 Order order = (Order) item;
                 createCell(row, colCount++, order.getId(), style);
                 createCell(row, colCount++, order.getAddress(), style);
-                createCell(row, colCount++, order.getCreated_at(), style);
+                createCell(row, colCount++, order.getCreatedAt(), style);
                 createCell(row, colCount++, order.getUser().getUsername(), style);
             }
         }
@@ -132,6 +141,8 @@ public class ExcelExporter<T> {
         Cell cell = row.createCell(colCount);
         if (value instanceof Boolean) {
             cell.setCellValue((Boolean) value);
+        } else if (value instanceof Long) {
+            cell.setCellValue((Long) value);
         } else if (value instanceof String) {
             cell.setCellValue((String) value);
         } else if (value instanceof Double) {
@@ -139,7 +150,7 @@ public class ExcelExporter<T> {
         } else if (value instanceof Integer) {
             cell.setCellValue((Integer) value);
         } else if (value instanceof Date) {
-            cell.setCellValue((Date) value);
+            cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd").format(value));
         } else if (value instanceof LocalDate) {
             cell.setCellValue(((LocalDate) value).format(DateTimeFormatter.ISO_DATE));
         } else if (value instanceof Enum) {

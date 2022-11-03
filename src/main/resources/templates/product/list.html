@@ -36,18 +36,24 @@
             <!-- product list -->
             <div class="row row-cols-1 row-cols-md-4 g-4 mb-4" style="min-height: 50vh;">
                 <div class="col-md-3 col-lg-3 col-sm-12"
-                    ng-repeat="p in pager.productList | filter : {color: selectedColor} | rangeFilter:'price':0:priceRange">
+                    ng-repeat="p in pager.productList | filter : {color: {name: selectedColor}} | rangeFilter:'price':0:priceRange">
 
                     <!-- product card START-->
                     <div class="card">
                         <a href="{{'/product/detail/' + p.id}}">
-                            <img ng-src="{{'/assets/images/'+ p.image}}" class="card-img-top" alt="Product image" />
+                            <img ng-src="{{ (p.image.startsWith('upload')?'/upload/images/':'/assets/images/') + (p.image || 'default-product.jpg') }}"
+                                class="card-img-top" alt="Product image" />
                         </a>
+
+                        <div ng-show="p.sale_off != 0" class="label-top bg-danger shadow-sm">
+                            <a class="text-white" href="#">Sale: {{p.sale_off | number: 0}}%</a>
+                        </div>
+
                         <div class="card-body">
                             <h5 class="card-title">{{p.name}}</h5>
-                            <p>{{p.color}}</p>
+                            <p>{{p.color.name}}</p>
                             <p class="card-text d-flex justify-content-between">
-                                <span style="color: red;"><sup>đ</sup> {{p.price | number:0}}</span>
+                                <span><sup>đ</sup> {{p.price | number:0}}</span>
                                 <span style="color: grey;">Đã bán {{p.sold}}</span>
                             </p>
                             <div class="d-grid gap-2">

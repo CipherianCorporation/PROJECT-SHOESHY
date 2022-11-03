@@ -1,6 +1,29 @@
 app.controller("shopping-cart-ctrl", shoppingCartCtrl);
 
 function shoppingCartCtrl($scope, $http) {
+
+    $scope.userPrincipal = {};
+    $scope.cartOrderType = '';
+    $scope.checkoutSortUI = [
+        { code: 'price_asc', name: 'Giá (Tăng dần)' },
+        { code: 'price_desc', name: 'Giá (Giảm dần)' },
+    ];
+
+    $scope.get_user_pricipal = function () {
+        $http.get("/rest/users/principal").then(resp => {
+            $scope.userPrincipal = resp.data;
+            // localStorage.setItem("user", JSON.stringify(resp.data.id));
+        }).catch(error => {
+            console.log("Error", error);
+        });
+    };
+
+    $scope.initialize = function () {
+        $scope.get_user_pricipal();
+    };
+
+    $scope.initialize();
+
     $scope.cart = {
         items: [],
         //Thêm
@@ -59,40 +82,60 @@ function shoppingCartCtrl($scope, $http) {
     // fetch('/rest/users/' + $('#login-username').text()).then(res => res.json()).then(data => { user = data; });
     // console.log(user);
 
+    $scope.sortCheckoutItems = function (orderType) {
+        if (orderType === 'price_asc') {
+            $scope.cartOrderType = 'price';
+        } else if (orderType === 'price_desc') {
+            $scope.cartOrderType = '-price';
+        }
+    };
+
     $scope.order = {
-        create_date: new Date(),
-        total: $scope.cart.amount,
-        address: "",
+        // createdAt: new Date(),
+        total: parseFloat($scope.cart.amount),
+        address: '',
         payment_method: "",
-        order_status: "processing",
+        orderStatus: {
+            name: "processing"
+        },
         user: {
-            username: $('#login-username').text()
+            username: '',
         },
         get order_details() {
             return $scope.cart.items.map(item => {
                 return {
                     product: { id: item.id },
-                    price: item.price,
-                    quantity: item.qty,
+                    price: parseFloat(item.price),
+                    quantity: parseInt(item.qty),
                 };
             });
         },
         purchase() {
             let order = angular.copy(this);
-            if (order.payment_method === "paypal") {
-                document.getElementById('purchase-form').submit();
-            } else if (order.payment_method === "cod") {
-                order.total += 20000;
-                console.log(order);
-                $http.post('/rest/orders', order).then(res => {
-                    alert("Order successfully created");
-                    $scope.cart.clear();
-                    location.href = "/order/detail/" + res.data.id;
-                }).catch(err => {
-                    alert("Error creating order or your cart is empty! Please try again!");
-                    console.log(err);
-                });
+            order.address = $scope.userPrincipal.address;
+            order.user.username = $scope.userPrincipal.username;
+            console.log(order);
+            if ($scope.cart.count === 0) {
+                alert("Error creating order or your cart is empty! Please try again!");
+            } else {
+                if (order.payment_method == "paypal") {
+                    document.getElementById('purchase-form').submit();
+                    console.log('paypal boi');
+                } else if (order.payment_method == "cod") {
+                    order.total += 20000;
+                    console.log('cod boi');
+                    $http.post('/rest/orders', order).then(res => {
+                        alert("Order successfully created");
+                        $scope.cart.clear();
+                        location.href = "/order/list";
+                    }).catch(err => {
+                        alert("Error creating order or your cart is empty! Please try again!");
+                        console.log(err);
+                    });
+                }
             }
         }
     };
+
+
 }

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2022-10-19T16:44:07 GMT+07:00" name="Default suite" finished-at="2022-10-19T16:44:14 GMT+07:00" duration-ms="7517">
+    <groups>
+    </groups>
+    <test started-at="2022-10-19T16:44:07 GMT+07:00" name="Default test" finished-at="2022-10-19T16:44:14 GMT+07:00" duration-ms="7517">
+      <class name="com.edu.graduationproject.test.ahha">
+        <test-method is-config="true" signature="suiteseup()[pri:0, instance:com.edu.graduationproject.test.ahha@3336e6b6]" started-at="2022-10-19T16:44:07 GMT+07:00" name="suiteseup" finished-at="2022-10-19T16:44:10 GMT+07:00" duration-ms="3033" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- suiteseup -->
+        <test-method signature="f()[pri:1, instance:com.edu.graduationproject.test.ahha@3336e6b6]" started-at="2022-10-19T16:44:10 GMT+07:00" name="f" finished-at="2022-10-19T16:44:11 GMT+07:00" duration-ms="1220" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- f -->
+        <test-method signature="FillloginDetails()[pri:2, instance:com.edu.graduationproject.test.ahha@3336e6b6]" started-at="2022-10-19T16:44:11 GMT+07:00" name="FillloginDetails" finished-at="2022-10-19T16:44:11 GMT+07:00" duration-ms="221" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- FillloginDetails -->
+        <test-method signature="dologinDetails()[pri:3, instance:com.edu.graduationproject.test.ahha@3336e6b6]" started-at="2022-10-19T16:44:11 GMT+07:00" name="dologinDetails" finished-at="2022-10-19T16:44:14 GMT+07:00" duration-ms="2699" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- dologinDetails -->
+        <test-method is-config="true" signature="teardown()[pri:0, instance:com.edu.graduationproject.test.ahha@3336e6b6]" started-at="2022-10-19T16:44:14 GMT+07:00" name="teardown" finished-at="2022-10-19T16:44:14 GMT+07:00" duration-ms="291" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- com.edu.graduationproject.test.ahha -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

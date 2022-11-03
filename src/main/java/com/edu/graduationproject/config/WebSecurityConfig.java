@@ -68,7 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/categories/**",
                                                 "/rest/upload/**",
                                                 "/rest/order/**",
-                                                "/order/**",
                                                 "/rest/sub-categories/**",
                                                 "/cart/**",
                                                 "/account/**",
@@ -81,6 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/webjars/**",
                                                 "/error**",
                                                 "/assets/**",
+                                                "/upload/images/**",
                                                 "/file/**/*.*",
                                                 "/*.html",
                                                 "/favicon.ico",
@@ -88,8 +88,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/**/*.css",
                                                 "/**/*.js")
                                 .permitAll()
-                                .antMatchers("/account/editprofile").authenticated()
-                                .antMatchers("/admin/**",
+                                .antMatchers("/account/editprofile")
+                                .authenticated()
+                                .antMatchers("/admin/products/**",
                                                 "/rest/roles",
                                                 "/rest/usersrole/**",
                                                 "/assets/admin/**")

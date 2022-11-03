@@ -1,7 +1,10 @@
 package com.edu.graduationproject.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.edu.graduationproject.entity.Order;
+import com.edu.graduationproject.utils.ExcelExporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.edu.graduationproject.service.OrderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -45,5 +54,22 @@ public class OrderController {
     @GetMapping("/order/detail")
     public String viewDetailOrder(){
         return "order/detail";
+    }
+
+    @GetMapping("/orders/export/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Orders" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Order> listOrder = orderService.findAll();
+        String sheetName = "Orders";
+        ExcelExporter excelExporter = new ExcelExporter(listOrder,sheetName);
+
+        excelExporter.export(response);
     }
 }

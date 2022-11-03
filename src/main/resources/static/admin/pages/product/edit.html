@@ -1,79 +1,96 @@
-<form class="form">
+<form class="form" enctype="multipart/form-data" name="myEditForm" novalidate>
     <!-- Text input -->
     <div class="mb-2">
-        <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img image" style="max-width: 20vw; max-height: 20vh;"
-            alt="User image" />
+        <label for="image">
+            <img ng-src="{{ (editForm.image.startsWith('upload')?'/upload/images/':'/assets/images/') + (editForm.image || 'default-product.jpg') }}"
+                class="card-img image" style="max-width: 20vw; max-height: 20vh;" alt="Product image" />
+        </label>
     </div>
-    <input type="file" class="form-control mb-4" id="customFile" />
+    <input type="file" class="form-control" id="image" onchange="angular.element(this).scope().imageChanged(this.files)" ng-model="editForm.image">
 
     <!-- Text input -->
     <label for="form6Example3">Mã sản phẩm</label>
     <div class=" mb-4">
-        <input type="text" id="form6Example3" class="form-control" disabled />
+        <input type="text" id="updateProdId" class="form-control" ng-model="editForm.id" name="id" disabled />
     </div>
 
     <!-- Text input -->
     <label for="form6Example3">Tên sản phẩm</label>
     <div class=" mb-4">
-        <input type="text" id="form6Example3" class="form-control" />
+        <input type="text" id="updateProdName" class="form-control" ng-model="editForm.name" name="name" required />
+        <div class="text-danger" ng-show="myEditForm.name.$invalid">Xin hãy nhập tên sản phẩm.</div>
     </div>
 
     <!-- Text input -->
     <label for="form6Example3">Giá</label>
-    <div class=" mb-4">
-        <input type="number" id="form6Example4" class="form-control" />
+    <div class="form-outline-primary mb-4">
+        <input type="number" id="form6Example4" class="form-control" ng-model="editForm.price" name="price" min="1000" title="Min price is 1000 VND" required />
+        <div class="text-danger" ng-show="myEditForm.price.$invalid">Xin hãy nhập giá sản phẩm.</div>
     </div>
 
     <!-- Text input -->
-    <label for="form6Example3">Màu</label>
-    <div class=" mb-4">
-        <input type="text" id="form6Example4" class="form-control" />
+    <label for="form6Example3">Màu: {{editForm.color.name}}</label>
+    <div class="form-outline-primary mb-4">
+        <select class="select" ng-model="editForm.color.name">
+            <option ng-if="colors.length === 0" disabled selected>Đang load...</option>
+            <option ng-repeat="c in colors" value="{{c.name}}">{{c.name}}</option>
+        </select>
     </div>
 
     <!-- Number input -->
-    <label for="form6Example3">Size</label>
-    <div class=" mb-4">
-        <input type="number" id="form6Example6" class="form-control" />
+    <label for="form6Example3">Kích cỡ: {{editForm.size.value}}</label>
+    <div class="form-outline-primary mb-4">
+        <select class="select" ng-model="editForm.size.value">
+            <option ng-if="sizes.length === 0" disabled selected>Đang load...</option>
+            <option ng-selected="editForm.size.value == c.value" value="{{c.value}}" ng-value="c.value" ng-repeat="c in sizes">{{c.value}}</option>
+        </select>
     </div>
 
     <!-- Message input -->
-    <label class="form-label" for="customRange1">Giảm giá</label>
-    <div class=" mb-4">
+    <label class="form-label" for="customRange1">Giảm giá: <strong>{{editForm.sale_off}}%</strong></label>
+    <div class="form-outline-primary mb-4">
         <div class="range">
-            <input type="range" class="form-range" id="customRange1" />
+            <input type="number" id="sale_off" class="form-control" ng-model="editForm.sale_off" name="sale_off" min="0" max="100" title="Min sale off is 0%"
+                required />
         </div>
     </div>
 
     <!-- Text input -->
-    <label for="form6Example3">Loại sản phẩm</label>
-    <div class="form-outline mb-4">
-        <select class="select select_category">
-            <option value="1">One</option>
-            <option value="2">Two</option>
+    <label for="form6Example3">Danh mục</label>
+    <div class="form-outline-primary mb-4">
+        <select class="select" ng-model="editForm.category.id">
+            <option ng-if="categories.length === 0" disabled selected>Đang load...</option>
+            <option ng-selected="editForm.category.id == c.id" value="{{c.id}}" ng-value="c.id" ng-repeat="c in categories">{{c.name}}</option>
         </select>
     </div>
 
     <!-- Text input -->
-    <label for="form6Example3">Sub-catagory</label>
-    <div class="form-outline mb-4">
-        <select class="select select_category">
-            <option value="1">One</option>
-            <option value="2">Two</option>
+    <label for="form6Example3">Danh mục con</label>
+    <div class="form-outline-primary mb-4">
+        <select class="select" ng-model="editForm.subCategory.id">
+            <option ng-if="sub_categories.length === 0" disabled selected>Đang load...</option>
+            <option ng-selected="editForm.subCategory.id == c.id" value="{{c.id}}" ng-value="c.id" ng-repeat="c in sub_categories">{{c.name}}</option>
         </select>
     </div>
 
     <!-- Default radio -->
-    <label for="form6Example3">Có sản?</label>
+    <label for="form6Example3">Có sẵn?</label>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-        <label class="form-check-label" for="flexRadioDefault1"> Có </label>
+        <input class="form-check-input" type="radio" name="available" id="available11" ng-value="true" value="true" ng-model="editForm.available" checked />
+        <label class="form-check-label" for="available11"> Có </label>
     </div>
-
     <!-- Default checked radio -->
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
-        <label class="form-check-label" for="flexRadioDefault2"> Không </label>
+        <input class="form-check-input" type="radio" name="available" id="available22" ng-value="false" value="false" ng-model="editForm.available" />
+        <label class="form-check-label" for="available22"> Không </label>
     </div>
+
+    <!-- Text input -->
+    <label for="form6Example3">Ghi chú</label>
+    <div class="form-outline-primary mb-4">
+        <textarea id="description2" class="form-control" ng-model="editForm.description" name="description"></textarea>
+    </div>
+
     <!-- Submit button -->
-    <button type="submit" class="btn btn-success btn-block mt-4 mb-4">Cập nhập</button>
+    <button ng-disabled="myEditForm.$invalid" ng-click="update()" type="submit" class="btn btn-success btn-block mt-4 mb-4">Cập nhập</button>
 </form>

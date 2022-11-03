@@ -41,10 +41,14 @@ public class Product implements Serializable {
     private Double price;
     private Boolean available;
 
-    @Enumerated(EnumType.STRING)
-    private ColorEnum color;
+    @ManyToOne
+    @JoinColumn(name = "color")
+    private Color color;
 
-    private Integer size;
+    @ManyToOne
+    @JoinColumn(name = "size")
+    private Size size;
+
     private Double sale_off;
     private Long sold;
     private String description;
@@ -63,13 +67,13 @@ public class Product implements Serializable {
 
     // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
     @Temporal(TemporalType.DATE)
-    @Column(name="updated_at")
+    @Column(name = "updated_at")
     private Date updatedAt;
     @Temporal(TemporalType.DATE)
-    @Column(name="created_at")
+    @Column(name = "created_at")
     private Date createdAt = new Date();
     @Temporal(TemporalType.DATE)
-    @Column(name="deleted_at")
+    @Column(name = "deleted_at")
     private Date deletedAt;
 
     @JsonIgnore

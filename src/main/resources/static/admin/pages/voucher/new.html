@@ -1,0 +1,34 @@
+<form class="form" enctype="multipart/form-data" name="myform" novalidate>
+
+    <!-- Text input -->
+    <label for="form6Example3">Code</label>
+    <div class="form-outline-primary mb-4">
+        <input type="text" id="form6Example3" class="form-control" ng-model="form.name" name="name" required />
+        <div class="text-danger" ng-show="myform.name.$invalid">Xin hãy nhập tên sản phẩm.</div>
+    </div>
+
+    <!-- Text input -->
+    <label for="form6Example3">Ghi chú</label>
+    <div class="form-outline-primary mb-4">
+        <textarea id="description" class="form-control" ng-model="form.description" name="description"></textarea>
+    </div>
+
+    <!-- Text input -->
+    <label for="form6Example3">Phần trăm giảm</label>
+    <div class="form-outline-primary mb-4">
+        <input type="number" id="form6Example4" class="form-control" ng-model="form.price" name="price" min="1000" title="Min price is 1000 VND" required />
+    </div>
+    <!-- Text input -->
+    <label for="form6Example3">Ngày hiệu lực</label>
+    <div class="form-outline-primary mb-4">
+        <input type="date" class="form-control" ng-model="form.price" name="price" required />
+    </div>
+    <!-- Text input -->
+    <label for="form6Example3">Ngày kết thúc</label>
+    <div class="form-outline-primary mb-4">
+        <input type="date" class="form-control" ng-model="form.price" name="price" required />
+    </div>
+
+    <!-- Submit button -->
+    <button ng-disabled="myform.$invalid" ng-click="create()" type="submit" class="btn btn-success btn-block mt-4 mb-4">Tạo mới</button>
+</form>

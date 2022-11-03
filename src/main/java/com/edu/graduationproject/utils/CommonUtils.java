@@ -23,6 +23,10 @@ public class CommonUtils {
         return siteURL.replace(req.getServletPath(), "");
     }
 
+    public static String integerToString(Integer n) {
+        return n == null ? "" : Integer.toString(n);
+    }
+
     public static double convertCurrency(String from, String to, Double amount) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -34,7 +38,7 @@ public class CommonUtils {
                 .addHeader("apikey", "6h7fgfiZtBDuie6LxtyKp5cqVxwjaKnV")
                 .build();
         // sync request
-        Response response = client.newCall(request).execute(); 
+        Response response = client.newCall(request).execute();
 
         JsonNode rootNode = mapper.readTree(response.body().string());
         System.out.println(rootNode.toString());
