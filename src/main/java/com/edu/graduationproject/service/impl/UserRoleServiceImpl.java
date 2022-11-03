@@ -33,20 +33,17 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public List<UserRole> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+    	return null;
     }
 
     @Override
     public UserRole create(UserRole auth) {
-        // TODO Auto-generated method stub
-        return null;
+       return null;
     }
 
     @Override
     public void delete(Integer id) {
-        // TODO Auto-generated method stub
-        
+    	return;
     }
 
 

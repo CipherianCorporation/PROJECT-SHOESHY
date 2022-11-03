@@ -28,8 +28,8 @@ public class PdfExporter<T> {
     private List<T> list;
     private String title;
     private String[] headers;
-    private String[] userHeaders = { "ID", "Username", "Password", "Email", "Phone", "ImageUrl", "Enabled", "Provider",
-            "Authorities", };
+    private String[] userHeaders = { "ID", "Username", "Password", "Fullname","Email", "Phone", "Address", "ImageUrl", "Enabled", "Provider",
+            "Verify_code", "Reset_pwd_token", "Authorities", };
     // private String[] categoryHeaders = { "ID", "Category Name" };
     private String[] productHeaders = { "ID", "Name", "Price", "Image", "Available", "Create Date", "Category Name" };
     private String[] orderHeaders = { "ID", "Address", "Create Date", "Username" };
@@ -96,11 +96,15 @@ public class PdfExporter<T> {
                 table.addCell(user.getId().toString());
                 table.addCell(user.getUsername());
                 table.addCell(user.getPassword());
+                table.addCell(user.getFullname());
                 table.addCell(user.getEmail());
                 table.addCell(user.getPhone());
+                table.addCell(user.getAddress());
                 table.addCell(user.getImage_url());
                 table.addCell(user.getEnabled().toString());
                 table.addCell(user.getProvider().toString());
+                table.addCell(user.getVerify_code());
+                table.addCell(user.getReset_pwd_token());
                 table.addCell("");
             } else if (item instanceof Product) {
                 Product product = (Product) item;

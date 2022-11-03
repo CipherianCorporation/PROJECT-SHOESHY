@@ -30,8 +30,8 @@ public class ExcelExporter<T> {
     private XSSFSheet sheet;
     private List<T> list;
     private String[] headers;
-    String[] userHeaders = { "ID", "Username", "Password", "Email", "Phone", "ImageUrl", "Enabled", "Provider",
-            "Authorities", };
+    String[] userHeaders = { "ID", "Username", "Password", "Fullname","Email", "Phone", "Address", "ImageUrl", "Enabled", "Provider",
+           "Verify_code", "Reset_pwd_token", "Authorities", };
     String[] categoryHeaders = { "ID", "Category Name" };
     String[] productHeaders = { "ID", "Name", "Price", "Image", "Available", "Create Date", "Category Name" };
     String[] orderHeaders = { "ID", "Address", "Create Date", "Username" };
@@ -92,11 +92,15 @@ public class ExcelExporter<T> {
                 createCell(row, colCount++, user.getId(), style);
                 createCell(row, colCount++, user.getUsername(), style);
                 createCell(row, colCount++, user.getPassword(), style);
+                createCell(row, colCount++, user.getFullname(), style);
                 createCell(row, colCount++, user.getEmail(), style);
                 createCell(row, colCount++, user.getPhone(), style);
+                createCell(row, colCount++, user.getAddress(), style);
                 createCell(row, colCount++, user.getImage_url(), style);
                 createCell(row, colCount++, user.getEnabled(), style);
                 createCell(row, colCount++, user.getProvider(), style);
+                createCell(row, colCount++, user.getVerify_code(), style);
+                createCell(row, colCount++, user.getReset_pwd_token(), style);
                 createCell(row, colCount++, user.getAuthorities(), style);
             } else if (item instanceof Product) {
                 Product product = (Product) item;
