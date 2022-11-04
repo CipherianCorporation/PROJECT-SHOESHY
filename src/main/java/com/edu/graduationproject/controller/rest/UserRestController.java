@@ -79,9 +79,10 @@ public class UserRestController {
 
     // admin
     @PostMapping("/rest/users")
-    public ResponseEntity<User> create(@RequestBody User user){
-    	return ResponseEntity.ok(userService.save(user));
+    public ResponseEntity<User> create(@RequestBody User user) {
+        return ResponseEntity.ok(userService.save(user));
     }
+
     // update user
     @PutMapping("/rest/users/{idOrUsername}")
     public ResponseEntity<User> update(@PathVariable("idOrUsername") Optional<Object> idOrUsername,
@@ -114,7 +115,7 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     // update admin
     @PutMapping("/rest/admin/{idOrUsername}")
     public ResponseEntity<User> adminUpdate(@PathVariable("idOrUsername") Optional<Object> idOrUsername,
@@ -135,7 +136,7 @@ public class UserRestController {
             if (user.getProvider() != AuthProvider.DATABASE) {
                 user.setProvider(AuthProvider.DATABASE);
             }
-            user.setUpdated_at(new Date());
+            user.setUpdatedAt(new Date());
             System.out
                     .println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user)
                             + "\n\n\n");
@@ -145,17 +146,14 @@ public class UserRestController {
             return ResponseEntity.notFound().build();
         }
     }
-    
-    
+
     // admin
     @DeleteMapping("/rest/users/{username}")
     public void delete(@PathVariable("username") Optional<String> username) {
-    	 try {
-             userService.deleteByUsername(username.get());
-         } catch (Exception e) {
-             throw new ResourceNotFoundException("User", "username", username.get());
-         }
+        try {
+            userService.deleteByUsername(username.get());
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("User", "username", username.get());
+        }
     }
-    
-    
 }

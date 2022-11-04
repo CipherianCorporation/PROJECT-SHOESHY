@@ -9,6 +9,7 @@
             <tr>
                 <th>ID</th>
                 <th>Tên</th>
+                <th>Ảnh</th>
                 <th>Giá</th>
                 <th>Có sẵn?</th>
                 <th>Màu</th>
@@ -34,7 +35,8 @@
             </tr>
             <tr ng-repeat="item in pager.items | filter: searchTextProduct">
                 <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
+                <td>{{item.name | limitTo: 10}}{{item.name.length > 10 ? '...' : ''}}</td>
+                <td>{{item.image | limitTo: 10}}{{item.image.length > 10 ? '...' : ''}}</td>
                 <td>{{item.price | currency:'đ':0}}</td>
                 <td>{{item.available ? 'Có':'Không'}}</td>
                 <td>{{item.color.name}}</td>
