@@ -3,12 +3,16 @@ app.controller("order-ctrl", function ($scope, $http) {
     $scope.detail_items = [];
     $scope.form = {};
     $scope.user = {};
+    $scope.searchTextOrder = '';
 
     $scope.initialize = function () {
+        $scope.loading = true;
         $http.get(`/rest/order/sortstatus`).then(resp => {
             $scope.list_items = resp.data;
         }).catch(error => {
             console.log("Error", error);
+        }).finally(function () {
+            $scope.loading = false;
         });
     };
 
@@ -27,26 +31,59 @@ app.controller("order-ctrl", function ($scope, $http) {
     };
 
     $scope.order_detail = function (item) {
+        $scope.detailLoading = true;
+        $scope.detail_items = [];
         $(".nav-tabs a:eq(1)").tab('show');
-        console.log(item);
         $http.get(`/rest/order/detail/${item.id}`).then(resp => {
             $scope.detail_items = resp.data;
             console.log($scope.detail_items);
         }).catch(error => {
             console.log("Error", error);
+        }).finally(function () {
+            $scope.detailLoading = false;
         });
 
     };
 
-    $scope.search = function (text) {
-        if (text) {
-            $http.get(`/rest/order/${text}`).then(resp => {
-                $scope.list_items = resp.data;
-            }).catch(error => {
-                console.log("Error", error);
-            });
-        } else {
-            $scope.initialize();
+    $scope.pager = {
+        page: 0,
+        size: 10,
+        get list_items() {
+            let start = this.page * this.size;
+            return $scope.list_items.slice(start, start + this.size);
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.list_items.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
         }
     };
+
+    // $scope.search = function (text) {
+    //     if (text) {
+    //         $http.get(`/rest/order/${text}`).then(resp => {
+    //             $scope.list_items = resp.data;
+    //         }).catch(error => {
+    //             console.log("Error", error);
+    //         });
+    //     } else {
+    //         $scope.initialize();
+    //     }
+    // };
 });
