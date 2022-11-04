@@ -59,18 +59,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public User update(User user) {
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepo.save(user);
     }
 
     @Override
-    public void deleteByUsername(String id) {
-        // TODO Auto-generated method stub
+    public User update(User user) {
+    	 Optional<User> findUser = userRepo.findByUsername(user.getUsername());
+         if (findUser.isPresent()) {
+             if (user.getPassword().equals(String.valueOf(findUser.get().getPassword()))) {
+                 user.setPassword((user.getPassword()));
+             } else if (!encoder.matches(user.getPassword(), findUser.get().getPassword())) {
+                 user.setPassword(encoder.encode(user.getPassword()));
+             } 
+         }
+         return userRepo.save(user);
+    }
+
+    @Override
+    public void deleteByUsername(String username) {
+        userRepo.deleteByUsername(username);
 
     }
 
