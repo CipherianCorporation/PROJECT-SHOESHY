@@ -3,6 +3,7 @@ app.controller("order-ctrl", function ($scope, $http) {
     $scope.detail_items = [];
     $scope.form = {};
     $scope.user = {};
+
     $scope.initialize = function () {
         $http.get(`/rest/order/sortstatus`).then(resp => {
             $scope.list_items = resp.data;
@@ -10,15 +11,17 @@ app.controller("order-ctrl", function ($scope, $http) {
             console.log("Error", error);
         });
     };
+
     $scope.initialize();
 
     $scope.update_status = function (item) {
-        item.order_status = "success";
-        $http.put(`/rest/order/order-status/${item.id}`, item).then(resp => {
+        item.orderStatus.name = "success";
+        $http.put(`/rest/order/orderstatus/${item.id}`, item).then(resp => {
             $scope.initialize();
             alert("Cập nhập trạng thái đơn hàng thành công");
         }).catch(error => {
             alert("Lỗi cập nhập trạng thái");
+            $scope.initialize();
             console.log("Error", error);
         });
     };

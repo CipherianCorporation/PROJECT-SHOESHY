@@ -33,11 +33,11 @@
                     <tr ng-repeat="item in list_items">
                         <td>{{$index+1}}</td>
                         <td>{{item.id}}</td>
-                        <td>{{item.created_at}}</td>
-                        <td>{{item.order_status}}</td>
+                        <td>{{item.createdAt}}</td>
+                        <td>{{item.orderStatus.name}}</td>
                         <td>{{item.address}}</td>
                         <td>
-                            <button ng-show="item.order_status == 'processing'" class="btn btn-secondary" ng-click="update_status(item)">
+                            <button ng-show="item.orderStatus.name == 'processing'" class="btn btn-secondary" ng-click="update_status(item)">
                                 Success
                             </button>
                             <button class="btn btn-secondary" ng-click="order_detail(item)">
