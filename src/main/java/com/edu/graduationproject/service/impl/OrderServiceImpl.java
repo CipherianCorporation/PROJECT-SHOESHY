@@ -92,4 +92,9 @@ public class OrderServiceImpl implements OrderService {
     public int updateStatus(String orderStatus, Long orderId) {
         return orderRepo.updateStatus(orderStatus, orderId);
     }
+
+    @Override
+    public List<Order> searchByOrderId(Long orderId) {
+        return orderRepo.searchByOrderId(orderId);
+    }
 }
