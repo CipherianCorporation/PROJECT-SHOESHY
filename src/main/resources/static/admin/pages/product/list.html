@@ -1,3 +1,8 @@
+<!-- Search form -->
+<form class="d-none d-md-flex input-group w-auto my-auto">
+    <input autocomplete="off" type="search" class="form-control rounded" placeholder='Tìm...' ng-model="searchTextProduct" />
+    <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+</form>
 <div class="table-responsive">
     <table class="table">
         <thead class="table-light">
@@ -27,7 +32,7 @@
                     </div>
                 </th>
             </tr>
-            <tr ng-repeat="item in pager.items">
+            <tr ng-repeat="item in pager.items | filter: searchTextProduct">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.price | currency:'đ':0}}</td>

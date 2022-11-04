@@ -26,7 +26,7 @@
         integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
 </head>
 
-<body ng-app="admin-app">
+<body ng-app="admin-app" ng-controller="main-ctrl">
     <!-- header -->
     <header ng-include="'./components/_header.html'"></header>
     <main style="margin-top: 58px">
@@ -42,6 +42,7 @@
     <!-- angularjs admin module -->
     <script src="/admin/admin.module.js"></script>
     <!-- angularjs controller -->
+    <script src="/admin/main.controller.js"></script>
     <script src="/admin/pages/dashboard/dashboard.controller.js"></script>
     <script src="/admin/pages/product/product.controller.js"></script>
     <script src="/admin/pages/user/user.controller.js"></script>
