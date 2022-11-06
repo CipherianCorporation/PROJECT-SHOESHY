@@ -69,7 +69,7 @@
             <!-- end product list -->
 
             <!-- paging - START -->
-            <div class="d-flex justify-content-center">
+            <div ng-if="pager.productList.length !== 0" class="d-flex justify-content-center">
                 <nav aria-label="Page navigation example">
                     <div class="justify-content-center btn-group btn-group-xs">
                         <button class="btn btn-secondary btn-sm" ng-click="pager.first()"> &lArr;</button>

@@ -1,5 +1,6 @@
 app.controller("product-ctrl", function ($scope, $http) {
     $scope.items = [];
+    $scope.searchTextProduct = '';
     $scope.categories = [];
     $scope.sub_categories = [];
     $scope.colors = [];
@@ -84,7 +85,7 @@ app.controller("product-ctrl", function ($scope, $http) {
         }
         item.user = {
             // lấy user id từ localStorage khi dashboard.controller.js vừa chạy lên
-            id: JSON.parse(localStorage.getItem('user'))
+            id: JSON.parse(localStorage.getItem('userPrincipal')).id
         };
         item.sold = 0;
         console.log(item);

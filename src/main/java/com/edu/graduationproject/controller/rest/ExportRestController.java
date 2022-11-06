@@ -58,6 +58,16 @@ public class ExportRestController {
     }
 
     //Print pdf
+    @GetMapping("/admin/orders/export-excel")
+    public ResponseEntity<String> exportOrdersExcel(HttpServletResponse response) {
+        try {
+            exportService.exportExcel(new Order(), "orders", response);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/admin/users/export-excel")
     public ResponseEntity<String> exportUsersExcel(HttpServletResponse response) {
         try {
@@ -89,6 +99,16 @@ public class ExportRestController {
         }
     }
 
+    @GetMapping("/admin/users/export-pdf")
+    public ResponseEntity<String> exportUsersPdf(HttpServletResponse response) {
+        try {
+            exportService.exportPDF(new User(), "users", response);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     // export csv
     @GetMapping("/admin/products/export-csv")
     public ResponseEntity<String> exportProductCsv(HttpServletResponse response) {
@@ -105,6 +125,16 @@ public class ExportRestController {
     public ResponseEntity<String> exportOrdersCsv(HttpServletResponse response) {
         try {
             exportService.exportCSV(new Order(), "orders", response);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (IOException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/admin/users/export-csv")
+    public ResponseEntity<String> exportUsersCsv(HttpServletResponse response) {
+        try {
+            exportService.exportCSV(new User(), "users", response);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

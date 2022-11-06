@@ -32,8 +32,9 @@ public class CsvExporter<T> {
                 }
                 if (entity instanceof User) {
                     User user = (User) entity;
-                    csvPrinter.printRecord(user.getId(), user.getUsername(), user.getPassword(), user.getEmail(),
-                            user.getPhone(), user.getImage_url(), user.getEnabled(), user.getProvider().toString(),
+                    csvPrinter.printRecord(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(), user.getEmail(),
+                            user.getPhone(), user.getAddress(), user.getImage_url(), user.getProvider().toString(),user.getEnabled(),
+                            user.getVerify_code(), user.getReset_pwd_token(),
                             "");
                 }
                 if (entity instanceof Order) {

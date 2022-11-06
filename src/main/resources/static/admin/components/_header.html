@@ -42,11 +42,6 @@
             <a class="navbar-brand mt-2 mt-lg-0" href="#!">
                 <img src="/assets/images/shoeshy-admin-logo.png" height="35" alt="ShoeShy Logo" loading="lazy" />
             </a>
-            <!-- Search form -->
-            <form class="d-none d-md-flex input-group w-auto my-auto">
-                <input autocomplete="off" type="search" class="form-control rounded" placeholder='Search...' style="min-width: 225px" />
-                <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
-            </form>
 
             <!-- Right links -->
             <ul class="navbar-nav ms-auto d-flex flex-row">
@@ -96,11 +91,11 @@
                     <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button"
                         data-mdb-toggle="dropdown" aria-expanded="false">
                         <div class="rounded-circle">
-                            <i class="fa-solid fa-circle-user"></i>
+                            <i class="fa-solid fa-circle-user"></i> {{userPrincipal.username}}
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="/security/logoff">Logout</a></li>
                     </ul>
                 </li>
             </ul>
