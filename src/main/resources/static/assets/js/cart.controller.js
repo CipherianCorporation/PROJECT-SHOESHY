@@ -8,6 +8,8 @@ function shoppingCartCtrl($scope, $http) {
         { code: 'price_asc', name: 'Giá (Tăng dần)' },
         { code: 'price_desc', name: 'Giá (Giảm dần)' },
     ];
+    $scope.voucherInput = '';
+    $scope.voucherResponse = {};
 
     $scope.get_user_pricipal = function () {
         $http.get("/rest/users/principal").then(resp => {
@@ -45,6 +47,10 @@ function shoppingCartCtrl($scope, $http) {
             let index = this.items.findIndex(item => item.id == id);
             this.items.splice(index, 1);
             this.saveToLocalStorage();
+            if (this.items.length === 0) {
+                alert('Bạn không có sản phẩm trong giỏ!');
+                location.href = '/';
+            }
         },
         //Dọn giỏ hàng
         clear() {
@@ -90,9 +96,33 @@ function shoppingCartCtrl($scope, $http) {
         }
     };
 
+    $scope.checkVoucherValid = function (voucherCode) {
+        $scope.voucherResponse = {};
+        $http.get(`/rest/vouchers/code/${voucherCode}`).then(resp => {
+            console.log('voucher exist');
+            let todayDate = new Date();
+            let voucherEndDate = new Date(resp.data.endDate);
+            if (todayDate > voucherEndDate) {
+                $scope.voucherResponse = {};
+                console.log('voucher hết hạn!');
+            } else if (todayDate < voucherEndDate) {
+                $scope.voucherResponse = resp.data;
+                console.log('voucher còn hạn!');
+            }
+
+        }).catch(err => {
+            $scope.voucherResponse = {};
+            console.log("voucher didn't exist!!!");
+        });
+    };
+
+    $scope.isObjEmpty = function (obj) {
+        return Object.keys(obj).length === 0;
+    };
+
     $scope.order = {
         // createdAt: new Date(),
-        total: parseFloat($scope.cart.amount),
+        total: 0.0,
         address: '',
         payment_method: "",
         orderStatus: {
@@ -100,6 +130,9 @@ function shoppingCartCtrl($scope, $http) {
         },
         user: {
             username: '',
+        },
+        voucher: {
+            id: ''
         },
         get order_details() {
             return $scope.cart.items.map(item => {
@@ -110,17 +143,33 @@ function shoppingCartCtrl($scope, $http) {
                 };
             });
         },
+        total_cost() {
+            return $scope.cart.amount + (this.payment_method == 'cod' ? 20000 : 0) +
+                (!$scope.isObjEmpty($scope.voucherResponse) ? -($scope.cart.amount * $scope.voucherResponse.value / 100) : 0);
+        },
         purchase() {
             let order = angular.copy(this);
             order.address = $scope.userPrincipal.address;
             order.user.username = $scope.userPrincipal.username;
+            if (!$scope.isObjEmpty($scope.voucherResponse)) {
+                order.voucher.id = $scope.voucherResponse.id;
+            }
+            order.total = $scope.order.total_cost();
             console.log(order);
             if ($scope.cart.count === 0) {
                 alert("Error creating order or your cart is empty! Please try again!");
             } else {
                 if (order.payment_method == "paypal") {
-                    document.getElementById('purchase-form').submit();
+                    // document.getElementById('purchase-form').submit();
                     console.log('paypal boi');
+                    $http.post('/pay', order).then(res => {
+                        console.log(res.data.returned_url);
+                        $scope.cart.clear();
+                        location.href = res.data.returned_url;
+                    }).catch(err => {
+                        alert("Error creating order or your cart is empty! Please try again!");
+                        console.log(err);
+                    });
                 } else if (order.payment_method == "cod") {
                     order.total += 20000;
                     console.log('cod boi');

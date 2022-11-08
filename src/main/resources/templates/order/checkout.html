@@ -62,8 +62,8 @@
                                                             <div style="width: 80px;">
                                                                 <span class="mb-0"><sup>đ</sup> {{item.price | number:0}}</span>
                                                             </div>
-                                                            <a href="" style="color: #cecece;" ng-click="cart.remove(item.id)"><i
-                                                                    class="fas fa-trash-alt"></i></a>
+                                                            <!-- <a href="" style="color: #cecece;" ng-click="cart.remove(item.id)"><i
+                                                                    class="fas fa-trash-alt"></i></a> -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -130,6 +130,20 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="row mb-3">
+                                                            <!-- voucher discount code -->
+                                                            <div class="form-outline-secondary">
+                                                                <div class="mb-1 small" for="voucherInputForm">Nhập voucher code:</div>
+                                                                <input type="text" id="voucherInputForm" class="form-control form-control-lg"
+                                                                    ng-model="voucherInput" ng-keyup="checkVoucherValid(voucherInput)" />
+                                                            </div>
+                                                            <span ng-if="isObjEmpty(voucherResponse)" class="text-secondary">
+                                                                Voucher không tồn tại!
+                                                            </span>
+                                                            <span ng-if="!isObjEmpty(voucherResponse)" class="text-success">
+                                                                Bạn được giảm {{voucherResponse.value}}%
+                                                            </span>
+                                                        </div>
 
                                                         <hr class="my-4">
 
@@ -138,23 +152,31 @@
                                                             <p class="mb-2"><sup>đ</sup>{{cart.amount | number:0}}</p>
                                                         </div>
 
-                                                        <div class="d-flex justify-content-between" ng-show="order.payment_method == 'cod'">
+                                                        <div class="d-flex justify-content-between" ng-if="order.payment_method == 'cod'">
                                                             <p class="mb-2">Phí giao hàng</p>
                                                             <p class="mb-2">+ <sup>đ</sup>20.000</p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-between" ng-if="!isObjEmpty(voucherResponse)">
+                                                            <p class="mb-2">Voucher</p>
+                                                            <p class="mb-2">
+                                                                - {{cart.amount * voucherResponse.value / 100 | currency:'đ':0}}
+                                                            </p>
                                                         </div>
 
                                                         <div class="d-flex justify-content-between mb-4">
                                                             <p class="mb-2">Tổng chi phí</p>
-                                                            <p class="mb-2 fw-bold"><sup>đ</sup>{{cart.amount + (order.payment_method == 'cod'?20000:0)|
-                                                                number:0}}</p>
-                                                            <input hidden class="shadow-none mb-2" readonly name="total" value="{{cart.amount + 20000|
-                                                                number:0}}" />
+                                                            <p class="mb-2 fw-bold">
+                                                                {{order.total_cost() | currency:'đ':0}}
+                                                            </p>
                                                         </div>
 
                                                         <button ng-click="order.purchase()" type="button" class="btn btn-info btn-block btn-lg">
                                                             <div class="d-flex justify-content-between">
-                                                                <span><sup>đ</sup>{{cart.amount + (order.payment_method == 'cod'?20000:0)| number:0}}</span>
-                                                                <span>Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                                <span>
+                                                                    {{order.total_cost() | currency:'đ':0}}
+                                                                </span>
+                                                                <span>
+                                                                    Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                             </div>
                                                         </button>
                                                     </form>
