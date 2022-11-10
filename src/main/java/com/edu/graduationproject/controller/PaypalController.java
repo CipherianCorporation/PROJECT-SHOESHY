@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.edu.graduationproject.model.PaypalPaymentIntent;
-import com.edu.graduationproject.model.PaypalPaymentMethod;
+import com.edu.graduationproject.model.EPaypalPaymentIntent;
+import com.edu.graduationproject.model.EPaypalPaymentMethod;
 import com.edu.graduationproject.service.OrderService;
 import com.edu.graduationproject.service.PaypalService;
 import com.edu.graduationproject.utils.CommonUtils;
@@ -66,8 +66,8 @@ public class PaypalController {
             Payment payment = paypalService.createPayment(
                     _total,
                     "USD",
-                    PaypalPaymentMethod.paypal,
-                    PaypalPaymentIntent.sale,
+                    EPaypalPaymentMethod.paypal,
+                    EPaypalPaymentIntent.sale,
                     "Pay for ShoeShy order",
                     cancelUrl,
                     successUrl);

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.edu.graduationproject.entity.User;
-import com.edu.graduationproject.model.AuthProvider;
+import com.edu.graduationproject.model.EAuthProvider;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.username = ?1")
@@ -39,9 +39,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Modifying
     @Query("UPDATE User u SET u.provider = ?2 WHERE u.email = ?1")
-    public void updateAuthenticationTypeOAuth(String email, AuthProvider provider);
+    public void updateAuthenticationTypeOAuth(String email, EAuthProvider provider);
 
     @Modifying
     @Query("UPDATE User u SET u.provider = ?2 WHERE u.username = ?1")
-    public void updateAuthenticationTypeDB(String username, AuthProvider provider);
+    public void updateAuthenticationTypeDB(String username, EAuthProvider provider);
 }

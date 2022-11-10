@@ -1,6 +1,6 @@
 package com.edu.graduationproject.model;
 
-public enum AuthProvider {
+public enum EAuthProvider {
     DATABASE,
     GOOGLE,
     FACEBOOK

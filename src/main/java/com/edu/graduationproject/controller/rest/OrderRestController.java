@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.edu.graduationproject.entity.OrderDetails;
 
-import com.edu.graduationproject.model.OrderStatus;
+import com.edu.graduationproject.model.EOrderStatus;
 import com.edu.graduationproject.service.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

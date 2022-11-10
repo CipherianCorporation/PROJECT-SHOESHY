@@ -1,5 +1,5 @@
 package com.edu.graduationproject.model;
 
-public enum PaypalPaymentIntent {
+public enum EPaypalPaymentIntent {
 	sale, authorize, order
 }

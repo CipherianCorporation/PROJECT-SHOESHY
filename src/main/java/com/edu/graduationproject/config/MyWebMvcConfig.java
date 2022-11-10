@@ -5,18 +5,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.edu.graduationproject.interceptor.GlobalInterceptor;
+import com.edu.graduationproject.handler.VisitorLogger;
 
 @Configuration
-public class InterceptorConfig implements WebMvcConfigurer {
+public class MyWebMvcConfig implements WebMvcConfigurer {
     @Autowired
-    GlobalInterceptor globalInterceptor;
+    private VisitorLogger visitorLogger;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(globalInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/rest/**", "/admin/**", "/assets/**");
-
+        registry.addInterceptor(visitorLogger)
+                .addPathPatterns("/");
     }
 }

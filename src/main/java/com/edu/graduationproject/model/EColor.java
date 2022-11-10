@@ -1,6 +1,6 @@
 package com.edu.graduationproject.model;
 
-public enum ColorEnum {
+public enum EColor {
     BLACK,
     WHITE,
     YELLOW,

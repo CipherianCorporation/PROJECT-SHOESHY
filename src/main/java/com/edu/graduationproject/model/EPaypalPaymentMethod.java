@@ -1,6 +1,6 @@
 package com.edu.graduationproject.model;
 
-public enum PaypalPaymentMethod {
+public enum EPaypalPaymentMethod {
 	credit_card, 
 	paypal, 
 	cod

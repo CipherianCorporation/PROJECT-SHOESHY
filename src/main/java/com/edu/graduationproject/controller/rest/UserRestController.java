@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.graduationproject.entity.User;
-import com.edu.graduationproject.entity.UserRole;
 import com.edu.graduationproject.exception.ResourceNotFoundException;
-import com.edu.graduationproject.model.AuthProvider;
+import com.edu.graduationproject.model.EAuthProvider;
 import com.edu.graduationproject.service.UserService;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @CrossOrigin("*")
@@ -92,14 +88,14 @@ public class UserRestController {
             if (!existingUser.isPresent()) {
                 existingUser = userService.findById(Integer.valueOf((String) idOrUsername.get()));
             }
-            if (!existingUser.get().getProvider().equals(AuthProvider.DATABASE)) {
+            if (!existingUser.get().getProvider().equals(EAuthProvider.DATABASE)) {
                 return ResponseEntity.badRequest().body(user);
             }
             if (user.getEnabled() == null) {
                 user.setEnabled(true);
             }
-            if (user.getProvider() != AuthProvider.DATABASE) {
-                user.setProvider(AuthProvider.DATABASE);
+            if (user.getProvider() != EAuthProvider.DATABASE) {
+                user.setProvider(EAuthProvider.DATABASE);
             }
             user.setUpdatedAt(new Date());
             user.setPassword(existingUser.get().getPassword());
@@ -119,14 +115,14 @@ public class UserRestController {
             if (!existingUser.isPresent()) {
                 existingUser = userService.findById(Integer.valueOf((String) idOrUsername.get()));
             }
-            if (!existingUser.get().getProvider().equals(AuthProvider.DATABASE)) {
+            if (!existingUser.get().getProvider().equals(EAuthProvider.DATABASE)) {
                 return ResponseEntity.badRequest().body(user);
             }
             if (user.getEnabled() == null) {
                 user.setEnabled(true);
             }
-            if (user.getProvider() != AuthProvider.DATABASE) {
-                user.setProvider(AuthProvider.DATABASE);
+            if (user.getProvider() != EAuthProvider.DATABASE) {
+                user.setProvider(EAuthProvider.DATABASE);
             }
             user.setUpdatedAt(new Date());
             User savedUser = userService.update(user);
@@ -145,4 +141,5 @@ public class UserRestController {
             throw new ResourceNotFoundException("User", "username", username.get());
         }
     }
+
 }

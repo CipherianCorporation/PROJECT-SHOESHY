@@ -1,6 +1,6 @@
 package com.edu.graduationproject.model;
 
-public enum OrderStatus {
+public enum EOrderStatus {
     processing,
     cancel,
     success
