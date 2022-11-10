@@ -33,19 +33,12 @@ public class VoucherRestController {
     @GetMapping("/rest/vouchers/id/{id}")
     public ResponseEntity<Voucher> findById(@PathVariable Integer id) {
         Optional<Voucher> findVoucher = voucherService.findById(id);
-        if (findVoucher.isPresent()) {
-            return ResponseEntity.ok(findVoucher.get());
-        }
-        return ResponseEntity.notFound().build();
-
+        return ResponseEntity.ok(findVoucher.orElse(null));
     }
 
     @GetMapping("/rest/vouchers/code/{code}")
     public ResponseEntity<Voucher> findByCode(@PathVariable String code) {
         Optional<Voucher> findVoucher = voucherService.findByCode(code);
-        if (findVoucher.isPresent()) {
-            return ResponseEntity.ok(findVoucher.get());
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(findVoucher.orElse(null));
     }
 }

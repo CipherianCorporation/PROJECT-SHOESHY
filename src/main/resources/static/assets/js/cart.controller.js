@@ -171,7 +171,6 @@ function shoppingCartCtrl($scope, $http) {
                         console.log(err);
                     });
                 } else if (order.payment_method == "cod") {
-                    order.total += 20000;
                     console.log('cod boi');
                     $http.post('/rest/orders', order).then(res => {
                         alert("Order successfully created");

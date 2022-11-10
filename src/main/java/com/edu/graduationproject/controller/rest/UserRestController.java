@@ -95,8 +95,6 @@ public class UserRestController {
             if (!existingUser.get().getProvider().equals(AuthProvider.DATABASE)) {
                 return ResponseEntity.badRequest().body(user);
             }
-
-            // BeanUtils.copyProperties(editUser, existingUser);
             if (user.getEnabled() == null) {
                 user.setEnabled(true);
             }
@@ -105,10 +103,6 @@ public class UserRestController {
             }
             user.setUpdatedAt(new Date());
             user.setPassword(existingUser.get().getPassword());
-            ;
-            System.out
-                    .println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user)
-                            + "\n\n\n");
             User savedUser = userService.update(user);
             return ResponseEntity.ok(savedUser);
         } catch (NoSuchElementException e) {
@@ -128,8 +122,6 @@ public class UserRestController {
             if (!existingUser.get().getProvider().equals(AuthProvider.DATABASE)) {
                 return ResponseEntity.badRequest().body(user);
             }
-
-            // BeanUtils.copyProperties(editUser, existingUser);
             if (user.getEnabled() == null) {
                 user.setEnabled(true);
             }
@@ -137,9 +129,6 @@ public class UserRestController {
                 user.setProvider(AuthProvider.DATABASE);
             }
             user.setUpdatedAt(new Date());
-            System.out
-                    .println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user)
-                            + "\n\n\n");
             User savedUser = userService.update(user);
             return ResponseEntity.ok(savedUser);
         } catch (NoSuchElementException e) {
