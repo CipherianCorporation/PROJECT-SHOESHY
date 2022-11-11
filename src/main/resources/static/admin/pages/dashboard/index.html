@@ -7,7 +7,7 @@
     </div>
 </section>
 
-<div class="container" ng-controller="dashboard-ctrl">
+<div class="container">
     <section>
         <div class="row">
             <div class="col-xl-3 col-sm-6 col-12 mb-4">
@@ -15,11 +15,14 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between px-md-1">
                             <div class="align-self-center">
-                                <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                                <i class="fas fa-dollar-sign text-info fa-3x"></i>
                             </div>
                             <div class="text-end">
-                                <h3>278</h3>
-                                <p class="mb-0">New Posts</p>
+                                <div ng-show="revenueLoading" class="spinner-grow" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <h4 ng-show="!revenueLoading">{{orderTotalRevenue | currency:'đ':2}}</h4>
+                                <p class="mb-0">Doanh thu</p>
                             </div>
                         </div>
                     </div>
@@ -33,7 +36,7 @@
                                 <i class="far fa-comment-alt text-warning fa-3x"></i>
                             </div>
                             <div class="text-end">
-                                <h3>156</h3>
+                                <h4>156</h4>
                                 <p class="mb-0">New Comments</p>
                             </div>
                         </div>
@@ -45,11 +48,14 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between px-md-1">
                             <div class="align-self-center">
-                                <i class="fas fa-chart-line text-success fa-3x"></i>
+                                <i class="fas fa-shopping-cart text-success fa-3x"></i>
                             </div>
                             <div class="text-end">
-                                <h3>64.89 %</h3>
-                                <p class="mb-0">Bounce Rate</p>
+                                <div ng-show="orderLoading" class="spinner-grow" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <h4 ng-show="!orderLoading">{{ordersCount}}</h4>
+                                <p class="mb-0">Tổng đơn</p>
                             </div>
                         </div>
                     </div>
@@ -63,8 +69,31 @@
                                 <i class="fas fa-map-marker-alt text-danger fa-3x"></i>
                             </div>
                             <div class="text-end">
-                                <h3>423</h3>
-                                <p class="mb-0">Total Visits</p>
+                                <div ng-show="visitorLoading" class="spinner-grow" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <h4 ng-show="!visitorLoading">{{visitorsCount}}</h4>
+                                <p class="mb-0">Tổng truy cập</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-xl-6 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap justify-content-center">
+                            <h4 class="card-title mb-3">Loại người dùng</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <canvas id="myChart" style="width: 100%; max-height: 25vh;"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>

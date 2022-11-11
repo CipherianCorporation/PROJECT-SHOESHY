@@ -29,4 +29,9 @@ public class VisitorServiceImpl implements VisitorService {
     public List<Visitor> findAll() {
         return repository.findAll();
     }
+
+    @Override
+    public Long getCount() {
+        return repository.getCount();
+    }
 }
