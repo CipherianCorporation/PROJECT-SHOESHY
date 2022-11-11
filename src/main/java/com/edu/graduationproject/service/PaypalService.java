@@ -1,7 +1,7 @@
 package com.edu.graduationproject.service;
 
-import com.edu.graduationproject.model.PaypalPaymentIntent;
-import com.edu.graduationproject.model.PaypalPaymentMethod;
+import com.edu.graduationproject.model.EPaypalPaymentIntent;
+import com.edu.graduationproject.model.EPaypalPaymentMethod;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
@@ -9,8 +9,8 @@ public interface PaypalService {
     public Payment createPayment(
             Double total,
             String currency,
-            PaypalPaymentMethod method,
-            PaypalPaymentIntent intent,
+            EPaypalPaymentMethod method,
+            EPaypalPaymentIntent intent,
             String description,
             String cancelUrl,
             String successUrl) throws PayPalRESTException;

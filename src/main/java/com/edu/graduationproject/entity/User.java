@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.edu.graduationproject.model.AuthProvider;
+import com.edu.graduationproject.model.EAuthProvider;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -34,7 +34,7 @@ public class User implements Serializable {
     private String image_url;
 
     @Enumerated(EnumType.STRING) // Đinh dạng cái enum AuthProvider như là String
-    private AuthProvider provider;
+    private EAuthProvider provider;
     private String provider_id;
     private Boolean enabled;
     private String verify_code;

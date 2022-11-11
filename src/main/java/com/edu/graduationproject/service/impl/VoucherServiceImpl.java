@@ -1,7 +1,33 @@
 package com.edu.graduationproject.service.impl;
 
-import com.edu.graduationproject.service.VoucherService;
+import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.edu.graduationproject.entity.Voucher;
+import com.edu.graduationproject.repository.VoucherRepository;
+import com.edu.graduationproject.service.VoucherService;
+@Service
 public class VoucherServiceImpl implements VoucherService {
+
+    @Autowired
+    VoucherRepository voucherRepo;
+
+    @Override
+    public Optional<Voucher> findById(Integer id) {
+        return voucherRepo.findById(id);
+    }
+
+    @Override
+    public Optional<Voucher> findByCode(String code) {
+        return voucherRepo.findByCode(code);
+    }
+
+    @Override
+    public List<Voucher> findAll() {
+        return voucherRepo.findAll();
+    }
 
 }

@@ -2,6 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic(~{::section})}">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQLGRZ47JQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DQLGRZ47JQ');
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,6 +27,11 @@
                 </b>
             </div>
             <div class="card-body">
+                <!-- Search form -->
+                <form class="d-none d-md-flex input-group w-auto my-auto">
+                    <input autocomplete="off" type="search" class="form-control rounded" placeholder='Tìm...' ng-model="searchTextOrder" />
+                    <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+                </form>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -33,7 +47,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="list in list_items | orderBy : '-createdAt'">
+                            <tr ng-show="loading">
+                                <th colspan="11">
+                                    <div class="d-flex justify-content-center my-4">
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr ng-repeat="list in list_items | orderBy : '-createdAt' | filter: searchTextOrder">
                                 <td><b>{{$index+1}}</b></td>
                                 <td>{{list.id}}</td>
                                 <td>{{list.createdAt}}</td>
@@ -42,16 +65,23 @@
                                         <h6>{{list.total | currency :'đ':0}}</h6>
                                     </b>
                                 </td>
-                                <td><b class="text-success">{{list.orderStatus.name}}</b></td>
+                                <td ng-init="status = list.orderStatus.name">
+                                    <b class="{{status == 'processing' ? 'text-warning': (status == 'cancel' ? 'text-danger':'text-success')}}">
+                                        {{list.orderStatus.name}}
+                                    </b>
+                                </td>
                                 <td>{{list.payment_method}}</td>
                                 <td>{{list.address}}</td>
                                 <td>
-                                    <button ng-show="list.orderStatus.name == 'processing'" class="btn btn-secondary" ng-click="update_status(list)">
-                                        Hủy đơn hàng
-                                    </button>
-                                    <button class="btn btn-secondary" ng-click="switchPage(list)">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </button>
+                                    <div class="btn-group shadow-0 btn-group-sm" role="group" aria-label="Basic example">
+                                        <button type="button" ng-show="list.orderStatus.name == 'processing'" class="btn btn-danger"
+                                            ng-click="update_status(list)">
+                                            Hủy
+                                        </button>
+                                        <button type="button" class="btn btn-secondary" ng-click="switchPage(list)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

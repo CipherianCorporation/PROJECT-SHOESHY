@@ -160,6 +160,24 @@ CREATE TABLE [dbo].[order_details] (
     CONSTRAINT [FK_6] FOREIGN KEY ([order_id]) REFERENCES [dbo].[orders] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE [dbo].[visitors] (
+    [id]          INT            IDENTITY (100001, 1) NOT NULL,
+    [user_info]   NVARCHAR (255)  NULL,
+    [ip]          NVARCHAR (255)  NULL,
+    [method]      NVARCHAR (255)  NULL,
+    [url]         NVARCHAR (255)  NULL,
+    [page]        NVARCHAR (255)  NULL,
+    [query_string] NVARCHAR (255) NULL,
+    [referer_page] NVARCHAR (255) NULL,
+    [user_agent]   NVARCHAR (255) NULL,
+    [logged_time]  datetime           NULL,
+    [unique_visit] BIT            NULL,
+    CONSTRAINT [PK_visitors] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
+drop table visitors
+
+
 
 -- insert to database
 
@@ -190,6 +208,8 @@ select * from orders
 select * from order_details
 select * from order_statuses
 select * from vouchers
+select * from colors
+select * from visitors
 
 
 -- Update rows in table '[TableName]' in schema '[dbo]'
@@ -207,10 +227,3 @@ GO
  add CONSTRAINT [FK_711] FOREIGN KEY ([order_status]) REFERENCES [dbo].[order_statuses] ([name]) 
 
  -- Update rows in table '[TableName]' in schema '[dbo]'
- UPDATE [dbo].[orders]
- SET
-    order_status = 'success'
-     -- Add more columns and values here
- WHERE /* add search conditions here */
- id = '100002'
- GO
