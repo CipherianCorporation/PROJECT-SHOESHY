@@ -11,4 +11,6 @@ public interface VisitorService {
     Optional<List<Visitor>> findAllByIp(String ip);
 
     List<Visitor> findAll();
+
+    Long getCount();
 }

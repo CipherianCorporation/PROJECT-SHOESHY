@@ -97,4 +97,14 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> searchByOrderId(Long orderId) {
         return orderRepo.searchByOrderId(orderId);
     }
+
+    @Override
+    public Long getCount() {
+        return orderRepo.getCount();
+    }
+
+    @Override
+    public Double getTotalRevenue() {
+        return orderRepo.getTotalRevenue();
+    }
 }

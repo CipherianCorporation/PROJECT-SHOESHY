@@ -33,7 +33,7 @@ public class GeoLocationConfig {
             return reader = new DatabaseReader.Builder(dbAsStream)
                     .fileMode(Reader.FileMode.MEMORY)
                     .build();
-        } catch (IOException | NullPointerException e) {
+        } catch (Exception e) {
             System.out.println("-----Datbase loader could not be initiated!!----");
             return null;
         }
