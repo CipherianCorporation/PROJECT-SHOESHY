@@ -2,17 +2,20 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
     $scope.userPrincipal = {};
     let userRolesList = [];
     $scope.visitorsCount = [];
+    $scope.visitorsList = [];
     $scope.rolesList = [];
     $scope.ordersCount = 0;
     $scope.orderTotalRevenue = 0;
 
     let rolesLabel = [];
 
-    //loading spinners 
+    //loading spinners - index.html
     $scope.visitorLoading = true;
     $scope.orderLoading = true;
     $scope.revenueLoading = true;
 
+    //loading spinners - modal/
+    $scope.visitorsSpinnerLoading = true;
 
     $scope.initialize = function () {
         $scope.userPrincipal = JSON.parse(localStorage.getItem('userPrincipal')) || {};
@@ -44,6 +47,13 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
         }).finally(() => {
         });
 
+        fetch('/rest/visitors', { method: 'GET' }).then(resp => resp.json()).then((data) => {
+            $scope.visitorsList = data;
+        }).catch((error) => {
+            console.error('Error:', error);
+        }).finally(() => {
+            $scope.visitorsSpinnerLoading = false;
+        });
 
         fetch('/rest/visitors/count', { method: 'GET' }).then(resp => resp.json()).then((data) => {
             $scope.visitorsCount = data;
@@ -73,6 +83,46 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
 
     $scope.initialize();
 
+    $scope.pager = {
+        page: 0,
+        size: 10,
+        get items() {
+            let start = this.page * this.size;
+            return $scope.visitorsList.slice(start, start + this.size);
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.visitorsList.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+    //chart.js - STAR
     setTimeout(function () {
         const ctx = document.getElementById('myChart');
         const data = {
@@ -99,7 +149,7 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
         };
         const myChart = new Chart('myChart', config);
     }, 7000);
-
+    //chart.js - END
 
 
 
