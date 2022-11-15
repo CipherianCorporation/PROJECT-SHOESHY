@@ -95,7 +95,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/roles",
                                                 "/rest/usersrole/**",
                                                 "/assets/admin/**",
-                                                "/rest/visitors")
+                                                "/rest/visitors/**",
+                                                "/rest/orders/count",
+                                                "/rest/orders/revenue",
+                                                "/rest/sub-categories/product-sold")
                                 .hasAnyRole("ADMIN", "STAFF")
                                 .antMatchers("/rest/authorities/**").hasRole("ADMIN")
                                 .anyRequest().authenticated(); // permitAll để code, debug dễ, nên để thành

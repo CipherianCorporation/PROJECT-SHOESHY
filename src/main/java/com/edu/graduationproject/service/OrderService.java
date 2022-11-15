@@ -1,6 +1,5 @@
 package com.edu.graduationproject.service;
 
-
 import java.util.List;
 
 import com.edu.graduationproject.entity.Order;
@@ -25,4 +24,8 @@ public interface OrderService {
     int updateStatus(String orderStatus, Long orderId);
 
     List<Order> searchByOrderId(Long orderId);
+
+    Long getCount();
+
+    Double getTotalRevenue();
 }

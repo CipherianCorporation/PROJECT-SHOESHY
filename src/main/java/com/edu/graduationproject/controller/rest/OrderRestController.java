@@ -49,6 +49,16 @@ public class OrderRestController {
         return ResponseEntity.ok(orderService.findAll());
     }
 
+    @GetMapping("/rest/orders/count")
+    public ResponseEntity<Long> getOrdersCount() {
+        return ResponseEntity.ok(orderService.getCount());
+    }
+
+    @GetMapping("/rest/orders/revenue")
+    public ResponseEntity<Double> getOrdersRevenue() {
+        return ResponseEntity.ok(orderService.getTotalRevenue());
+    }
+
     @PostMapping("/rest/orders")
     public ResponseEntity<Order> create(@RequestBody JsonNode orderData) {
         if (orderData.get("total").asDouble() == 0) {
@@ -83,7 +93,7 @@ public class OrderRestController {
     }
 
     @GetMapping("/rest/order/{orderId}")
-    public  List<Order> findByIdForSearch(@PathVariable("orderId") Long orderId){
+    public List<Order> findByIdForSearch(@PathVariable("orderId") Long orderId) {
         return orderService.searchByOrderId(orderId);
     }
 }
