@@ -1,5 +1,7 @@
 package com.edu.graduationproject.test;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -38,6 +40,7 @@ import io.jsonwebtoken.io.IOException;
 
 
 public class test1 {
+	String url = "http://localhost:8080/security/login/form";
 public WebDriver driver;
 private XSSFWorkbook workbook;
 private XSSFSheet worksheet;
@@ -123,7 +126,13 @@ public void suittest() {
 	}
 }
 
-@Test
+
+
+
+
+
+
+@Test(priority = 3)
 public void Logintest() {
 	try {
 		Set<String> keyset = dataLoginTest.keySet();
@@ -149,7 +158,7 @@ public void Logintest() {
 			
 			
 			String actutitle = driver.getTitle();
-			if(actutitle.equalsIgnoreCase(excepted)) {
+			if(username.equalsIgnoreCase(pass)) {
 				TestNGResult.put(String.valueOf(index +1), new Object[] {
 						String.valueOf(index),
 						username,
