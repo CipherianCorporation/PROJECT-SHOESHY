@@ -1,0 +1,69 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Description</th>
+                <th>Giá trị giảm</th>
+                <th>Ngày hiệu lực</th>
+                <th>Ngày kết thúc</th>
+                <th>Ngày update</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-show="loading">
+                <th colspan="11">
+                    <div class="d-flex justify-content-center my-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr ng-repeat="item in pager.items">
+                <td>{{item.id}}</td>
+                <td>{{item.code}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.value}}%</td>
+                <td>{{item.startDate | date:'dd-MM-yyyy'}}}}</td>
+                <td>{{item.endDate | date:'dd-MM-yyyy'}}}}</td>
+                <td>{{item.updatedAt | date:'dd-MM-yyyy'}}}}</td>
+                <td>
+                    <button type="button" class="btn btn-dark" ng-click="edit(item)">Edit</button>
+                    <button type="button" class="btn btn-danger" ng-click="delete(item)">Del</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class=" d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <button class="page-link" aria-label="Previous" ng-click="pager.first()">
+                        <span aria-hidden="true">&lArr;</span>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" aria-label="Previous" ng-click="pager.prev()">
+                        <span aria-hidden="true">&larr;</span>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <a class="page-link">{{pager.page+1}} of {{pager.count}}</a>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" aria-label="Next" ng-click="pager.next()">
+                        <span aria-hidden=" true">&rarr;</span>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link" aria-label="Next" ng-click="pager.last()">
+                        <span aria-hidden=" true">&rArr;</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

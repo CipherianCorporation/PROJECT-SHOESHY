@@ -23,6 +23,10 @@ app.config(function ($routeProvider) {
             templateUrl: "./pages/category/index.html",
             controller: "category-ctrl"
         })
+        .when("/voucher", {
+            templateUrl: "./pages/voucher/index.html",
+            controller: "voucher-ctrl"
+        })
         .when("/authorize", {
             templateUrl: "./pages/authorize/index.html",
             controller: "authorize-ctrl"

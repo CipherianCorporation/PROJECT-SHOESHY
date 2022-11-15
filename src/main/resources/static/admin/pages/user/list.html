@@ -1,62 +1,71 @@
+<!-- Search form -->
+<form class="d-none d-md-flex input-group w-auto my-auto">
+    <input autocomplete="off" type="search" class="form-control rounded" placeholder='Tìm...' ng-model="searchTextUser" />
+    <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+</form>
 <div class="table-responsive">
     <table class="table">
         <thead class="table-light">
             <tr>
-                <th>Mã người dùng</th>
+                <th>ID</th>
                 <th>Tên người dùng</th>
+                <th>Mật khẩu</th>
+                <th>Họ và tên</th>
                 <th>Email</th>
-                <th>Số điện thoại</th>
+                <th>SDT</th>
+                <th>Địa chỉ</th>
                 <th>Ảnh</th>
                 <th>Nhà cung cấp</th>
-                <th>Trạng thái hoạt động</th>
+                <th>Kích hoạt?</th>
                 <th>Mã xác minh</th>
-                <th>Mật khẩu Token</th>
-                <th>Roles</th>
+                <th>Đặt lại mật khẩu Token</th>
+                <th>Ngày cập nhật</th>
+                <th>Ngày tạo</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr ng-show="loading">
+                <th colspan="11">
+                    <div class="d-flex justify-content-center my-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr ng-repeat="item in pager.items | filter: searchTextUser">
+                <td>{{item.id}}</td>
+                <td>{{item.username}}</td>
+                <td>{{item.password | limitTo: 10 }}{{item.password.length > 10 ? '...' : ''}}</td>
+                <td>{{item.fullname }}</td>
+                <td>{{item.email}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.address}}</td>
+                <td>{{item.image_url | limitTo: 10 }}{{item.image_url.length > 10 ? '...' : ''}}</td>
+                <td>{{item.provider}}</td>
+                <td>{{item.enabled}}</td>
+                <td>{{item.verify_code | limitTo: 10 }}{{item.verify_code.length > 10 ? '...' : ''}}</td>
+                <td>{{item.reset_pwd_token | limitTo: 10 }}{{item.reset_pwd_token.length > 10 ? '...' : ''}}</td>
+                <td>{{item.updatedAt | date:'dd-MM-yyyy'}}</td>
+                <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
                 <td></td>
                 <td>
-                    <button type="button" class="btn btn-dark">Edit</button>
-                    <button type="button" class="btn btn-danger">Del</button>
+                    <button ng-click="edit(item)" type="button" class="btn btn-dark">Edit</button>
+                    <button ng-click="delete(item)" type="button" class="btn btn-danger">Del</button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class=" d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
         <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                    </a>
-                </li>
-            </ul>
+            <div class="justify-content-center btn-group btn-group-xs">
+                <button class="btn btn-secondary btn-sm" ng-click="pager.first()"> &lArr;</button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.prev()">&larr; </button>
+                <button class="btn btn-secondary btn-sm">{{pager.page+1}} - {{pager.count}}</button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.next()"> &rarr; </button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.last()">&rArr; </button>
+            </div>
         </nav>
     </div>
 </div>

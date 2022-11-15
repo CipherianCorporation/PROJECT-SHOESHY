@@ -8,8 +8,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.edu.graduationproject.model.PaypalPaymentIntent;
-import com.edu.graduationproject.model.PaypalPaymentMethod;
+import com.edu.graduationproject.model.EPaypalPaymentIntent;
+import com.edu.graduationproject.model.EPaypalPaymentMethod;
 import com.edu.graduationproject.service.PaypalService;
 import com.paypal.api.payments.Amount;
 import com.paypal.api.payments.Payer;
@@ -26,7 +26,7 @@ public class PaypalServiceImpl implements PaypalService {
     private APIContext apiContext;
 
     @Override
-    public Payment createPayment(Double total, String currency, PaypalPaymentMethod method, PaypalPaymentIntent intent,
+    public Payment createPayment(Double total, String currency, EPaypalPaymentMethod method, EPaypalPaymentIntent intent,
             String description, String cancelUrl, String successUrl) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);

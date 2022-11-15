@@ -2,6 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic(~{::section})}">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQLGRZ47JQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-DQLGRZ47JQ');
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,11 +32,11 @@
                     </div>
                     <div class="mb-2 col-sm-4">
                         <div><b>Người đặt hàng</b></div>
-                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.user.username">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.user.fullname">
                     </div>
                     <div class="mb-2 col-sm-4">
                         <div><b>Ngày đặt hàng</b></div>
-                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.created_at">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.createdAt">
                     </div>
                     <div class="mb-2 col-sm-4">
                         <div><b>Giá Tiền</b></div>
@@ -40,7 +49,7 @@
 
                     <div class="mb-2 col-sm-4">
                         <div><b>Trạng thái đơn hàng</b></div>
-                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.order_status">
+                        <input type="text" class="form-control" readonly="readonly" ng-model="form.order.orderStatus.name">
                     </div>
                     <div class="mb-2 ">
                         <div><b>Địa chỉ giao hàng</b></div>
@@ -71,9 +80,9 @@
                             <tr ng-repeat="item in detail_items">
                                 <td><b>{{item.order.id}}</b></td>
                                 <td>{{item.product.name}}</td>
-                                <td>{{item.product.price}}</td>
+                                <td>{{item.product.price | currency :'đ':0}}</td>
                                 <td>{{item.quantity}}</td>
-                                <td><b>{{item.product.price*item.quantity}}</b></td>
+                                <td><b>{{item.product.price*item.quantity | currency :'đ':0}}</b></td>
                             </tr>
                         </tbody>
                     </table>

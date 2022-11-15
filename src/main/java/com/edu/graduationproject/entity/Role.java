@@ -3,6 +3,7 @@ package com.edu.graduationproject.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -27,9 +28,12 @@ public class Role implements Serializable {
 
     // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
     @Temporal(TemporalType.DATE)
-    private Date updated_at;
+    @Column(name="updated_at")
+    private Date updatedAt;
     @Temporal(TemporalType.DATE)
-    private Date created_at = new Date();
+    @Column(name="created_at")
+    private Date createdAt = new Date();
     @Temporal(TemporalType.DATE)
-    private Date deleted_at;
+    @Column(name="deleted_at")
+    private Date deletedAt;
 }

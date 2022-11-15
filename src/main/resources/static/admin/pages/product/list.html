@@ -1,29 +1,55 @@
+<!-- Search form -->
+<form class="d-none d-md-flex input-group w-auto my-auto">
+    <input autocomplete="off" type="search" class="form-control rounded" placeholder='Tìm...' ng-model="searchTextProduct" />
+    <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+</form>
 <div class="table-responsive">
     <table class="table">
         <thead class="table-light">
             <tr>
-                <th>Mã sản phẩm</th>
-                <th>Tên sản phẩm</th>
-                <th>Giá</th>
-                <th>Ngày</th>
+                <th>ID</th>
+                <th>Tên</th>
                 <th>Ảnh</th>
-                <th>Thể loại</th>
-                <th>Có sẳn</th>
+                <th>Giá</th>
+                <th>Có sẵn?</th>
+                <th>Màu</th>
+                <th>Size</th>
+                <th>Sale off</th>
+                <th>Đã bán</th>
+                <th>Danh mục</th>
+                <th>Danh mục con</th>
+                <th>Ngày update</th>
+                <th>Ngày tạo</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr ng-show="loading">
+                <th colspan="11">
+                    <div class="d-flex justify-content-center my-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr ng-repeat="item in pager.items | filter: searchTextProduct">
+                <td>{{item.id}}</td>
+                <td>{{item.name | limitTo: 10}}{{item.name.length > 10 ? '...' : ''}}</td>
+                <td>{{item.image | limitTo: 10}}{{item.image.length > 10 ? '...' : ''}}</td>
+                <td>{{item.price | currency:'đ':0}}</td>
+                <td>{{item.available ? 'Có':'Không'}}</td>
+                <td>{{item.color.name}}</td>
+                <td>{{item.size.value}}</td>
+                <td>{{item.sale_off}}%</td>
+                <td>{{item.sold}}</td>
+                <td>{{item.category.name}}</td>
+                <td>{{item.subCategory.name}}</td>
+                <td>{{item.updatedAt | date:'dd-MM-yyyy'}}</td>
+                <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
                 <td>
-                    <button type="button" class="btn btn-dark">Edit</button>
-                    <button type="button" class="btn btn-danger">Del</button>
+                    <button type="button" class="btn btn-dark" ng-click="edit(item)">Edit</button>
+                    <button type="button" class="btn btn-danger" ng-click="delete(item)">Del</button>
                 </td>
             </tr>
         </tbody>
@@ -32,23 +58,27 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                    </a>
+                    <button class="page-link" aria-label="Previous" ng-click="pager.first()">
+                        <span aria-hidden="true">&lArr;</span>
+                    </button>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="#">1</a>
+                    <button class="page-link" aria-label="Previous" ng-click="pager.prev()">
+                        <span aria-hidden="true">&larr;</span>
+                    </button>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="#">2</a>
+                    <a class="page-link">{{pager.page+1}} of {{pager.count}}</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="#">3</a>
+                    <button class="page-link" aria-label="Next" ng-click="pager.next()">
+                        <span aria-hidden=" true">&rarr;</span>
+                    </button>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                    </a>
+                    <button class="page-link" aria-label="Next" ng-click="pager.last()">
+                        <span aria-hidden=" true">&rArr;</span>
+                    </button>
                 </li>
             </ul>
         </nav>

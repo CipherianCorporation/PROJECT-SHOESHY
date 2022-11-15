@@ -6,8 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.edu.graduationproject.model.OrderStatus;
-import com.edu.graduationproject.model.PaypalPaymentMethod;
+import com.edu.graduationproject.model.EPaypalPaymentMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -28,11 +27,12 @@ public class Order implements Serializable {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    private PaypalPaymentMethod payment_method;
+    private EPaypalPaymentMethod payment_method;
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus order_status;
-    
+    @ManyToOne
+    @JoinColumn(name = "order_status")
+    private OrderStatus orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -45,11 +45,14 @@ public class Order implements Serializable {
 
     // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
     @Temporal(TemporalType.DATE)
-    private Date updated_at;
+    @Column(name = "updated_at")
+    private Date updatedAt;
     @Temporal(TemporalType.DATE)
-    private Date created_at = new Date();
+    @Column(name = "created_at")
+    private Date createdAt = new Date();
     @Temporal(TemporalType.DATE)
-    private Date deleted_at;
+    @Column(name = "deleted_at")
+    private Date deletedAt;
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")

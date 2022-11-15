@@ -46,7 +46,21 @@ CREATE TABLE [dbo].[users] (
     CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED ([id] ASC)
 );
 
-drop table products
+CREATE TABLE [dbo].[colors] (
+    [name]        NVARCHAR (255) NOT NULL,
+    [updated_at]  DATE           NULL,
+    [created_at]  DATE           DEFAULT (getdate()) NOT NULL,
+    [deleted_at]  DATE           NULL,
+    CONSTRAINT [PK_colors] PRIMARY KEY CLUSTERED ([name] ASC),
+);
+
+CREATE TABLE [dbo].[sizes] (
+    [value]       INT            NOT NULL,
+    [updated_at]  DATE           NULL,
+    [created_at]  DATE           DEFAULT (getdate()) NOT NULL,
+    [deleted_at]  DATE           NULL,
+    CONSTRAINT [PK_sizes] PRIMARY KEY CLUSTERED ([value] ASC),
+);
 
 CREATE TABLE [dbo].[products] (
     [id]              INT            IDENTITY (100001, 1) NOT NULL,
@@ -54,7 +68,7 @@ CREATE TABLE [dbo].[products] (
     [image]           NVARCHAR (50)  DEFAULT (N'default-product.jpg') NOT NULL,
     [price]           FLOAT (53)     DEFAULT ((0)) NOT NULL,
     [available]       BIT            DEFAULT ((1)) NOT NULL,
-    [color]           NVARCHAR (50)  NOT NULL,
+    [color]           nvarchar(255)  NOT NULL,
     [size]            INT            NULL,
     [sale_off]        FLOAT (53)     DEFAULT ((0)) NULL,
     [sold]            BIGINT         DEFAULT ((0)) NOT NULL,
@@ -66,6 +80,8 @@ CREATE TABLE [dbo].[products] (
     [created_at]      DATE           DEFAULT (getdate()) NOT NULL,
     [deleted_at]      DATE           NULL,
     CONSTRAINT [PK_products] PRIMARY KEY CLUSTERED ([id] ASC),
+    CONSTRAINT [FK_324] FOREIGN KEY ([color]) REFERENCES [dbo].[colors] ([name]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_399] FOREIGN KEY ([size]) REFERENCES [dbo].[sizes] ([value]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_33] FOREIGN KEY ([sub_category_id]) REFERENCES [dbo].[sub_categories] ([id]),
     CONSTRAINT [FK_7] FOREIGN KEY ([created_by]) REFERENCES [dbo].[users] ([id]),
     CONSTRAINT [FK_9] FOREIGN KEY ([category_id]) REFERENCES [dbo].[categories] ([id]) ON DELETE CASCADE
@@ -104,20 +120,30 @@ CREATE TABLE [dbo].[vouchers] (
     CONSTRAINT [PK_vouchers] PRIMARY KEY CLUSTERED ([id] ASC),
 );
 
+
+CREATE TABLE [dbo].[order_statuses] (
+    [name]        NVARCHAR (255) NOT NULL,
+    [updated_at]  DATE           NULL,
+    [created_at]  DATE           DEFAULT (getdate()) NOT NULL,
+    [deleted_at]  DATE           NULL,
+    CONSTRAINT [PK_order_statuses] PRIMARY KEY CLUSTERED ([name] ASC),
+);
+
 CREATE TABLE [dbo].[orders] (
     [id]             BIGINT         IDENTITY (100001, 1) NOT NULL,
     [address]        NVARCHAR (100) NOT NULL,
     [payment_method] NVARCHAR (50)  DEFAULT ('') NOT NULL,
-    [order_status]   NVARCHAR (50)  DEFAULT ('') NOT NULL,
+    [order_status]   NVARCHAR (255) NOT NULL,
     [user_id]        INT            NOT NULL,
     [voucher_id]     INT            NULL,
     [total]          FLOAT (53)     DEFAULT ((0)) NOT NULL,
-    [updated_at]     INT            NULL,
+    [updated_at]     DATE           NULL,
     [created_at]     DATE           DEFAULT (getdate()) NOT NULL,
-    [deleted_at]     INT            NULL,
+    [deleted_at]     DATE           NULL,
     CONSTRAINT [PK_orders] PRIMARY KEY CLUSTERED ([id] ASC),
     CONSTRAINT [FK_4] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT [FK_71] FOREIGN KEY ([voucher_id]) REFERENCES [dbo].[vouchers] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT [FK_71] FOREIGN KEY ([voucher_id]) REFERENCES [dbo].[vouchers] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT [FK_711] FOREIGN KEY ([order_status]) REFERENCES [dbo].[order_statuses] ([name]) 
 );
 
 CREATE TABLE [dbo].[order_details] (
@@ -133,6 +159,24 @@ CREATE TABLE [dbo].[order_details] (
     CONSTRAINT [FK_5] FOREIGN KEY ([product_id]) REFERENCES [dbo].[products] ([id]) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT [FK_6] FOREIGN KEY ([order_id]) REFERENCES [dbo].[orders] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE TABLE [dbo].[visitors] (
+    [id]          INT            IDENTITY (100001, 1) NOT NULL,
+    [user_info]   NVARCHAR (255)  NULL,
+    [ip]          NVARCHAR (255)  NULL,
+    [method]      NVARCHAR (255)  NULL,
+    [url]         NVARCHAR (255)  NULL,
+    [page]        NVARCHAR (255)  NULL,
+    [query_string] NVARCHAR (255) NULL,
+    [referer_page] NVARCHAR (255) NULL,
+    [user_agent]   NVARCHAR (255) NULL,
+    [logged_time]  datetime           NULL,
+    [unique_visit] BIT            NULL,
+    CONSTRAINT [PK_visitors] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
+drop table visitors
+
 
 
 -- insert to database
@@ -162,7 +206,24 @@ select * from roles
 select * from user_roles
 select * from orders
 select * from order_details
+select * from order_statuses
+select * from vouchers
+select * from colors
+select * from visitors
 
 
-ALTER TABLE users
-ADD Email varchar(255);
+-- Update rows in table '[TableName]' in schema '[dbo]'
+UPDATE [dbo].[orders]
+SET
+    order_status = 'success'
+    -- Add more columns and values here
+WHERE /* add search conditions here */
+id = '100015'
+GO
+
+ CONSTRAINT [FK_711] FOREIGN KEY ([order_status]) REFERENCES [dbo].[order_statuses] ([name])
+
+ ALTER TABLE orders 
+ add CONSTRAINT [FK_711] FOREIGN KEY ([order_status]) REFERENCES [dbo].[order_statuses] ([name]) 
+
+ -- Update rows in table '[TableName]' in schema '[dbo]'

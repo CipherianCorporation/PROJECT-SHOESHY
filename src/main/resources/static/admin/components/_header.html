@@ -15,6 +15,9 @@
                 <a href="#!category" class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fas fa-chart-pie fa-fw me-3"></i><span>Categories</span>
                 </a>
+                <a href="#!voucher" class="list-group-item list-group-item-action py-2 ripple">
+                    <i class="fa-solid fa-percent fa-fw me-3"></i><span>Voucher</span>
+                </a>
                 <a href="#!authorize" class="list-group-item list-group-item-action py-2 ripple">
                     <i class="fa-solid fa-user-lock fa-fw me-3"></i><span>Authorize</span></a>
                 <a href="/" class="list-group-item list-group-item-action py-2 ripple">
@@ -36,14 +39,9 @@
             </button>
 
             <!-- Brand -->
-            <a class="navbar-brand" href="#">
-                <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" alt="" loading="lazy" />
+            <a class="navbar-brand mt-2 mt-lg-0" href="#!">
+                <img src="/assets/images/shoeshy-admin-logo.png" height="35" alt="ShoeShy Logo" loading="lazy" />
             </a>
-            <!-- Search form -->
-            <form class="d-none d-md-flex input-group w-auto my-auto">
-                <input autocomplete="off" type="search" class="form-control rounded" placeholder='Search...' style="min-width: 225px" />
-                <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
-            </form>
 
             <!-- Right links -->
             <ul class="navbar-nav ms-auto d-flex flex-row">
@@ -63,29 +61,6 @@
                     </ul>
                 </li>
 
-
-                <!-- Icon dropdown -->
-                <li class="nav-item dropdown drop-start">
-                    <a class="nav-link me-3 me-lg-0 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="flag-vietnam flag m-0"></i>
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="langDropdown">
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <i class="flag-vietnam flag"></i>Vietnamese
-                                <i class="fa fa-check text-success ms-2"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"><i class="flag-united-kingdom flag"></i>English</a>
-                        </li>
-                    </ul>
-                </li>
                 </li>
 
                 <!-- Avatar -->
@@ -93,11 +68,11 @@
                     <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button"
                         data-mdb-toggle="dropdown" aria-expanded="false">
                         <div class="rounded-circle">
-                            <i class="fa-solid fa-circle-user"></i>
+                            <i class="fa-solid fa-circle-user"></i> {{userPrincipal.username}}
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="/security/logoff">Logout</a></li>
                     </ul>
                 </li>
             </ul>

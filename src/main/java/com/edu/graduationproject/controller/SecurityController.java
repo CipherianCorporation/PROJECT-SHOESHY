@@ -20,7 +20,7 @@ public class SecurityController {
     public String showLoginForm(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            return "login";
+            return "security/login";
         }
         return "forward:/";
     }

@@ -1,8 +1,9 @@
 package com.edu.graduationproject.config;
 
-import java.util.concurrent.TimeUnit;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,8 +13,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import com.edu.graduationproject.security.CustomUserDetailsService;
 import com.edu.graduationproject.security.oauth2.CustomOAuth2UserService;
@@ -34,9 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         private CustomOAuth2UserService oauthUserService;
         @Autowired
         private OAuthLoginSuccessHandler oauthLoginSuccessHandler;
-
-        // @Autowired
-        // private DatabaseLoginSuccessHandler databaseLoginSuccessHandler;
 
         @Bean
         public PasswordEncoder passwordEncoder() {
@@ -59,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
                 http.csrf().disable().cors();
-                http.authorizeRequests()
+                http.headers().frameOptions().sameOrigin().and().authorizeRequests()
                                 .antMatchers("/", "/login**").permitAll()
                                 .antMatchers(
                                                 "/home/**",
@@ -68,7 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/categories/**",
                                                 "/rest/upload/**",
                                                 "/rest/order/**",
-                                                "/order/**",
                                                 "/rest/sub-categories/**",
                                                 "/cart/**",
                                                 "/account/**",
@@ -81,6 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/webjars/**",
                                                 "/error**",
                                                 "/assets/**",
+                                                "/upload/images/**",
                                                 "/file/**/*.*",
                                                 "/*.html",
                                                 "/favicon.ico",
@@ -88,29 +89,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/**/*.css",
                                                 "/**/*.js")
                                 .permitAll()
-                                .antMatchers("/account/editprofile").authenticated()
-                                .antMatchers("/admin/**",
+                                .antMatchers("/account/editprofile")
+                                .authenticated()
+                                .antMatchers("/admin/products/**",
                                                 "/rest/roles",
                                                 "/rest/usersrole/**",
-                                                "/assets/admin/**")
+                                                "/assets/admin/**",
+                                                "/rest/visitors")
                                 .hasAnyRole("ADMIN", "STAFF")
                                 .antMatchers("/rest/authorities/**").hasRole("ADMIN")
                                 .anyRequest().authenticated(); // permitAll để code, debug dễ, nên để thành
                                                                // authenticated()
                                                                // sau khi xong
-                http.formLogin().disable()
-                                .httpBasic().disable()
-                                .logout().disable();
                 http.formLogin()
                                 .loginPage("/security/login/form")
                                 .loginProcessingUrl("/security/login")
                                 .defaultSuccessUrl("/security/login/success", false)
                                 .failureUrl("/security/login/error");
-                // .successHandler(databaseLoginSuccessHandler);
-
                 http.rememberMe()
-                                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21)) // expired after 21 days
-                                .key("superhumanisnotsuperjustoverpowered")
+                                .key(UUID.randomUUID().toString())
+                                .tokenValiditySeconds(1209600) // expired after 14 days
                                 .userDetailsService(service);
                 http.logout()
                                 .logoutUrl("/security/logoff")
@@ -133,6 +131,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .userService(oauthUserService)
                                 .and()
                                 .successHandler(oauthLoginSuccessHandler);
+
+                http.headers().frameOptions().disable();
         }
 
         @Override

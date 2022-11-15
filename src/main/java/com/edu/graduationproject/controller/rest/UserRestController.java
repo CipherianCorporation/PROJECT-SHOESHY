@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.graduationproject.entity.User;
-import com.edu.graduationproject.entity.UserRole;
 import com.edu.graduationproject.exception.ResourceNotFoundException;
-import com.edu.graduationproject.model.AuthProvider;
+import com.edu.graduationproject.model.EAuthProvider;
 import com.edu.graduationproject.service.UserService;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 @CrossOrigin("*")
@@ -54,7 +50,9 @@ public class UserRestController {
             map.put("username", loggedinUser.get().getUsername());
             map.put("phone", loggedinUser.get().getPhone());
             map.put("email", loggedinUser.get().getEmail());
+            map.put("fullname", loggedinUser.get().getFullname());
             map.put("address", loggedinUser.get().getAddress());
+            map.put("fullname", loggedinUser.get().getFullname());
             map.put("image_url", loggedinUser.get().getImage_url());
             return ResponseEntity.ok(map);
         } catch (NoSuchElementException e) {
@@ -75,12 +73,13 @@ public class UserRestController {
         }
     }
 
-    // @PutMapping("/rest/users/{id}")
-    // public User editProfile(@PathVariable("id") Integer id, @RequestBody User
-    // user){
-    // return userService.update(user);
-    // }
+    // admin
+    @PostMapping("/rest/users")
+    public ResponseEntity<User> create(@RequestBody User user) {
+        return ResponseEntity.ok(userService.save(user));
+    }
 
+    // update user
     @PutMapping("/rest/users/{idOrUsername}")
     public ResponseEntity<User> update(@PathVariable("idOrUsername") Optional<Object> idOrUsername,
             @RequestBody User user) throws JsonProcessingException {
@@ -89,27 +88,57 @@ public class UserRestController {
             if (!existingUser.isPresent()) {
                 existingUser = userService.findById(Integer.valueOf((String) idOrUsername.get()));
             }
-            if (!existingUser.get().getProvider().equals(AuthProvider.DATABASE)) {
+            if (!existingUser.get().getProvider().equals(EAuthProvider.DATABASE)) {
                 return ResponseEntity.badRequest().body(user);
             }
-
-            // BeanUtils.copyProperties(editUser, existingUser);
             if (user.getEnabled() == null) {
                 user.setEnabled(true);
             }
-            if (user.getProvider() != AuthProvider.DATABASE) {
-                user.setProvider(AuthProvider.DATABASE);
+            if (user.getProvider() != EAuthProvider.DATABASE) {
+                user.setProvider(EAuthProvider.DATABASE);
             }
-            user.setUpdated_at(new Date());
+            user.setUpdatedAt(new Date());
             user.setPassword(existingUser.get().getPassword());
-            ;
-            System.out
-                    .println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user)
-                            + "\n\n\n");
             User savedUser = userService.update(user);
             return ResponseEntity.ok(savedUser);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    // update admin
+    @PutMapping("/rest/admin/{idOrUsername}")
+    public ResponseEntity<User> adminUpdate(@PathVariable("idOrUsername") Optional<Object> idOrUsername,
+            @RequestBody User user) throws JsonProcessingException {
+        try {
+            Optional<User> existingUser = userService.findByUsername((String) idOrUsername.get());
+            if (!existingUser.isPresent()) {
+                existingUser = userService.findById(Integer.valueOf((String) idOrUsername.get()));
+            }
+            if (!existingUser.get().getProvider().equals(EAuthProvider.DATABASE)) {
+                return ResponseEntity.badRequest().body(user);
+            }
+            if (user.getEnabled() == null) {
+                user.setEnabled(true);
+            }
+            if (user.getProvider() != EAuthProvider.DATABASE) {
+                user.setProvider(EAuthProvider.DATABASE);
+            }
+            user.setUpdatedAt(new Date());
+            User savedUser = userService.update(user);
+            return ResponseEntity.ok(savedUser);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // admin
+    @DeleteMapping("/rest/users/{username}")
+    public void delete(@PathVariable("username") Optional<String> username) {
+        try {
+            userService.deleteByUsername(username.get());
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("User", "username", username.get());
         }
     }
 

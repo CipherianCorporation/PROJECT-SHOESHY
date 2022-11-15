@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.edu.graduationproject.entity.Role;
 import com.edu.graduationproject.entity.User;
 import com.edu.graduationproject.entity.UserRole;
-import com.edu.graduationproject.model.AuthProvider;
+import com.edu.graduationproject.model.EAuthProvider;
 import com.edu.graduationproject.model.MailInfo;
 import com.edu.graduationproject.repository.RoleRepository;
 import com.edu.graduationproject.repository.UserRepository;
@@ -59,18 +59,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public User update(User user) {
+        String encodedPassword = encoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepo.save(user);
     }
 
     @Override
-    public void deleteByUsername(String id) {
-        // TODO Auto-generated method stub
+    public User update(User user) {
+    	 Optional<User> findUser = userRepo.findByUsername(user.getUsername());
+         if (findUser.isPresent()) {
+             if (user.getPassword().equals(String.valueOf(findUser.get().getPassword()))) {
+                 user.setPassword((user.getPassword()));
+             } else if (!encoder.matches(user.getPassword(), findUser.get().getPassword())) {
+                 user.setPassword(encoder.encode(user.getPassword()));
+             } 
+         }
+         return userRepo.save(user);
+    }
+
+    @Override
+    public void deleteByUsername(String username) {
+        userRepo.deleteByUsername(username);
 
     }
 
@@ -91,7 +100,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodedPassword);
         user.setVerify_code(randomCode);
         user.setEnabled(false);
-        user.setProvider(AuthProvider.DATABASE);
+        user.setProvider(EAuthProvider.DATABASE);
         User save = userRepo.save(user);
 
         // set role USER cho user vì nếu là người dùng bình thường đăng ký thì chỉ set
@@ -136,7 +145,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> existAcc = userRepo.findByEmail(email);
         if (!existAcc.isPresent()) {
             User newAcc = new User();
-            AuthProvider authProvider = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
+            EAuthProvider authProvider = EAuthProvider.valueOf(oauth2ClientName.toUpperCase());
             newAcc.setUsername(username);
             newAcc.setEmail(email);
             newAcc.setProvider(authProvider);
@@ -149,13 +158,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateAuthenticationTypeOAuth(String username, String oauth2ClientName) {
-        AuthProvider authProvider = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
+        EAuthProvider authProvider = EAuthProvider.valueOf(oauth2ClientName.toUpperCase());
         userRepo.updateAuthenticationTypeOAuth(username, authProvider);
     }
 
     @Override
     public void updateAuthenticationTypeDB(String username, String oauth2ClientName) {
-        AuthProvider authProvider = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
+        EAuthProvider authProvider = EAuthProvider.valueOf(oauth2ClientName.toUpperCase());
         userRepo.updateAuthenticationTypeDB(username, authProvider);
     }
 

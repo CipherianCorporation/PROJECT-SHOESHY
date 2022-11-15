@@ -1,73 +1,90 @@
-<form class="form">
+<form class="form" enctype="multipart/form-data" name="myNewForm" novalidate>
     <!-- Text input -->
     <div class="mb-2">
-        <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/184.webp" class="card-img image" style="max-width: 20vw; max-height: 20vh;"
-            alt="User image" />
+        <label for="image">
+            <img ng-src="{{ (newForm.image.startsWith('upload')?'/upload/images/':'/assets/images/') + (newForm.image || 'default-product.jpg') }}"
+                class="card-img image" style="max-width: 20vw; max-height: 20vh;" alt="Product image" />
+        </label>
     </div>
-    <input type="file" class="form-control mb-4" id="customFile" />
+    <input type="file" class="form-control mb-3" id="image" onchange="angular.element(this).scope().imageChanged(this.files)" ng-model="newForm.image">
 
     <!-- Text input -->
     <label for="form6Example3">Tên sản phẩm</label>
     <div class="form-outline-primary mb-4">
-        <input type="text" id="form6Example3" class="form-control" />
+        <input type="text" id="form6Example3" class="form-control" ng-model="newForm.name" name="name" required />
+        <div class="text-danger" ng-show="myNewForm.name.$invalid">Xin hãy nhập tên sản phẩm.</div>
     </div>
 
     <!-- Text input -->
     <label for="form6Example3">Giá</label>
     <div class="form-outline-primary mb-4">
-        <input type="number" id="form6Example4" class="form-control" />
+        <input type="number" id="form6Example4" class="form-control" ng-model="newForm.price" name="price" min="1000" title="Min price is 1000 VND" required />
+        <div class="text-danger" ng-show="myNewForm.price.$invalid">Xin hãy nhập giá sản phẩm.</div>
     </div>
 
     <!-- Text input -->
     <label for="form6Example3">Màu</label>
     <div class="form-outline-primary mb-4">
-        <input type="text" id="form6Example4" class="form-control" />
+        <select class="select" ng-model="newForm.color.name">
+            <option ng-if="colors.length === 0" disabled selected>Đang load...</option>
+            <option value="{{c.name}}" ng-repeat="c in colors">{{c.name}}</option>
+        </select>
     </div>
 
     <!-- Number input -->
-    <label for="form6Example3">Size</label>
+    <label for="form6Example3">Kích cỡ</label>
     <div class="form-outline-primary mb-4">
-        <input type="number" id="form6Example6" class="form-control" />
+        <select class="select" ng-model="newForm.size.value">
+            <option ng-if="sizes.length === 0" disabled selected>Đang load...</option>
+            <option value="{{c.value}}" ng-repeat="c in sizes">{{c.value}}</option>
+        </select>
     </div>
 
     <!-- Message input -->
-    <label class="form-label" for="customRange1">Giảm giá</label>
+    <label class="form-label" for="customRange1">Giảm giá: <strong>{{newForm.sale_off}}%</strong></label>
     <div class="form-outline-primary mb-4">
         <div class="range">
-            <input type="range" class="form-range" id="customRange1" />
+            <input type="number" id="sale_off" class="form-control" ng-model="newForm.sale_off" name="sale_off" min="0" max="100" title="Min sale off is 0%"
+                required />
         </div>
     </div>
 
     <!-- Text input -->
-    <label for="form6Example3">Loại sản phẩm</label>
+    <label for="form6Example3">Danh mục</label>
     <div class="form-outline-primary mb-4">
-        <select class="select select_category">
-            <option value="1">One</option>
-            <option value="2">Two</option>
+        <select class="select" ng-model="newForm.category.id">
+            <option ng-if="categories.length === 0" disabled selected>Đang load...</option>
+            <option value="{{c.id}}" ng-repeat="c in categories">{{c.name}}</option>
         </select>
     </div>
 
     <!-- Text input -->
-    <label for="form6Example3">Sub-catagory</label>
+    <label for="form6Example3">Danh mục con</label>
     <div class="form-outline-primary mb-4">
-        <select class="select select_category">
-            <option value="1">One</option>
-            <option value="2">Two</option>
+        <select class="select" ng-model="newForm.subCategory.id">
+            <option ng-if="sub_categories.length === 0" disabled selected>Đang load...</option>
+            <option value="{{c.id}}" ng-repeat="c in sub_categories">{{c.name}}</option>
         </select>
     </div>
 
     <!-- Default radio -->
-    <label for="form6Example3">Có sản?</label>
+    <label for="form6Example3">Có sẵn?</label>
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-        <label class="form-check-label" for="flexRadioDefault1"> Có </label>
+        <input class="form-check-input" type="radio" name="available" id="available1" ng-model="newForm.available" checked />
+        <label class="form-check-label" for="available1"> Có </label>
     </div>
-
     <!-- Default checked radio -->
     <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
-        <label class="form-check-label" for="flexRadioDefault2"> Không </label>
+        <input class="form-check-input" type="radio" name="available" id="available2" ng-model="newForm.available" />
+        <label class="form-check-label" for="available2"> Không </label>
     </div>
+
+    <!-- Text input -->
+    <label for="form6Example3">Ghi chú</label>
+    <div class="form-outline-primary mb-4">
+        <textarea id="description" class="form-control" ng-model="newForm.description" name="description"></textarea>
+    </div>
+
     <!-- Submit button -->
-    <button type="submit" class="btn btn-success btn-block mt-4 mb-4">Tạo mới</button>
+    <button ng-disabled="myNewForm.$invalid" ng-click="create()" type="submit" class="btn btn-success btn-block mt-4 mb-4">Tạo mới</button>
 </form>

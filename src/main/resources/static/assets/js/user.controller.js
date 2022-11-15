@@ -43,7 +43,7 @@ function userController($scope, $http, $interval) {
             let index = $scope.items.findIndex(p => p.id == item.id);
             $scope.items[index] = item;
             alert("Cập nhật thành công, xin hãy đăng nhập lại !!!");
-            // location.href = '/security/logoff';
+            location.href = '/security/logoff';
         }).catch(error => {
             alert("Cập nhật thất bại !!!");
             console.log("Error", error);

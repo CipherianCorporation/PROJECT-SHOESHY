@@ -16,7 +16,7 @@ app.filter('rangeFilter', function () {
 });
 
 function productController($scope, $http, $interval) {
-    $scope.loading = true;
+    $scope.productListLoading = true;
     $scope.productList = [];
     $scope.categories = [];
     $scope.sub_categories = [];
@@ -88,7 +88,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 

@@ -25,11 +25,12 @@ public class UploadServiceImpl implements UploadService {
             if (!dir.exists()) {
                 dir.mkdirs();
             }
-            String filename = "upload-" + System.currentTimeMillis() + "-"
-                    + Integer.toHexString(file.getOriginalFilename().hashCode());
-            // String name = Integer.toHexString(s.hashCode()) +
-            // s.substring(s.lastIndexOf("."));
-            File savedFile = new File(dir, filename);
+            String fileName = file.getOriginalFilename();
+            String hexName = Integer.toHexString(fileName.hashCode()) +
+                    fileName.substring(fileName.lastIndexOf("."));
+            String newFileName = "upload-" + System.currentTimeMillis() + "-" + hexName;
+
+            File savedFile = new File(dir, newFileName);
             file.transferTo(savedFile);
             System.out.println(savedFile.getAbsolutePath());
             return savedFile;

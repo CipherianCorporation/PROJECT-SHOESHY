@@ -19,35 +19,29 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     UserRepository userRepo;
 
-    @Override
     public List<UserRole> findRolesOfAdministrators() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<UserRoleCount> getUserRoleCounts() {
-        // TODO Auto-generated method stub
-        return null;
+        List<User> accounts = userRepo.getAdministrators();
+        return userRoleRepo.authoritiesOf(accounts);
     }
 
     @Override
     public List<UserRole> findAll() {
-        // TODO Auto-generated method stub
-        return null;
+        return userRoleRepo.findAll();
     }
 
     @Override
     public UserRole create(UserRole auth) {
-        // TODO Auto-generated method stub
-        return null;
+        return userRoleRepo.save(auth);
     }
 
     @Override
     public void delete(Integer id) {
-        // TODO Auto-generated method stub
-        
+        userRoleRepo.deleteById(id);
     }
 
+    @Override
+    public List<UserRoleCount> getUserRoleCounts() {
+        return userRoleRepo.getUserRoleCount();
+    }
 
 }

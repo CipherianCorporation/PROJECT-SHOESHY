@@ -1,48 +1,85 @@
 <div class="card">
     <div class="card-header">
         <div class="btn-group float-end">
-            <a href="" class="btn btn-secondary">PDF</a>
-            <a href="" class="btn btn-secondary">EXCEL</a>
-            <a href="" class="btn btn-secondary">CSV</a>
+            <a href="/admin/orders/export-pdf" class="btn btn-secondary">PDF</a>
+            <a href="/admin/orders/export-excel" class="btn btn-secondary">EXCEL</a>
+            <a href="/admin/orders/export-csv" class="btn btn-secondary">CSV</a>
         </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <select class="form-select" aria-label="User select">
-                <option>
-                    <div class="d-flex justify-content-center my-4">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                </option>
-                <option>Nguyễn Thanh Tâm</option>
-            </select>
+            <input type="text" class="form-control" placeholder="Tìm đơn..." ng-model="searchTextOrder">
             <table class="table">
                 <thead>
                     <tr>
                         <th>STT</th>
                         <th>Mã Đơn Hàng.</th>
                         <th>Ngày Đặt Hàng</th>
+                        <th>Trạng thái đơn hàng</th>
                         <th>Địa Chỉ Giao Hàng</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>0001</td>
-                        <td>27/03/2022</td>
-                        <td>167 Đặng Thùy Trâm, p13, Bình Thạnh</td>
+                    <tr ng-show="loading">
+                        <th colspan="11">
+                            <div class="d-flex justify-content-center my-4">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="item in pager.list_items | filter: searchTextOrder">
+                        <td>{{$index+1}}</td>
+                        <td>{{item.id}}</td>
+                        <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
+                        <!-- nếu status là cancel cho text đỏ, processing thì text vàng, còn success thì text xanh lá, đặt ng-init cho biến ngắn -->
+                        <td ng-init="status = item.orderStatus.name"
+                            class="{{status == 'processing' ? 'text-warning': (status == 'cancel' ? 'text-danger':'text-success')}}">
+                            {{item.orderStatus.name}}
+                        </td>
+                        <td>{{item.address}}</td>
                         <td>
-                            <a class="btn btn-secondary">
+                            <button ng-show="item.orderStatus.name == 'processing'" class="btn btn-secondary" ng-click="update_status(item)">
+                                Success
+                            </button>
+                            <button class="btn btn-secondary" ng-click="order_detail(item)">
                                 <i class="fas fa-arrow-right"></i>
-                            </a>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div class=" d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Previous" ng-click="pager.first()">
+                                <span aria-hidden="true">&lArr;</span>
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Previous" ng-click="pager.prev()">
+                                <span aria-hidden="true">&larr;</span>
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link">{{pager.page+1}} of {{pager.count}}</a>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Next" ng-click="pager.next()">
+                                <span aria-hidden=" true">&rarr;</span>
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Next" ng-click="pager.last()">
+                                <span aria-hidden=" true">&rArr;</span>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>

@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrators</title>
 
+    <!-- title icon -->
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <!-- angularjs -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <!-- angularjs route -->
@@ -20,11 +22,12 @@
     <!-- Custom styles -->
     <link rel="stylesheet" href="/admin/assets/css/admin.css" />
     <!-- chartjs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-        integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
+        integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
 </head>
 
-<body ng-app="admin-app">
+<body ng-app="admin-app" ng-controller="main-ctrl">
     <!-- header -->
     <header ng-include="'./components/_header.html'"></header>
     <main style="margin-top: 58px">
@@ -33,18 +36,25 @@
         </div>
     </main>
 
-
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
     <!-- angularjs admin module -->
     <script src="/admin/admin.module.js"></script>
     <!-- angularjs controller -->
-    <script src="/admin/pages/authorize/authorize.controller.js"></script>
-    <script src="/admin/pages/category/category.controller.js"></script>
+    <script src="/admin/main.controller.js"></script>
     <script src="/admin/pages/dashboard/dashboard.controller.js"></script>
-    <script src="/admin/pages/order/order.controller.js"></script>
     <script src="/admin/pages/product/product.controller.js"></script>
     <script src="/admin/pages/user/user.controller.js"></script>
+    <script src="/admin/pages/order/order.controller.js"></script>
+    <script src="/admin/pages/category/category.controller.js"></script>
+    <script src="/admin/pages/voucher/voucher.controller.js"></script>
+    <script src="/admin/pages/authorize/authorize.controller.js"></script>
+    <!-- custom js -->
+    <script src="../assets/js/script.js"></script>\
+    <!-- admin js -->
+    <script src="./assets/js/admin.js"></script>
 </body>
 
 </html>
