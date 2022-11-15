@@ -131,9 +131,6 @@ function shoppingCartCtrl($scope, $http) {
         user: {
             username: '',
         },
-        voucher: {
-            id: ''
-        },
         get order_details() {
             return $scope.cart.items.map(item => {
                 return {
@@ -152,6 +149,7 @@ function shoppingCartCtrl($scope, $http) {
             order.address = $scope.userPrincipal.address;
             order.user.username = $scope.userPrincipal.username;
             if (!$scope.isObjEmpty($scope.voucherResponse)) {
+                order.voucher = { id: null };
                 order.voucher.id = $scope.voucherResponse.id;
             }
             order.total = $scope.order.total_cost();
@@ -160,8 +158,6 @@ function shoppingCartCtrl($scope, $http) {
                 alert("Error creating order or your cart is empty! Please try again!");
             } else {
                 if (order.payment_method == "paypal") {
-                    // document.getElementById('purchase-form').submit();
-                    console.log('paypal boi');
                     $http.post('/pay', order).then(res => {
                         console.log(res.data.returned_url);
                         $scope.cart.clear();
@@ -171,7 +167,6 @@ function shoppingCartCtrl($scope, $http) {
                         console.log(err);
                     });
                 } else if (order.payment_method == "cod") {
-                    console.log('cod boi');
                     $http.post('/rest/orders', order).then(res => {
                         alert("Order successfully created");
                         $scope.cart.clear();
