@@ -1,16 +1,16 @@
 package com.edu.graduationproject.service.impl;
 
-import com.edu.graduationproject.entity.User;
-import com.edu.graduationproject.entity.UserRole;
-import com.edu.graduationproject.model.UserRoleCount;
-import com.edu.graduationproject.repository.UserRepository;
-import com.edu.graduationproject.repository.UserRoleRepository;
-import com.edu.graduationproject.service.UserRoleService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
+import com.edu.graduationproject.entity.User;
+import com.edu.graduationproject.entity.UserRole;
+import com.edu.graduationproject.model.IUserRoleCount;
+import com.edu.graduationproject.repository.UserRepository;
+import com.edu.graduationproject.repository.UserRoleRepository;
+import com.edu.graduationproject.service.UserRoleService;
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
@@ -41,7 +41,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public List<UserRoleCount> getUserRoleCounts() {
+    public List<IUserRoleCount> getUserRoleCounts() {
         return userRoleRepo.getUserRoleCount();
     }
 

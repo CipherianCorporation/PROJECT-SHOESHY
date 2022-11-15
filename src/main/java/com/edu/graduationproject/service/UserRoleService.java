@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.edu.graduationproject.entity.UserRole;
-import com.edu.graduationproject.model.UserRoleCount;
+import com.edu.graduationproject.model.IUserRoleCount;
 
 public interface UserRoleService {
     List<UserRole> findRolesOfAdministrators();
 
-    List<UserRoleCount> getUserRoleCounts();
+    List<IUserRoleCount> getUserRoleCounts();
 
     List<UserRole> findAll();
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edu.graduationproject.model.UserRoleCount;
+import com.edu.graduationproject.model.IUserRoleCount;
 import com.edu.graduationproject.service.UserRoleService;
 
 @CrossOrigin("*")
@@ -23,7 +23,7 @@ public class UserRoleRestController {
     UserRoleService service;
 
     @GetMapping("/rest/user-roles/count-users-by-role")
-    public ResponseEntity<List<UserRoleCount>> getUserRoleCounts() {
+    public ResponseEntity<List<IUserRoleCount>> getUserRoleCounts() {
         return ResponseEntity.ok(service.getUserRoleCounts());
     }
 }
