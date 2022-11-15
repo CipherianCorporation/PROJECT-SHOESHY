@@ -1,9 +1,13 @@
 package com.edu.graduationproject.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -47,7 +51,7 @@ public class Voucher implements Serializable {
     private Date updatedAt;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "voucher")
-    private List<Order> orders;
+    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Order> orders = new HashSet<>();
 
 }
