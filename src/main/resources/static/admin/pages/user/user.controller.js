@@ -86,7 +86,6 @@ app.controller("user-ctrl", function ($scope, $http) {
 	}
 	
     $scope.update = function() {
-		alert("hiệp địt")
         let item = angular.copy($scope.form);
         let check = confirm(`Bạn có chắc chắn cập nhật người dùng này không ?`);
         if (check) {
