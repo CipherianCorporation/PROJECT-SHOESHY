@@ -1,7 +1,7 @@
-![dxcvape-logo](https://user-images.githubusercontent.com/52403567/185983183-df1c7a53-4281-41a8-a288-9bac0eb37b68.png) 
+![shoeshy-logo](https://user-images.githubusercontent.com/52403567/185983183-df1c7a53-4281-41a8-a288-9bac0eb37b68.png) 
 ## ShoeShy - Shoe store website
 
-A shoe store website made with Spring Boot, payment integration with Paypal Sandbox, there is 3 roles: USER, ADMIN, and STAFF. USER can only visit homepage while STAFF and ADMIN can visit both homepage and admin page. User can sign in and sign up with normal account or with OAuth2 account (GG,FB), edit profile, see orders history, reset password, and checkout with or without voucher, search & sort products. ADMIN and STAFF can visit admin page, view Dashboard, CRUD User, Product, Order, Category & SubCategory, Voucher, and have authorizing privilege, export data to excel, pdf, csv, upload excel, pdf, csv to db (to be added), payment with NEAR (to be added)
+A final graduation project at FPT Polytechnic, a shoe store website made with Spring Boot, payment integration with Paypal Sandbox, there is 3 roles: USER, ADMIN, and STAFF. USER can only visit homepage while STAFF and ADMIN can visit both homepage and admin page. User can sign in and sign up with normal account or with OAuth2 account (GG,FB), edit profile, see orders history, reset password, and checkout with or without voucher, search & sort products. ADMIN and STAFF can visit admin page, view Dashboard, CRUD User, Product, Order, Category & SubCategory, Voucher, and have authorizing privilege, export data to excel, pdf, csv, upload excel, pdf, csv to db (to be added), payment with NEAR (to be added)
 
 Stack used:
   *	Stack:
@@ -77,7 +77,13 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 
 ## Authors and acknowledgment
-Authors of this project: [Jackytank](https://github.com/jackytank)
+Authors of this project: 
+
+- [jackytank](https://github.com/jackytank)
+- [HiepNguyen0402](https://github.com/HiepNguyen0402)
+- [supercum](https://github.com/supercuem)
+- [tamntps15500](https://github.com/tamntps15500)
+- [tranvohoaian0801](https://github.com/tranvohoaian0801)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
