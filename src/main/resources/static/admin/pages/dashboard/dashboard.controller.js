@@ -118,7 +118,6 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
                     }
                 );
             });
-            console.log(result);
             $scope.orderChartJS(result, 'orderChart');
         }).catch((error) => {
             console.error('Error:', error);

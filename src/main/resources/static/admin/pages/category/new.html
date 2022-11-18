@@ -1,47 +1,45 @@
 <div class="row justify-content-between">
-    <div class="col-md-5 col-sm-12 mb-4" name="formcate" enctype="multipart/form-data" novalidate>
-        <div class="text-center">
-            <strong>Thể loại</strong>
-        </div>
-        <div class="mb-2">
-			<img
-				ng-src="{{ (form.image_url.startsWith('upload')?'/upload/images/':'/assets/images/') + (form.image_url || 'default-user.jpg') }}"
-				style="max-width: 20vw; max-height: 20vh;" alt="Category image">
-		</div>
-		<div class="mb-4">
-			<input type="file" class="form-control" id="customFile"
-				ng-model="form.image_url"
-				onchange="angular.element(this).scope().imageChanged(this.files)" />
-		</div>
-        <div class="form-outline-primary mb-4">
-            <label class="form-label" for="form12">Tên thể loại</label>
-            <input ng-model="form.name" name="name" type="text" id="form12" class="form-control" />
-            <div class="text-danger" ng-show="formcate.name.$invalid">Làm ơn nhập tên thể loại hợp lệ.</div>
-        </div>
-
-        <!-- Submit button -->
-        <button ng-click="create()" type="submit" class="btn btn-primary btn-block">Tạo mới</button>
-
-    </div>
-
-    <!-- sub-category -->
-    <div class="col-md-5 col-sm-12" name="formsubcate">
+    <form class="col-md-5 col-sm-12 mb-4" name="formcate" enctype="multipart/form-data" novalidate>
         <div class="text-center">
             <strong>Danh mục</strong>
         </div>
+        <div class="mb-2">
+            <img ng-src="{{ (form.image_url.startsWith('upload')?'/upload/images/':'/assets/images/') + (form.image_url || 'default-category.jpg') }}"
+                style="max-width: 20vw; max-height: 20vh;" alt="Category image">
+        </div>
+        <div class="mb-4">
+            <input type="file" class="form-control" id="customFile" ng-model="form.image_url"
+                onchange="angular.element(this).scope().imageChanged(this.files)" />
+        </div>
+        <div class="form-outline-primary mb-4">
+            <label class="form-label" for="form12">Tên danh mục</label>
+            <input ng-model="form.name" name="name" type="text" id="form12" class="form-control" required />
+            <div class="text-danger" ng-show="formcate.name.$invalid">Làm ơn nhập tên danh mục hợp lệ.</div>
+        </div>
+
+        <!-- Submit button -->
+        <button ng-disabled="formcate.$invalid" ng-click="create()" type="submit" class="btn btn-primary btn-block">Tạo mới</button>
+
+    </form>
+
+    <!-- sub-category -->
+    <form class="col-md-5 col-sm-12" name="formsubcate" novalidate>
+        <div class="text-center">
+            <strong>Danh mục phụ</strong>
+        </div>
         <div class="form-outline-primary mb-2">
-            <label class="form-label" for="form12">Tên thể loại</label><br>
+            <label class="form-label" for="form12">List danh mục</label><br>
             <select class="select" ng-model="formsub.category.id">
                 <option ng-if="category.length === 0" disabled selected>Đang load...</option>
                 <option value="{{cate.id}}" ng-repeat="cate in category">{{cate.name}}</option>
             </select>
         </div>
         <div class="form-outline-primary mb-4">
-            <label class="form-label" for="form12">Tên danh mục</label>
-            <input ng-model="formsub.name" name="name" type="text" id="form12" class="form-control" />
+            <label class="form-label" for="form12">Tên danh mục phụ</label>
+            <input ng-model="formsub.name" name="name" type="text" id="form12" class="form-control" required />
             <div class="text-danger" ng-show="formsubcate.name.$invalid">Làm ơn nhập tên danh mục phụ hợp lệ.</div>
         </div>
         <!-- Submit button -->
-        <button ng-click="createSubCate()" type="submit" class="btn btn-primary btn-block">Tạo mới</button>
-    </div>
+        <button ng-disabled="formsubcate.$invalid" ng-click="createSubCate()" type="submit" class="btn btn-primary btn-block">Tạo mới</button>
+    </form>
 </div>

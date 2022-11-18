@@ -1,19 +1,33 @@
 <!-- start row 1 -->
 <div class="row">
+    <!-- Search cates form -->
+    <form class="d-none d-md-flex input-group w-auto my-auto">
+        <input autocomplete="off" type="search" class="form-control rounded" placeholder='Tìm danh mục...' ng-model="searchCates" />
+        <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+    </form>
     <div class="text-center">
-        <strong>Danh sách thể loại</strong>
+        <strong>Danh sách danh mục</strong>
     </div>
-    <table class="table align-middle mb-0 bg-white">
+    <table class="table align-middle mb-0 bg-white mb-2">
         <thead class="bg-light">
             <tr>
-                <th>Mã thể loại</th>
-                <th>Tên thể loại</th>
+                <th>Mã danh mục</th>
+                <th>Tên danh mục</th>
                 <th>Ảnh</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat ="item in pagers.category">
+            <tr ng-show="catesLoading">
+                <th colspan="4">
+                    <div class="d-flex justify-content-center my-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr ng-repeat="item in pagers.category | filter: searchCates">
                 <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.image_url | limitTo: 10 }}{{item.image_url.length > 10 ? '...' : ''}}</td>
@@ -28,17 +42,17 @@
             </tr>
         </tbody>
     </table>
-   <div class="d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <div class="justify-content-center btn-group btn-group-xs">
-                        <button class="btn btn-secondary btn-sm" ng-click="pagers.first()"> &lArr;</button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pagers.prev()">&larr; </button>
-                        <button class="btn btn-secondary btn-sm">{{pagers.page+1}} - {{pagers.count}}</button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pagers.next()"> &rarr; </button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pagers.last()">&rArr; </button>
-                    </div>
-                </nav>
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <div class="justify-content-center btn-group btn-group-xs">
+                <button class="btn btn-secondary btn-sm" ng-click="pagers.first()"> &lArr;</button>
+                <button class="btn btn-secondary btn-sm" ng-click="pagers.prev()">&larr; </button>
+                <button class="btn btn-secondary btn-sm">{{pagers.page+1}} - {{pagers.count}}</button>
+                <button class="btn btn-secondary btn-sm" ng-click="pagers.next()"> &rarr; </button>
+                <button class="btn btn-secondary btn-sm" ng-click="pagers.last()">&rArr; </button>
             </div>
+        </nav>
+    </div>
 </div>
 <!-- end row 1 -->
 
@@ -46,23 +60,37 @@
 
 <!-- start row 2 -->
 <div class="row">
+    <!-- Search cates form -->
+    <form class="d-none d-md-flex input-group w-auto my-auto">
+        <input autocomplete="off" type="search" class="form-control rounded" placeholder='Tìm danh mục phụ...' ng-model="searchSubCates" />
+        <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+    </form>
     <div class="text-center">
-        <strong>Danh sách danh mục</strong>
+        <strong>Danh sách danh mục phụ</strong>
     </div>
-    <table class="table align-middle mb-0 bg-white">
+    <table class="table align-middle mb-0 bg-white mb-2">
         <thead class="bg-light">
             <tr>
-                <th>Mã danh mục</th>
-                <th>Name danh mục</th>
-                 <th>Tên thể loại</th>
+                <th>Mã danh mục phụ</th>
+                <th>Tên danh mục</th>
+                <th>Tên danh mục phụ</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in pager.subcate">
+            <tr ng-show="subCatesLoading">
+                <th colspan="4">
+                    <div class="d-flex justify-content-center my-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr ng-repeat="item in pager.subcate | filter: searchSubCates">
                 <td>{{item.id}}</td>
-                <td>{{item.name}}</td>
                 <td>{{item.category.name}}</td>
+                <td>{{item.name}}</td>
                 <td>
                     <button ng-click="editSubCate(item)" class="btn btn-secondary">
                         Chỉnh sửa
@@ -75,15 +103,15 @@
         </tbody>
     </table>
     <div class="d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <div class="justify-content-center btn-group btn-group-xs">
-                        <button class="btn btn-secondary btn-sm" ng-click="pager.first()"> &lArr;</button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pager.prev()">&larr; </button>
-                        <button class="btn btn-secondary btn-sm">{{pager.page+1}} - {{pager.count}}</button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pager.next()"> &rarr; </button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pager.last()">&rArr; </button>
-                    </div>
-                </nav>
+        <nav aria-label="Page navigation example">
+            <div class="justify-content-center btn-group btn-group-xs">
+                <button class="btn btn-secondary btn-sm" ng-click="pager.first()"> &lArr;</button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.prev()">&larr; </button>
+                <button class="btn btn-secondary btn-sm">{{pager.page+1}} - {{pager.count}}</button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.next()"> &rarr; </button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.last()">&rArr; </button>
             </div>
+        </nav>
+    </div>
 </div>
 <!-- end row 2 -->

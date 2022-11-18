@@ -38,10 +38,10 @@
                 <td>{{item.id}}</td>
                 <td>{{item.username}}</td>
                 <td>{{item.password | limitTo: 10 }}{{item.password.length > 10 ? '...' : ''}}</td>
-                <td>{{item.fullname }}</td>
+                <td>{{item.fullname}}</td>
                 <td>{{item.email}}</td>
                 <td>{{item.phone}}</td>
-                <td>{{item.address}}</td>
+                <td>{{item.address | limitTo: 10 }}{{item.address.length > 10 ? '...' : ''}}</td>
                 <td>{{item.image_url | limitTo: 10 }}{{item.image_url.length > 10 ? '...' : ''}}</td>
                 <td>{{item.provider}}</td>
                 <td>{{item.enabled}}</td>
