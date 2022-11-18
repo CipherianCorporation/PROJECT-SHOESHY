@@ -1,47 +1,54 @@
 <div class="row">
-    <div class="col-md-6 col-sm-12 mb-4">
+    <div class="col-md-6 col-sm-12 mb-4" name="formCate" enctype="multipart/form-data">
         <div class="text-center">
-            <strong>Category</strong>
+            <strong>Thể loại</strong>
         </div>
-        <div class="form-outline-primary mb-2">
-            <label class="form-label" for="form12">ID</label>
-            <input type="text" id="form12" class="form-control" disabled />
+		<div class="mb-2">
+			<img
+				ng-src="{{ (form.image_url.startsWith('upload')?'/upload/images/':'/assets/images/') + (form.image_url || 'default-user.jpg') }}"
+				style="max-width: 20vw; max-height: 20vh;" alt="Category image">
+		</div>
+		<div class="mb-4">
+			<input type="file" class="form-control" id="customFile"
+				ng-model="form.image_url"
+				onchange="angular.element(this).scope().imageChanged(this.files)" />
+		</div>
+		<div class="form-outline-primary mb-2">
+            <label class="form-label" for="form12">Mã thể loại</label>
+            <input ng-model="form.id" name="ïd" type="text" id="form12" class="form-control" disabled />
         </div>
         <div class="form-outline-primary mb-4">
-            <label class="form-label" for="form12">Name</label>
-            <input type="text" id="form12" class="form-control" />
+            <label class="form-label" for="form12">Tên thể loại</label>
+            <input ng-model="form.name" name="name" type="text" id="form12" class="form-control" />
+            <div class="text-danger" ng-show="formCate.name.$invalid">Làm ơn nhập tên thể loại hợp lệ.</div>
         </div>
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block">CREATE</button>
+        <button ng-click="update()" type="submit" class="btn btn-primary btn-block">Cập nhật</button>
     </div>
 
     <!-- sub-category -->
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-6 col-sm-12" name="formSub">
         <div class="text-center">
-            <strong>Sub-Category</strong>
+            <strong>Danh mục</strong>
         </div>
         <div class="form-outline-primary mb-2">
-            <label class="form-label" for="form12">ID</label>
-            <input type="text" id="form12" class="form-control" disabled />
+            <label class="form-label" for="form12">Mã danh mục</label>
+            <input ng-model="formsub.id" name="ïd" type="text" id="form12" class="form-control" disabled />
         </div>
-        <div class="form-outline-primary mb-2">
-            <label class="form-label" for="form12">Category name</label><br>
-            <select class="select">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Four</option>
-                <option value="5">Five</option>
-                <option value="6">Six</option>
-                <option value="7">Seven</option>
-                <option value="8">Eight</option>
+         <div class="form-outline-primary mb-2">
+            <label class="form-label" for="form12">Tên thể loại</label><br>
+            <select class="select" ng-model="formsub.category.id">
+                <option ng-if="category.length === 0" disabled selected>Đang load...</option>
+                <option ng-selected="formsub.category.id == cate.id" value="{{cate.id}}" ng-value="cate.id" ng-repeat="cate in category">{{cate.name}}</option>
+              
             </select>
         </div>
         <div class="form-outline-primary mb-4">
-            <label class="form-label" for="form12">Name</label>
-            <input type="text" id="form12" class="form-control" />
+            <label class="form-label" for="form12">Tên danh mục</label>
+            <input ng-model="formsub.name" name="name" type="text" id="form12" class="form-control" />
+            <div class="text-danger" ng-show="formSub.name.$invalid">Làm ơn nhập tên danh mục hợp lệ.</div>
         </div>
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block">CREATE</button>
+        <button ng-click="updateSubCate()" type="submit" class="btn btn-primary btn-block">Cập nhật</button>
     </div>
 </div>

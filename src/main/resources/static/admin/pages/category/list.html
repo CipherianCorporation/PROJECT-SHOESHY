@@ -1,56 +1,44 @@
 <!-- start row 1 -->
 <div class="row">
     <div class="text-center">
-        <strong>Category List</strong>
+        <strong>Danh sách thể loại</strong>
     </div>
     <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
+                <th>Mã thể loại</th>
+                <th>Tên thể loại</th>
+                <th>Ảnh</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>100001</td>
-                <td>Giày nam</td>
+            <tr ng-repeat ="item in pagers.category">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.image_url | limitTo: 10 }}{{item.image_url.length > 10 ? '...' : ''}}</td>
                 <td>
-                    <button class="btn btn-secondary">
-                        Edit
+                    <button ng-click="edit(item)" class="btn btn-secondary">
+                        Chỉnh sửa
                     </button>
-                    <button class="btn btn-danger">
-                        Delete
+                    <button ng-click="delete(item)" class="btn btn-danger">
+                        Xóa
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class=" d-flex justify-content-center">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+   <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <div class="justify-content-center btn-group btn-group-xs">
+                        <button class="btn btn-secondary btn-sm" ng-click="pagers.first()"> &lArr;</button>
+                        <button class="btn btn-secondary btn-sm" ng-click="pagers.prev()">&larr; </button>
+                        <button class="btn btn-secondary btn-sm">{{pagers.page+1}} - {{pagers.count}}</button>
+                        <button class="btn btn-secondary btn-sm" ng-click="pagers.next()"> &rarr; </button>
+                        <button class="btn btn-secondary btn-sm" ng-click="pagers.last()">&rArr; </button>
+                    </div>
+                </nav>
+            </div>
 </div>
 <!-- end row 1 -->
 
@@ -59,57 +47,43 @@
 <!-- start row 2 -->
 <div class="row">
     <div class="text-center">
-        <strong>Sub-Category List</strong>
+        <strong>Danh sách danh mục</strong>
     </div>
     <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
             <tr>
-                <th>ID</th>
-                <th>Category ID</th>
-                <th>Name</th>
+                <th>Mã danh mục</th>
+                <th>Name danh mục</th>
+                 <th>Tên thể loại</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>100001</td>
-                <td>Giày tây nam</td>
-                <td>100002</td>
+            <tr ng-repeat="item in pager.subcate">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.category.name}}</td>
                 <td>
-                    <button class="btn btn-secondary">
-                        Edit
+                    <button ng-click="editSubCate(item)" class="btn btn-secondary">
+                        Chỉnh sửa
                     </button>
-                    <button class="btn btn-danger">
-                        Delete
+                    <button ng-click="deleteSubCate(item)" class="btn btn-danger">
+                        Xóa
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <div class=" d-flex justify-content-center">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                    </a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <div class="justify-content-center btn-group btn-group-xs">
+                        <button class="btn btn-secondary btn-sm" ng-click="pager.first()"> &lArr;</button>
+                        <button class="btn btn-secondary btn-sm" ng-click="pager.prev()">&larr; </button>
+                        <button class="btn btn-secondary btn-sm">{{pager.page+1}} - {{pager.count}}</button>
+                        <button class="btn btn-secondary btn-sm" ng-click="pager.next()"> &rarr; </button>
+                        <button class="btn btn-secondary btn-sm" ng-click="pager.last()">&rArr; </button>
+                    </div>
+                </nav>
+            </div>
 </div>
 <!-- end row 2 -->

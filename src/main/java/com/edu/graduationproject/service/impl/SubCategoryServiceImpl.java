@@ -30,4 +30,20 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     public List<IProductSoldBySubCategoryCount> getProductSold() {
         return repo.getProductSold();
     }
+
+    @Override
+    public SubCategory save(SubCategory subcategory) {
+        return repo.save(subcategory);
+    }
+
+    @Override
+    public SubCategory update(SubCategory subcategory) {
+        return repo.save(subcategory);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        repo.deleteById(id);
+    }
+
 }
