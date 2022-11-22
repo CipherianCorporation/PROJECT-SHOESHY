@@ -44,7 +44,7 @@
                                     {{usersCount}} <a href="#" class="text-warning h5" data-mdb-toggle="tooltip"
                                         title="Người dùng có Role là USER & provider là DATABASE">!</a>
                                 </h4>
-                                <p class="mb-0">Người dùng</p>
+                                <p class="mb-0">Người dùng - <a href="" data-mdb-toggle="modal" data-mdb-target="#usersModal">Chi tiết</a></p>
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                                 <h4 ng-show="!orderLoading">{{ordersCount}}</h4>
-                                <p class="mb-0">Tổng đơn</p>
+                                <p class="mb-0">Tổng đơn - <a href="" data-mdb-toggle="modal" data-mdb-target="#ordersModal">Chi tiết</a></p>
                             </div>
                         </div>
                     </div>
@@ -164,16 +164,76 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between px-md-1">
                             <div class="align-self-center">
-                                <i class="fa fa-signal text-secondary fa-3x"></i>
+                                <i class="fa fa-signal text-success fa-3x"></i>
                             </div>
                             <div class="text-end">
                                 <div ng-show="onlineUsersLoading" class="spinner-grow" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
-                                <h4 ng-show="!userLoading">
-                                    {{onlineUsersCount}} 
+                                <h4 ng-show="!onlineUsersLoading">
+                                    {{onlineUsersCount}}
                                 </h4>
                                 <p class="mb-0">Người dùng online</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="fa fa-check text-success fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <div ng-show="orderTypeCountLoading" class="spinner-grow" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <h4 ng-show="!orderTypeCountLoading">
+                                    {{orderTypeCount.successCount}}
+                                </h4>
+                                <p class="mb-0">Số đơn thành công</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="fa fa-xmark text-danger fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <div ng-show="orderTypeCountLoading" class="spinner-grow" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <h4 ng-show="!orderTypeCountLoading">
+                                    {{orderTypeCount.cancelCount}}
+                                </h4>
+                                <p class="mb-0">Số đơn hủy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="fa-solid fa-spinner text-warning fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <div ng-show="orderTypeCountLoading" class="spinner-grow" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <h4 ng-show="!orderTypeCountLoading">
+                                    {{orderTypeCount.processingCount}}
+                                </h4>
+                                <p class="mb-0">Số đơn chờ</p>
                             </div>
                         </div>
                     </div>
@@ -216,7 +276,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-show="visitorsModalLoading">
-                                    <th colspan="11">
+                                    <th colspan="14">
                                         <div class="d-flex justify-content-center my-4">
                                             <div class="spinner-border" role="status">
                                                 <span class="visually-hidden">Loading...</span>
@@ -282,4 +342,182 @@
         </div>
     </div>
     <!-- Visitors Modal - END-->
+
+    <!-- Order Modal - START-->
+    <div class="modal fade" id="ordersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông số đơn hàng chi tiết </h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã Đơn Hàng.</th>
+                                    <th>Ngày Đặt Hàng</th>
+                                    <th>Trạng thái đơn hàng</th>
+                                    <th>Địa Chỉ Giao Hàng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="ordersModalLoading">
+                                    <th colspan="11">
+                                        <div class="d-flex justify-content-center my-4">
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="item in ordersListPager.items | filter: searchTextOrder">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
+                                    <!-- nếu status là cancel cho text đỏ, processing thì text vàng, còn success thì text xanh lá, đặt ng-init cho biến ngắn -->
+                                    <td ng-init="status = item.orderStatus.name"
+                                        class="{{status == 'processing' ? 'text-warning': (status == 'cancel' ? 'text-danger':'text-success')}}">
+                                        {{item.orderStatus.name}}
+                                    </td>
+                                    <td>{{item.address}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class=" d-flex justify-content-center">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <button class="page-link" aria-label="Previous" ng-click="ordersListPager.first()">
+                                            <span aria-hidden="true">&lArr;</span>
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <button class="page-link" aria-label="Previous" ng-click="ordersListPager.prev()">
+                                            <span aria-hidden="true">&larr;</span>
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link">{{ordersListPager.page+1}} of {{ordersListPager.count}}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <button class="page-link" aria-label="Next" ng-click="ordersListPager.next()">
+                                            <span aria-hidden=" true">&rarr;</span>
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <button class="page-link" aria-label="Next" ng-click="ordersListPager.last()">
+                                            <span aria-hidden=" true">&rArr;</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Order Modal - END-->
+
+    <!-- Users Modal - START-->
+    <div class="modal fade" id="usersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Số người dùng (USER) chi tiết </h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên người dùng</th>
+                                    <th>Mật khẩu</th>
+                                    <th>Họ và tên</th>
+                                    <th>Email</th>
+                                    <th>SDT</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ảnh</th>
+                                    <th>Nhà cung cấp</th>
+                                    <th>Kích hoạt?</th>
+                                    <th>Mã xác minh</th>
+                                    <th>Đặt lại mật khẩu Token</th>
+                                    <th>Ngày cập nhật</th>
+                                    <th>Ngày tạo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-show="usersModalLoading">
+                                    <th colspan="14">
+                                        <div class="d-flex justify-content-center my-4">
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="item in usersListPager.items | filter: searchUserText">
+                                    <td>{{item.id}}</td>
+                                    <td>{{item.username}}</td>
+                                    <td>{{item.password | limitTo: 10 }}{{item.password.length > 10 ? '...' : ''}}</td>
+                                    <td>{{item.fullname}}</td>
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.phone}}</td>
+                                    <td>{{item.address | limitTo: 10 }}{{item.address.length > 10 ? '...' : ''}}</td>
+                                    <td>{{item.image_url | limitTo: 10 }}{{item.image_url.length > 10 ? '...' : ''}}</td>
+                                    <td>{{item.provider}}</td>
+                                    <td>{{item.enabled}}</td>
+                                    <td>{{item.verify_code | limitTo: 10 }}{{item.verify_code.length > 10 ? '...' : ''}}</td>
+                                    <td>{{item.reset_pwd_token | limitTo: 10 }}{{item.reset_pwd_token.length > 10 ? '...' : ''}}</td>
+                                    <td>{{item.updatedAt | date:'dd-MM-yyyy'}}</td>
+                                    <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class=" d-flex justify-content-center">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <button class="page-link" aria-label="Previous" ng-click="usersListPager.first()">
+                                            <span aria-hidden="true">&lArr;</span>
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <button class="page-link" aria-label="Previous" ng-click="usersListPager.prev()">
+                                            <span aria-hidden="true">&larr;</span>
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link">{{usersListPager.page+1}} of {{usersListPager.count}}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <button class="page-link" aria-label="Next" ng-click="usersListPager.next()">
+                                            <span aria-hidden=" true">&rarr;</span>
+                                        </button>
+                                    </li>
+                                    <li class="page-item">
+                                        <button class="page-link" aria-label="Next" ng-click="usersListPager.last()">
+                                            <span aria-hidden=" true">&rArr;</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Users Modal - END-->
 </div>

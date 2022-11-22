@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.edu.graduationproject.entity.Order;
 import com.edu.graduationproject.entity.OrderDetails;
+import com.edu.graduationproject.model.IOrderTypeCount;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public interface OrderService {
@@ -28,4 +29,6 @@ public interface OrderService {
     Long getCount();
 
     Double getTotalRevenue();
+
+    List<IOrderTypeCount> getTypeCount();
 }

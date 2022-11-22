@@ -36,8 +36,11 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
     $scope.userRolesList = [];
     $scope.visitorsCount = [];
     $scope.visitorsList = [];
+    $scope.ordersList = [];
+    $scope.usersList = [];
     $scope.rolesList = [];
     $scope.ordersCount = 0;
+    $scope.orderTypeCount = [];
     $scope.orderTotalRevenue = 0;
 
 
@@ -48,6 +51,7 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
     $scope.onlineUsersLoading = true;
     $scope.visitorLoading = true;
     $scope.orderLoading = true;
+    $scope.orderTypeCountLoading = true;
     $scope.orderChartLoading = true;
     $scope.revenueLoading = true;
     $scope.userTypeChartLoading = true;
@@ -55,6 +59,8 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
 
     //loading spinners - modal/
     $scope.visitorsModalLoading = true;
+    $scope.ordersModalLoading = true;
+    $scope.usersModalLoading = true;
 
     $scope.initialize = function () {
         $scope.userPrincipal = JSON.parse(localStorage.getItem('userPrincipal')) || {};
@@ -72,6 +78,14 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
             console.error('Error:', error);
         }).finally(() => {
             $scope.userLoading = false;
+        });
+
+        $http.get('/rest/users').then((resp) => {
+            $scope.usersList = resp.data;
+        }).catch((error) => {
+            console.error('Error:', error);
+        }).finally(() => {
+            $scope.usersModalLoading = false;
         });
 
         $http.get('/rest/user-roles/count-users-by-role').then((resp) => {
@@ -114,7 +128,17 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
             $scope.orderLoading = false;
         });
 
+        $http.get('/rest/orders/type-count').then((resp) => {
+            $scope.orderTypeCount = resp.data[0];
+            console.log(resp.data);
+        }).catch((error) => {
+            console.error('Error:', error);
+        }).finally(() => {
+            $scope.orderTypeCountLoading = false;
+        });
+
         $http.get('/rest/orders').then((resp) => {
+            $scope.ordersList = resp.data;
             let orderByMonth = [];
             let result = [];
             resp.data.forEach((e) => {
@@ -133,6 +157,7 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
             console.error('Error:', error);
         }).finally(() => {
             $scope.orderChartLoading = false;
+            $scope.ordersModalLoading = false;
         });
 
         $http.get('/rest/orders/revenue').then((resp) => {
@@ -150,7 +175,6 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
         }).finally(() => {
             $scope.prodSoldLoading = false;
         });
-
     };
 
     $scope.initialize();
@@ -164,6 +188,66 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
         },
         get count() {
             return Math.ceil(1.0 * $scope.visitorsList.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
+        }
+    };
+
+    $scope.ordersListPager = {
+        page: 0,
+        size: 10,
+        get items() {
+            let start = this.page * this.size;
+            return $scope.ordersList.slice(start, start + this.size);
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.ordersList.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
+        }
+    };
+
+    $scope.usersListPager = {
+        page: 0,
+        size: 10,
+        get items() {
+            let start = this.page * this.size;
+            return $scope.usersList.slice(start, start + this.size);
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.usersList.length / this.size);
         },
         first() {
             this.page = 0;

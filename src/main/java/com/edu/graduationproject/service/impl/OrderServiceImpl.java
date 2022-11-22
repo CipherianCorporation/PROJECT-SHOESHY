@@ -11,6 +11,7 @@ import com.edu.graduationproject.entity.Order;
 import com.edu.graduationproject.entity.OrderDetails;
 import com.edu.graduationproject.entity.Product;
 import com.edu.graduationproject.entity.User;
+import com.edu.graduationproject.model.IOrderTypeCount;
 import com.edu.graduationproject.repository.OrderDetailRepository;
 import com.edu.graduationproject.repository.OrderRepository;
 import com.edu.graduationproject.service.OrderService;
@@ -106,5 +107,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Double getTotalRevenue() {
         return orderRepo.getTotalRevenue();
+    }
+
+    @Override
+    public List<IOrderTypeCount> getTypeCount() {
+        return orderRepo.getTypeCount();
     }
 }

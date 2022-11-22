@@ -49,7 +49,6 @@
                 <td>{{item.reset_pwd_token | limitTo: 10 }}{{item.reset_pwd_token.length > 10 ? '...' : ''}}</td>
                 <td>{{item.updatedAt | date:'dd-MM-yyyy'}}</td>
                 <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
-                <td></td>
                 <td>
                     <button ng-click="edit(item)" type="button" class="btn btn-dark">Edit</button>
                     <button ng-click="delete(item)" type="button" class="btn btn-danger">Del</button>
