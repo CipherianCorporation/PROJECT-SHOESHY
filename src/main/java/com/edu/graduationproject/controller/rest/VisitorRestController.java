@@ -37,6 +37,8 @@ public class VisitorRestController {
         return ResponseEntity.ok(visitorService.getCount());
     }
 
+    // count all active users from session
+    // source: https://www.baeldung.com/spring-security-track-logged-in-users | 6. Using Sessionregistry
     @GetMapping("/rest/visitors/active-users-count")
     public ResponseEntity<Integer> getSessionCount() {
         List<String> tmp = sessionRegistry.getAllPrincipals().stream()

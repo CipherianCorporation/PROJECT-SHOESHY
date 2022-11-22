@@ -32,6 +32,7 @@ let MonthUtils = (config) => {
 app.controller("dashboard-ctrl", function ($scope, $http) {
     $scope.userPrincipal = {};
     $scope.usersCount = [];
+    $scope.onlineUsersCount = 0;
     $scope.userRolesList = [];
     $scope.visitorsCount = [];
     $scope.visitorsList = [];
@@ -44,6 +45,7 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
 
     //loading spinners - index.html
     $scope.userLoading = true;
+    $scope.onlineUsersLoading = true;
     $scope.visitorLoading = true;
     $scope.orderLoading = true;
     $scope.orderChartLoading = true;
@@ -94,6 +96,14 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
             console.error('Error:', error);
         }).finally(() => {
             $scope.visitorLoading = false;
+        });
+
+        $http.get('/rest/visitors/active-users-count').then((resp) => {
+            $scope.onlineUsersCount = resp.data;
+        }).catch((error) => {
+            console.error('Error:', error);
+        }).finally(() => {
+            $scope.onlineUsersLoading = false;
         });
 
         $http.get('/rest/orders/count').then((resp) => {
