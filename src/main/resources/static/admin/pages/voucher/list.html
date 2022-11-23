@@ -22,17 +22,18 @@
                     </div>
                 </th>
             </tr>
-            <tr ng-repeat="item in pager.items">
-                <td>{{item.id}}</td>
-                <td>{{item.code}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.value}}%</td>
-                <td>{{item.startDate | date:'dd-MM-yyyy'}}}}</td>
-                <td>{{item.endDate | date:'dd-MM-yyyy'}}}}</td>
-                <td>{{item.updatedAt | date:'dd-MM-yyyy'}}}}</td>
+
+            <tr ng-repeat="voucher in pager.items">
+                <td>{{voucher.id}}</td>
+                <td>{{voucher.code}}</td>
+                <td>{{voucher.description}}</td>
+                <td>{{voucher.value}}%</td>
+                <td>{{voucher.startDate | date:'dd-MM-yyyy'}}</td>
+                <td>{{voucher.endDate | date:'dd-MM-yyyy'}}</td>
+                <td>{{voucher.updatedAt | date:'dd-MM-yyyy'}}</td>
                 <td>
-                    <button type="button" class="btn btn-dark" ng-click="edit(item)">Edit</button>
-                    <button type="button" class="btn btn-danger" ng-click="delete(item)">Del</button>
+                    <button type="button" class="btn btn-dark" ng-click="edit(voucher)">Edit</button>
+                    <button type="button" class="btn btn-danger" ng-click="delete(voucher)">Del</button>
                 </td>
             </tr>
         </tbody>

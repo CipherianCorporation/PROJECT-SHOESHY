@@ -135,7 +135,7 @@ public class UserRestController {
             if (user.getProvider() != AuthProvider.DATABASE) {
                 user.setProvider(AuthProvider.DATABASE);
             }
-            user.setUpdated_at(new Date());
+            user.setUpdatedAt(new Date());
             System.out
                     .println(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user)
                             + "\n\n\n");

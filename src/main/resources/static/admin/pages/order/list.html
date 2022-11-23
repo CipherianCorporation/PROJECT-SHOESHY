@@ -21,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in list_items">
+                    <tr ng-repeat="item in pager.items">
                         <td>{{$index+1}}</td>
                         <td>{{item.id}}</td>
                         <td>{{item.createdAt}}</td>
@@ -38,6 +38,35 @@
                     </tr>
                 </tbody>
             </table>
+            <div class=" d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Previous" ng-click="pager.first()">
+                                <span aria-hidden="true">&lArr;</span>
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Previous" ng-click="pager.prev()">
+                                <span aria-hidden="true">&larr;</span>
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link">{{pager.page+1}} of {{pager.count}}</a>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Next" ng-click="pager.next()">
+                                <span aria-hidden=" true">&rarr;</span>
+                            </button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" aria-label="Next" ng-click="pager.last()">
+                                <span aria-hidden=" true">&rArr;</span>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>

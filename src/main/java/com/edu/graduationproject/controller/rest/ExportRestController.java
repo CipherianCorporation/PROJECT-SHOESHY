@@ -35,17 +35,6 @@ public class ExportRestController {
     @Autowired
     ExportService exportService;
 
-    //Print excell
-    @GetMapping("/admin/orders/export-excel")
-    public ResponseEntity<String> exportOrdersExcel(HttpServletResponse response) {
-        try {
-            exportService.exportExcel(new Order(), "orders", response);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     // export excel
     @GetMapping("/admin/products/export-excel")
     public ResponseEntity<String> exportProductExcel(HttpServletResponse response) {
