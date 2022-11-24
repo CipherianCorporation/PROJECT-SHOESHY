@@ -2,15 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic(~{::section})}">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQLGRZ47JQ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
 
-        gtag('config', 'G-DQLGRZ47JQ');
-    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,8 +48,8 @@
                                                     <div class="d-flex justify-content-between">
                                                         <div class="d-flex flex-row align-items-center">
                                                             <div>
-                                                                <img ng-src="/assets/images/{{item.image}}" class="img-fluid rounded-3"
-                                                                    alt="Error loading image" style="width: 65px;">
+                                                                <img ng-src="{{ (item.image.startsWith('upload')?'/upload/images/':'/assets/images/') + (item.image || 'default-product.jpg') }}"
+                                                                    class="img-fluid rounded-3" alt="Error loading image" style="width: 65px;">
                                                             </div>
                                                             <div class="ms-3">
                                                                 <strong>{{item.name}}</strong>
@@ -108,8 +100,10 @@
                                                         </div>
 
                                                         <div class="row mb-3" ng-init="order.payment_method = 'cod'">
-                                                            <div class="mb-1 small">Phương thức thanh toán: <strong>{{order.payment_method |
-                                                                    uppercase}}</strong></div>
+                                                            <div class="mb-1 small">
+                                                                Phương thức thanh toán: <strong>{{order.payment_method | uppercase}}</strong>
+                                                                <span ng-if="order.payment_method != 'cod'">(Freeship)</span>
+                                                            </div>
                                                             <div class="col-md-6 mb-2">
                                                                 <div class="d-grid gap-2">
                                                                     <input type="radio" ng-model="order.payment_method" class="btn-check" value="cod"

@@ -11,6 +11,7 @@ import com.edu.graduationproject.entity.Order;
 import com.edu.graduationproject.entity.OrderDetails;
 import com.edu.graduationproject.entity.Product;
 import com.edu.graduationproject.entity.User;
+import com.edu.graduationproject.model.IOrderTypeCount;
 import com.edu.graduationproject.repository.OrderDetailRepository;
 import com.edu.graduationproject.repository.OrderRepository;
 import com.edu.graduationproject.service.OrderService;
@@ -48,11 +49,13 @@ public class OrderServiceImpl implements OrderService {
                 })
                 .stream().peek(o -> o.setOrder(order)).collect(Collectors.toList());
 
-        // increment product sold to 1
+        // increment product sold to 1, decrease product stock to 1
         list.forEach((detail) -> {
             Product product = productService.findById(detail.getProduct().getId());
             Long oldSold = product.getSold();
+            Long oldStock = product.getStock();
             product.setSold(++oldSold);
+            product.setStock(--oldStock);
         });
         orderDetailRepo.saveAll(list);
         return order;
@@ -96,5 +99,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> searchByOrderId(Long orderId) {
         return orderRepo.searchByOrderId(orderId);
+    }
+
+    @Override
+    public Long getCount() {
+        return orderRepo.getCount();
+    }
+
+    @Override
+    public Double getTotalRevenue() {
+        return orderRepo.getTotalRevenue();
+    }
+
+    @Override
+    public List<IOrderTypeCount> getTypeCount() {
+        return orderRepo.getTypeCount();
     }
 }

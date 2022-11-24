@@ -3,12 +3,14 @@ package com.edu.graduationproject.utils;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.edu.graduationproject.security.CustomUserDetails;
+import com.edu.graduationproject.security.oauth2.CustomOAuth2User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -119,18 +121,17 @@ public final class HttpRequestResponseUtils {
 
     public static String getLoggedInUser() {
         String userJson = null;
-
-        if (SecurityContextHolder.getContext().getAuthentication() != null
-                && SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
-                && !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
-
-            CustomUserDetails user = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication()
-                    .getPrincipal();
-
-            userJson = user.getUsername() + "_" + user.getAuthorities();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken)) {
+            if (auth.getPrincipal() instanceof CustomOAuth2User) {
+                CustomOAuth2User oauth2User = (CustomOAuth2User) auth.getPrincipal();
+                userJson = oauth2User.getName() + "_" + oauth2User.getAuthorities();
+            } else {
+                CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
+                userJson = user.getUsername() + "_" + user.getAuthorities();
+            }
             return userJson;
         }
-
         return userJson;
     }
 

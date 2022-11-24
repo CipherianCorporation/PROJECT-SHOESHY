@@ -75,15 +75,34 @@ app.controller("order-ctrl", function ($scope, $http) {
         }
     };
 
-    // $scope.search = function (text) {
-    //     if (text) {
-    //         $http.get(`/rest/order/${text}`).then(resp => {
-    //             $scope.list_items = resp.data;
-    //         }).catch(error => {
-    //             console.log("Error", error);
-    //         });
-    //     } else {
-    //         $scope.initialize();
-    //     }
-    // };
+    $scope.pager = {
+        page: 0,
+        size: 10,
+        get items() {
+            let start = this.page * this.size;
+            return $scope.list_items.slice(start, start + this.size);
+        },
+        get count() {
+            return Math.ceil(1.0 * $scope.list_items.length / this.size);
+        },
+        first() {
+            this.page = 0;
+        },
+        prev() {
+            this.page--;
+            if (this.page < 0) {
+                this.last();
+            }
+        },
+        next() {
+            this.page++;
+            if (this.page >= this.count) {
+                this.first();
+            }
+        },
+        last() {
+            this.page = this.count - 1;
+        }
+    };
+
 });

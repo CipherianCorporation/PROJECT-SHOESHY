@@ -27,6 +27,11 @@ public class Visitor implements Serializable {
     @Column(name = "user_info")
     private String userInfo;
     private String ip;
+    private String city;
+    @Column(name = "full_location")
+    private String fullLocation;
+    private Double latitude;
+    private Double longtitude;
     private String method;
     private String url;
     private String page;

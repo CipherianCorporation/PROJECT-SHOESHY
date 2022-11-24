@@ -1,5 +1,6 @@
 package com.edu.graduationproject.handler;
 
+import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -14,15 +15,22 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.edu.graduationproject.entity.Visitor;
 import com.edu.graduationproject.service.VisitorService;
 import com.edu.graduationproject.utils.HttpRequestResponseUtils;
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.model.CityResponse;
 
 @Component
 public class VisitorLogger implements HandlerInterceptor {
 
     // source:
     // https://roytuts.com/how-to-log-online-user-activity-in-spring-boot-applications/
+    // https://www.baeldung.com/geolocation-by-ip-with-maxmind
+    // https://boottechnologies-ci.medium.com/spring-boot-geolocation-by-ip-using-geolite2-database-e4ee95ef677
 
     @Autowired
     private VisitorService visitorService;
+
+    @Autowired
+    private DatabaseReader databaseReader;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -52,6 +60,22 @@ public class VisitorLogger implements HandlerInterceptor {
             visitor.setUniqueVisit(true);
         } else {
             visitor.setUniqueVisit(false);
+        }
+
+        if (!ip.equals("0:0:0:0:0:0:0:1")) {
+            InetAddress inetAddress = InetAddress.getByName(ip);
+            CityResponse cityResponse = databaseReader.city(inetAddress);
+            if (cityResponse != null && cityResponse.getCity() != null) {
+                String continent = (cityResponse.getContinent() != null) ? cityResponse.getContinent().getName() : "";
+                String country = (cityResponse.getCountry() != null) ? cityResponse.getCountry().getName() : "";
+                String location = String.format("%s %s %s", continent, country, cityResponse.getCity().getName());
+
+                visitor.setCity(cityResponse.getCity().getName());
+                visitor.setFullLocation(location);
+                visitor.setLatitude(cityResponse.getLocation() != null ? cityResponse.getLocation().getLatitude() : 0);
+                visitor.setLongtitude(
+                        cityResponse.getLocation() != null ? cityResponse.getLocation().getLongitude() : 0);
+            }
         }
 
         visitorService.saveVisitorInfo(visitor);
