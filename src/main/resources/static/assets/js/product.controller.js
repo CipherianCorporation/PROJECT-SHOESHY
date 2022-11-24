@@ -118,7 +118,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 
@@ -129,7 +129,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 
@@ -140,7 +140,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 
@@ -151,7 +151,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 
@@ -162,7 +162,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading= false;
             });
     };
 
@@ -183,7 +183,7 @@ function productController($scope, $http, $interval) {
 
     $scope.pager = {
         page: 0,
-        size: 8,
+        size: 10,
         get productList() {
             let start = this.page * this.size;
             return $scope.productList.slice(start, start + this.size);

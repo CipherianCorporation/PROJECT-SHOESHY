@@ -74,9 +74,6 @@ app.controller("product-ctrl", function ($scope, $http) {
         if (item.available == null) {
             item.available = true;
         }
-        if (item.size.value == null) {
-            item.size.value = null;
-        }
         if (item.color.name == null) {
             item.color.name = colors[0];
         }
