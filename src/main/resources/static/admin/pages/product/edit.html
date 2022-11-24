@@ -29,6 +29,13 @@
     </div>
 
     <!-- Text input -->
+    <label for="form6Example3">Kho</label>
+    <div class="form-outline-primary mb-4">
+        <input type="number" id="editProdStock" class="form-control" ng-model="editForm.stock" name="stock" min="0" title="Min stock is 0" required />
+        <div class="text-danger" ng-show="myEditForm.stock.$invalid">Xin hãy nhập số lượng trong kho.</div>
+    </div>
+
+    <!-- Text input -->
     <label for="form6Example3">Màu: {{editForm.color.name}}</label>
     <div class="form-outline-primary mb-4">
         <select class="select" ng-model="editForm.color.name">
@@ -69,7 +76,7 @@
     <div class="form-outline-primary mb-4">
         <select class="select" ng-model="editForm.subCategory.id">
             <option ng-if="sub_categories.length === 0" disabled selected>Đang load...</option>
-            <option ng-selected="editForm.subCategory.id == c.id" value="{{c.id}}" ng-value="c.id" ng-repeat="c in sub_categories">{{c.name}}</option>
+            <option ng-selected="editForm.subCategory.id == c.id" value="{{c.id}}" ng-value="c.id" ng-repeat="c in sub_categories | filter: { category: { id: editForm.category.id} }">{{c.name}}</option>
         </select>
     </div>
 

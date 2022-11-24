@@ -40,6 +40,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findByName(String name) {
+        return repo.findByName(name);
+    }
+
+    @Override
     public List<Product> findByCategoryId(Integer cid) {
         return repo.findByCategoryId(cid);
     }
@@ -68,6 +73,8 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Integer id) {
         repo.deleteById(id);
     }
+
+
 
 
 }
