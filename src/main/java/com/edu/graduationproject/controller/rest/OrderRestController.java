@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.edu.graduationproject.entity.OrderDetails;
 
-import com.edu.graduationproject.model.OrderStatus;
+import com.edu.graduationproject.model.EOrderStatus;
+import com.edu.graduationproject.model.IOrderTypeCount;
 import com.edu.graduationproject.service.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,21 @@ public class OrderRestController {
     @GetMapping("/rest/orders")
     public ResponseEntity<List<Order>> getOrders() {
         return ResponseEntity.ok(orderService.findAll());
+    }
+
+    @GetMapping("/rest/orders/count")
+    public ResponseEntity<Long> getOrdersCount() {
+        return ResponseEntity.ok(orderService.getCount());
+    }
+
+    @GetMapping("/rest/orders/type-count")
+    public ResponseEntity<List<IOrderTypeCount>> getOrdersTypeCount() {
+        return ResponseEntity.ok(orderService.getTypeCount());
+    }
+
+    @GetMapping("/rest/orders/revenue")
+    public ResponseEntity<Double> getOrdersRevenue() {
+        return ResponseEntity.ok(orderService.getTotalRevenue());
     }
 
     @PostMapping("/rest/orders")
@@ -89,7 +105,7 @@ public class OrderRestController {
     }
 
     @GetMapping("/rest/order/{orderId}")
-    public  List<Order> findByIdForSearch(@PathVariable("orderId") Long orderId){
+    public List<Order> findByIdForSearch(@PathVariable("orderId") Long orderId) {
         return orderService.searchByOrderId(orderId);
     }
 }

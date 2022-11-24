@@ -1,44 +1,54 @@
+<!-- Search form -->
+<form class="d-none d-md-flex input-group w-auto my-auto">
+    <input autocomplete="off" type="search" class="form-control rounded" placeholder='Tìm...' ng-model="searchTextUser" />
+    <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+</form>
 <div class="table-responsive">
-	<div class="card-header d-flex justify-content-between">
-        <div class="btn-group">
-            <a href="/admin/users/export-pdf" class="btn btn-secondary">PDF</a>
-            <a href="/admin/users/export-excel" class="btn btn-secondary">EXCEL</a>
-            <a href="/admin/users/export-csv" class="btn btn-secondary">CSV</a>
-        </div>
-
-    </div>
     <table class="table">
         <thead class="table-light">
             <tr>
-                <th>Mã người dùng</th>
+                <th>ID</th>
                 <th>Tên người dùng</th>
                 <th>Mật khẩu</th>
                 <th>Họ và tên</th>
                 <th>Email</th>
-                <th>Số điện thoại</th>
+                <th>SDT</th>
                 <th>Địa chỉ</th>
                 <th>Ảnh</th>
                 <th>Nhà cung cấp</th>
-                <th>Trạng thái hoạt động</th>
+                <th>Kích hoạt?</th>
                 <th>Mã xác minh</th>
                 <th>Đặt lại mật khẩu Token</th>
+                <th>Ngày cập nhật</th>
+                <th>Ngày tạo</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat ="item in items">
+            <tr ng-show="loading">
+                <th colspan="11">
+                    <div class="d-flex justify-content-center my-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            <tr ng-repeat="item in pager.items | filter: searchTextUser">
                 <td>{{item.id}}</td>
                 <td>{{item.username}}</td>
                 <td>{{item.password | limitTo: 10 }}{{item.password.length > 10 ? '...' : ''}}</td>
-                <td>{{item.fullname }}</td>
+                <td>{{item.fullname}}</td>
                 <td>{{item.email}}</td>
                 <td>{{item.phone}}</td>
-                <td>{{item.address}}</td>
+                <td>{{item.address | limitTo: 10 }}{{item.address.length > 10 ? '...' : ''}}</td>
                 <td>{{item.image_url | limitTo: 10 }}{{item.image_url.length > 10 ? '...' : ''}}</td>
                 <td>{{item.provider}}</td>
                 <td>{{item.enabled}}</td>
                 <td>{{item.verify_code | limitTo: 10 }}{{item.verify_code.length > 10 ? '...' : ''}}</td>
                 <td>{{item.reset_pwd_token | limitTo: 10 }}{{item.reset_pwd_token.length > 10 ? '...' : ''}}</td>
+                <td>{{item.updatedAt | date:'dd-MM-yyyy'}}</td>
+                <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
                 <td>
                     <button ng-click="edit(item)" type="button" class="btn btn-dark">Edit</button>
                     <button ng-click="delete(item)" type="button" class="btn btn-danger">Del</button>
@@ -46,15 +56,15 @@
             </tr>
         </tbody>
     </table>
-     <div class="d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <div class="justify-content-center btn-group btn-group-xs">
-                        <button class="btn btn-secondary btn-sm" ng-click="pager.first()"> &lArr;</button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pager.prev()">&larr; </button>
-                        <button class="btn btn-secondary btn-sm">{{pager.page+1}} - {{pager.count}}</button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pager.next()"> &rarr; </button>
-                        <button class="btn btn-secondary btn-sm" ng-click="pager.last()">&rArr; </button>
-                    </div>
-                </nav>
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <div class="justify-content-center btn-group btn-group-xs">
+                <button class="btn btn-secondary btn-sm" ng-click="pager.first()"> &lArr;</button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.prev()">&larr; </button>
+                <button class="btn btn-secondary btn-sm">{{pager.page+1}} - {{pager.count}}</button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.next()"> &rarr; </button>
+                <button class="btn btn-secondary btn-sm" ng-click="pager.last()">&rArr; </button>
             </div>
+        </nav>
+    </div>
 </div>

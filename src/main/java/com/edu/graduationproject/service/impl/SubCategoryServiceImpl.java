@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.graduationproject.entity.SubCategory;
+import com.edu.graduationproject.model.IProductSoldBySubCategoryCount;
 import com.edu.graduationproject.repository.SubCategoryRepository;
 import com.edu.graduationproject.service.SubCategoryService;
 
@@ -24,4 +25,25 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     public List<SubCategory> findAllByCatesId(Integer category_id) {
         return repo.findAllByCatesId(category_id);
     }
+
+    @Override
+    public List<IProductSoldBySubCategoryCount> getProductSold() {
+        return repo.getProductSold();
+    }
+
+    @Override
+    public SubCategory save(SubCategory subcategory) {
+        return repo.save(subcategory);
+    }
+
+    @Override
+    public SubCategory update(SubCategory subcategory) {
+        return repo.save(subcategory);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        repo.deleteById(id);
+    }
+
 }

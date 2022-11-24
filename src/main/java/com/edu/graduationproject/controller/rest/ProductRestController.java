@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.graduationproject.entity.Product;
 import com.edu.graduationproject.service.ProductService;
+import com.nimbusds.openid.connect.sdk.assurance.evidences.Name;
 
 @CrossOrigin("*")
 @RestController
@@ -67,6 +68,17 @@ public class ProductRestController {
         } catch (NoSuchElementException e) {
             LOGGER.error("Error when getting product by id", e);
             return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/rest/products/name/{name}")
+    public ResponseEntity<List<Product>> findByName(@PathVariable("name") String name) {
+        try {
+            List<Product> product = productService.findByName(name);
+            return new ResponseEntity<List<Product>>(product, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            LOGGER.error("Error when getting product by name like", e);
+            return new ResponseEntity<List<Product>>(HttpStatus.NOT_FOUND);
         }
     }
 

@@ -15,12 +15,21 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr ng-show="detailLoading">
+                        <th colspan="11">
+                            <div class="d-flex justify-content-center my-4">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
                     <tr ng-repeat="details in detail_items">
                         <td>{{details.product.id}}</td>
                         <td>{{details.product.name}}</td>
-                        <td>{{details.product.price}}</td>
+                        <td>{{details.product.price | currency:'đ':0}}</td>
                         <td>{{details.quantity}}</td>
-                        <td>{{details.product.price * details.quantity}}</td>
+                        <td>{{details.product.price * details.quantity | currency:'đ':0}}</td>
                     </tr>
                 </tbody>
             </table>

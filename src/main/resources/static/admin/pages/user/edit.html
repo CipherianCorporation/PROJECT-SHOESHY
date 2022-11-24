@@ -1,96 +1,97 @@
-<form class="form" enctype="multipart/form-data" name="myform" novalidate>
+<form class="form" enctype="multipart/form-data" name="myEditForm" novalidate>
     <!-- Text input -->
     <div class="mb-2">
-        <img ng-src="{{ (form.image_url.startsWith('upload')?'/upload/images/':'/assets/images/') + (form.image_url || 'default-user.jpg') }}"
-                                class="img-fluid img-thumbnail" width="120" height="120">
+        <label for="editFormImage">
+            <img ng-src="{{ (editForm.image_url.startsWith('upload')?'/upload/images/':'/assets/images/') + (editForm.image_url || 'default-user.jpg') }}"
+                class="img-fluid img-thumbnail" style="max-width: 20vw; max-height: 20vh;">
+        </label>
     </div>
-    <input type="file" class="form-control mb-4" id="customFile" ng-model="form.image_url" onchange="angular.element(this).scope().imageChanged(this.files)" />
+    <input type="file" class="form-control mb-4" id="editFormImage" ng-model="editForm.image_url"
+        onchange="angular.element(this).scope().imageChanged(this.files)" />
 
     <!-- Text input -->
-    <label for="id">Mã người dùng</label>
+    <label for="editFormId">Mã người dùng</label>
     <div class=" mb-4">
-        <input ng-model="form.id" name="ïd" type="text" id="id" class="form-control" disabled />
-        <div class="text-danger" ng-show="myform.id.$invalid">Id không hợp lệ</div>
-    </div>
-
-    <!-- Text input -->
-    <label for="username">Tên người dùng</label>
-    <div class=" mb-4">
-        <input ng-model="form.username" name="username" type="text" id="username" class="form-control" disabled />
-        <div class="text-danger" ng-show="myform.username.$invalid">Làm ơn nhập tên người dùng hợp lệ</div>
+        <input ng-model="editForm.id" name="ïd" type="text" id="editFormId" class="form-control" disabled />
+        <div class="text-danger" ng-show="myEditForm.id.$invalid">Id không hợp lệ</div>
     </div>
 
     <!-- Text input -->
-    <label for="password">Mật khẩu</label>
+    <label for="editFormUsername">Tên người dùng</label>
     <div class=" mb-4">
-        <input ng-model="form.password" name="password" type="password" id="password" class="form-control" />
-        <div class="text-danger" ng-show="myform.password.$invalid">Làm ơn nhập mật khẩu hợp lệ</div>
+        <input ng-model="editForm.username" name="username" type="text" id="editFormUsername" class="form-control" disabled />
+        <div class="text-danger" ng-show="myEditForm.username.$invalid">Làm ơn nhập tên người dùng hợp lệ</div>
     </div>
-    
-     <!-- Text input -->
-    <label for="fullname">Họ và tên</label>
+
+    <!-- Text input -->
+    <label for="editFormPassword">Mật khẩu</label>
+    <div class=" mb-4">
+        <input ng-model="editForm.password" name="password" type="password" id="editFormPassword" class="form-control" />
+        <div class="text-danger" ng-show="myEditForm.password.$invalid">Làm ơn nhập mật khẩu hợp lệ</div>
+    </div>
+
+    <!-- Text input -->
+    <label for="editFormFullname">Họ và tên</label>
     <div class="form-outline-primary mb-4">
-        <input ng-model="form.fullname" name="fullname" type="text" id="fullname" class="form-control" />
-         <div class="text-danger" ng-show="myform.fullname.$invalid">Làm ơn nhập họ và tên hợp lệ</div>
+        <input ng-model="editForm.fullname" name="fullname" type="text" id="editFormFullname" class="form-control" />
+        <div class="text-danger" ng-show="myEditForm.fullname.$invalid">Làm ơn nhập họ và tên hợp lệ</div>
     </div>
 
     <!-- Text input -->
-    <label for="email">Email</label>
+    <label for="editFormEmail">Email</label>
     <div class=" mb-4">
-        <input ng-model="form.email" name="ëmail" type="email" id="email" class="form-control" />
-        <div class="text-danger" ng-show="myform.email.$invalid">Làm ơn nhập email hợp lệ</div>
+        <input ng-model="editForm.email" name="ëmail" type="email" id="editFormEmail" class="form-control" />
+        <div class="text-danger" ng-show="myEditForm.email.$invalid">Làm ơn nhập email hợp lệ</div>
     </div>
 
     <!-- Number input -->
-    <label for="phone">Số điện thoại</label>
+    <label for="editFormPhone">Số điện thoại</label>
     <div class=" mb-4">
-        <input ng-model="form.phone" name="phone" type="tel" id="phone" class="form-control" />
-        <div class="text-danger" ng-show="myform.phone.$invalid">Làm ơn nhập số điện thoại hợp lệ</div>
+        <input ng-model="editForm.phone" name="phone" type="tel" id="editFormPhone" class="form-control" />
+        <div class="text-danger" ng-show="myEditForm.phone.$invalid">Làm ơn nhập số điện thoại hợp lệ</div>
     </div>
-    
-     <!-- Text input -->
-    <label for="address">Địa chỉ</label>
+
+    <!-- Text input -->
+    <label for="editFormAddress">Địa chỉ</label>
     <div class="form-outline-primary mb-4">
-        <input ng-model="form.address" name="address" type="text" id="address" class="form-control" />
-        <div class="text-danger" ng-show="myform.address.$invalid">Làm ơn nhập địa chỉ hợp lệ</div>
+        <input ng-model="editForm.address" name="address" type="text" id="editFormAddress" class="form-control" />
+        <div class="text-danger" ng-show="myEditForm.address.$invalid">Làm ơn nhập địa chỉ hợp lệ</div>
     </div>
-    
+
     <div class="mb-4">
-		<label>Roles:</label> 
-		<select type="" ng-model="form.role"
-			ng-init="form.role = form.role || roles[0].id"
-			ng-options="option.id as option.name for option in roles"
-			class="form-control">
-		</select>
-	</div>
+        <label>Roles:</label>
+        <select type="" ng-model="editForm.role" ng-init="editForm.role = editForm.role || roles[0].id"
+            ng-options="option.id as option.name for option in roles" class="form-control">
+        </select>
+    </div>
 
     <!-- Default radio -->
     <label for="enabled">Trạng thái hoạt động</label>
-    <div class="form-check" ng-init="form.enabled=true">
-        <input ng-model="form.enabled" ng-value="true" class="form-check-input" type="radio" name="enabled" id="flexRadioDefault1" />
-        <label class="form-check-label" for="flexRadioDefault1">Có</label>
+    <div class="form-check" ng-init="editForm.enabled=true">
+        <input ng-model="editForm.enabled" ng-value="true" class="form-check-input" type="radio" name="enabled" id="editFormAvailable1" />
+        <label class="form-check-label" for="editFormAvailable1">Có</label>
     </div>
 
     <!-- Default checked radio -->
-    <div class="form-check" ng-init="form.enabled=true">
-        <input ng-model="form.enabled" ng-value="false" class="form-check-input" type="radio" name="enabled" id="flexRadioDefault2" checked />
-        <label class="form-check-label" for="flexRadioDefault2">Không</label>
+    <div class="form-check" ng-init="editForm.enabled=true">
+        <input ng-model="editForm.enabled" ng-value="false" class="form-check-input" type="radio" name="enabled" id="editFormAvailable2" checked />
+        <label class="form-check-label" for="editFormAvailable2">Không</label>
     </div>
 
     <!-- Text input -->
-    <label for="verify_code">Mã xác minh</label>
+    <label for="editFormVerifyCode">Mã xác minh</label>
     <div class=" mb-4">
-        <input ng-model="form.verify_code" name="verify_code" type="text" id="verify_code" class="form-control" disabled />
-         <div class="text-danger" ng-show="myform.verify_code.$invalid">Làm ơn nhập mã xác minh hợp lệ</div>
+        <input ng-model="editForm.verify_code" name="verify_code" type="text" id="editFormVerifyCode" class="form-control" disabled />
+        <div class="text-danger" ng-show="myEditForm.verify_code.$invalid">Làm ơn nhập mã xác minh hợp lệ</div>
     </div>
 
     <!-- Text input -->
-    <label for="reset_pwd_token">Đặt lại mật khẩu Token</label>
+    <label for="editFormResetPasswordToken">Đặt lại mật khẩu Token</label>
     <div class=" mb-4">
-        <input ng-model="form.reset_pwd_token" name="reset_pwd_token" type="text" id="reset_pwd_token" class="form-control" disabled />
-        <div class="text-danger" ng-show="myform.reset_pwd_token.$invalid">Làm ơn nhập mật khẩu Token hợp lệ</div>
+        <input ng-model="editForm.reset_pwd_token" name="reset_pwd_token" type="text" id="editFormResetPasswordToken" class="form-control" disabled />
+        <div class="text-danger" ng-show="myEditForm.reset_pwd_token.$invalid">Làm ơn nhập mật khẩu Token hợp lệ</div>
     </div>
 
     <!-- Submit button -->
-    <button ng-disabled="myform.$invalid" ng-click="update()" type="button" class="btn btn-success btn-block mt-4 mb-4">Cập nhật</button>
+    <button ng-disabled="myEditForm.$invalid" ng-click="update()" type="button" class="btn btn-success btn-block mt-4 mb-4">Cập nhật</button>
 </form>

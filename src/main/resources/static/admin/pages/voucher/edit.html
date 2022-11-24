@@ -23,21 +23,22 @@
     <!-- Text input -->
     <label for="form6Example3">Phần trăm giảm</label>
     <div class="form-outline-primary mb-4">
-        <input type="number" id="form6Example4" class="form-control" ng-model="form.value" name="value" min="0" max="100" title="Giá trị thấp nhất là 0 cao nhất là 100" required />
+        <input type="number" id="form6Example4" class="form-control" ng-model="form.value" name="value" min="0" max="100"
+            title="Giá trị thấp nhất là 0 cao nhất là 100" required />
         <div class="text-danger" ng-show="myform1.value.$invalid">Vui lòng nhập giá trị voucher.</div>
     </div>
 
     <!-- Text input -->
     <label for="form6Example3">Ngày hiệu lực</label>
     <div class="form-outline-primary mb-4">
-        <input type="date" class="form-control" ng-bind="form.startDate" value="{{form.startDate}}" name="start_date" required />
+        <input type="date" class="form-control" ng-bind="form.startDate" ng-value="form.startDate" name="start_date" required />
         <div class="text-danger" ng-show="myform1.start_date.$invalid">Vui lòng nhập ngày bắt đầu.</div>
     </div>
 
     <!-- Text input -->
     <label for="form6Example3">Ngày kết thúc</label>
     <div class="form-outline-primary mb-4">
-        <input type="date" class="form-control" ng-bind="form.endDate" value="{{form.endDate}}" name="end_date" required />
+        <input type="date" class="form-control" ng-bind="form.endDate" ng-value="form.endDate" name="end_date" required />
         <div class="text-danger" ng-show="myform1.end_date.$invalid">Vui lòng nhập ngày bắt đầu.</div>
     </div>
 

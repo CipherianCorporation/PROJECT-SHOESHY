@@ -68,6 +68,9 @@ app.controller("product-ctrl", function ($scope, $http) {
         if (item.image == null) {
             item.image = 'default-product.jpg';
         }
+        if (item.stock == null) {
+            item.stock = 0;
+        }
         if (item.available == null) {
             item.available = true;
         }
@@ -84,22 +87,34 @@ app.controller("product-ctrl", function ($scope, $http) {
             item.subCategory.id = sub_categories[0].id;
         }
         item.user = {
-            // lấy user id từ localStorage khi dashboard.controller.js vừa chạy lên
+            // lấy user id từ localStorage khi main.controller.js vừa chạy lên
             id: JSON.parse(localStorage.getItem('userPrincipal')).id
         };
         item.sold = 0;
         console.log(item);
 
-        $http.post(`/rest/products`, item).then(resp => {
-            resp.data.createdAt = new Date(resp.data.createdAt);
-            $scope.items.push(resp.date);
-            $scope.reset();
-            $scope.initialize();
-            alert("Thêm mới sản phẩm thành công");
+        // thay khoảng trắng bằng %20 và trim() trong product name mới gửi request đc
+        let prodName = item.name.replace(/\s/g, '%20').trim();
+        $http.get(`/rest/products/name/${prodName}`, item).then(resp => {
+            // nếu array trả về length là 0 => ko tìm thấy name => name ko bị trùng nên tạo prod mới đc
+            if (resp.data.length === 0) {
+                $http.post(`/rest/products`, item).then(resp => {
+                    resp.data.createdAt = new Date(resp.data.createdAt);
+                    $scope.items.push(resp.data);
+                    $scope.reset();
+                    $scope.initialize();
+                    alert("Thêm mới sản phẩm thành công");
+                }).catch(error => {
+                    alert("Lỗi thêm mới sản phẩm");
+                    console.log("Error", error);
+                });
+            } else {
+                alert("Tên sản phẩm bị trùng!");
+            }
         }).catch(error => {
-            alert("Lỗi thêm mới sản phẩm");
-            console.log("Error", error);
+            console.log("Lỗi tìm sp bằng name", error);
         });
+
     };
 
     $scope.update = function () {

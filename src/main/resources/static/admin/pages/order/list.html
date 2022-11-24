@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <input type="text" class="form-control" placeholder="Mã đơn hàng" ng-keyup="search(text)" ng-model="text">
+            <input type="text" class="form-control" placeholder="Tìm đơn..." ng-model="searchTextOrder">
             <table class="table">
                 <thead>
                     <tr>
@@ -21,11 +21,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in pager.items">
+                    <tr ng-show="loading">
+                        <th colspan="11">
+                            <div class="d-flex justify-content-center my-4">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="item in pager.items | filter: searchTextOrder">
                         <td>{{$index+1}}</td>
                         <td>{{item.id}}</td>
-                        <td>{{item.createdAt}}</td>
-                        <td>{{item.orderStatus.name}}</td>
+                        <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>
+                        <!-- nếu status là cancel cho text đỏ, processing thì text vàng, còn success thì text xanh lá, đặt ng-init cho biến ngắn -->
+                        <td ng-init="status = item.orderStatus.name"
+                            class="{{status == 'processing' ? 'text-warning': (status == 'cancel' ? 'text-danger':'text-success')}}">
+                            {{item.orderStatus.name}}
+                        </td>
                         <td>{{item.address}}</td>
                         <td>
                             <button ng-show="item.orderStatus.name == 'processing'" class="btn btn-secondary" ng-click="update_status(item)">

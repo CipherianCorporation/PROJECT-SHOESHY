@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.edu.graduationproject.model.ColorEnum;
+import com.edu.graduationproject.model.EColor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -51,6 +51,7 @@ public class Product implements Serializable {
 
     private Double sale_off;
     private Long sold;
+    private Long stock;
     private String description;
 
     @ManyToOne

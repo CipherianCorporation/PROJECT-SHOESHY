@@ -26,6 +26,23 @@ public class AuthorityRestController {
 
     @Autowired
     UserRoleService userRoleService;
-    
+
+    @GetMapping("/rest/authorities")
+    public List<UserRole> findAll(@RequestParam("admin") Optional<Boolean> admin) {
+        if (admin.orElse(false)) {
+            return userRoleService.findRolesOfAdministrators();
+        }
+        return userRoleService.findAll();
+    }
+
+    @PostMapping("/rest/authorities")
+    public UserRole post(@RequestBody UserRole userRole) {
+        return userRoleService.create(userRole);
+    }
+
+    @DeleteMapping("/rest/authorities/{id}")
+    public void delete(@PathVariable("id") Integer id) {
+        userRoleService.delete(id);
+    }
 
 }

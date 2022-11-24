@@ -26,14 +26,17 @@ public class CsvExporter<T> {
             for (T entity : list) {
                 if (entity instanceof Product) {
                     Product product = (Product) entity;
-                    csvPrinter.printRecord(product.getId(), product.getName(), product.getPrice(), product.getImage(),
+                    csvPrinter.printRecord(product.getId(), product.getName(), product.getPrice(), product.getStock(),
+                            product.getImage(),
                             product.getAvailable(), product.getCreatedAt().toString(),
                             product.getCategory().getName());
                 }
                 if (entity instanceof User) {
                     User user = (User) entity;
-                    csvPrinter.printRecord(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(), user.getEmail(),
-                            user.getPhone(), user.getAddress(), user.getImage_url(), user.getProvider().toString(),user.getEnabled(),
+                    csvPrinter.printRecord(user.getId(), user.getUsername(), user.getPassword(), user.getFullname(),
+                            user.getEmail(),
+                            user.getPhone(), user.getAddress(), user.getImage_url(), user.getProvider().toString(),
+                            user.getEnabled(),
                             user.getVerify_code(), user.getReset_pwd_token(),
                             "");
                 }

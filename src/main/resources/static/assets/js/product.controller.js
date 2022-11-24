@@ -16,7 +16,7 @@ app.filter('rangeFilter', function () {
 });
 
 function productController($scope, $http, $interval) {
-    $scope.loading = true;
+    $scope.productListLoading = true;
     $scope.productList = [];
     $scope.categories = [];
     $scope.sub_categories = [];
@@ -84,12 +84,14 @@ function productController($scope, $http, $interval) {
     };
 
     $scope.getProductList = function () {
+        $scope.productListLoading = true;
         $http.get('/rest/products').then(res => {
             $scope.productList = res.data;
-        }).catch(error => { console.error(error); })
-            .finally(function () {
-                $scope.loading = false;
-            });
+        }).catch(error => {
+            console.error(error);
+        }).finally(function () {
+            $scope.productListLoading = false;
+        });
     };
 
     $scope.getCategoryList = function () {
@@ -174,9 +176,9 @@ function productController($scope, $http, $interval) {
     $scope.removeAllFilters = function () {
         $scope.productList = [];
         $scope.loading = true;
-        $scope.getProductList();
         $scope.selectedColor = '';
         $scope.priceRange = $scope.rangeUI.max;
+        $scope.getProductList();
     };
 
     $scope.pager = {

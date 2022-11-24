@@ -6,6 +6,8 @@ function orderCtrl($scope, $http, $window) {
     $scope.detail_items = [];
     $scope.form = {};
     $scope.user = {};
+    $scope.searchTextOrder = '';
+
     $scope.swich_order_list = function () {
         var url = "http://" + $window.location.host + "/order/list";
         $window.location.href = url;
@@ -20,7 +22,9 @@ function orderCtrl($scope, $http, $window) {
         });
     }
 
+
     $scope.initializez = function () {
+        $scope.loading = true;
         let list;
         if (localStorage.getItem('list') !== null) {
             list = JSON.parse(localStorage.getItem('list'));
@@ -35,6 +39,8 @@ function orderCtrl($scope, $http, $window) {
             $scope.list_items = resp.data;
         }).catch(error => {
             console.log("Error", error);
+        }).finally(function () {
+            $scope.loading = false;
         });
 
         $scope.detail(list);
@@ -67,13 +73,16 @@ function orderCtrl($scope, $http, $window) {
 
     $scope.update_status = function (item) {
         item.orderStatus.name = "cancel";
-        $http.put(`/rest/order/orderstatus/${item.id}`,item).then(resp=>{
-            $scope.initialize();
-            alert("Cập nhập trạng thái đơn hàng thành công")
-        }).catch(error=>{
-            alert("Lỗi cập nhập trạng thái");
-            $scope.initialize();
-            console.log("Error",error);
-        })
-    }
+        let check = confirm(`Bạn có muốn hủy đơn ${item.id}?`);
+        if (check) {
+            $http.put(`/rest/order/orderstatus/${item.id}`, item).then(resp => {
+                $scope.initialize();
+                alert("Cập nhập trạng thái đơn hàng thành công");
+            }).catch(error => {
+                alert("Lỗi cập nhập trạng thái");
+                $scope.initialize();
+                console.log("Error", error);
+            });
+        }
+    };
 }

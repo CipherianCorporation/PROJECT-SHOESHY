@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import com.edu.graduationproject.model.PaypalPaymentMethod;
+import com.edu.graduationproject.model.EPaypalPaymentMethod;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class Order implements Serializable {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    private PaypalPaymentMethod payment_method;
+    private EPaypalPaymentMethod payment_method;
 
     @ManyToOne
     @JoinColumn(name = "order_status")
