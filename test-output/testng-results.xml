@@ -1,60 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
+<testng-results ignored="0" total="6" passed="3" failed="3" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-11-15T16:20:27 GMT+07:00" name="Default suite" finished-at="2022-11-15T16:20:32 GMT+07:00" duration-ms="5268">
+  <suite started-at="2022-11-22T19:53:27 GMT+07:00" name="Default suite" finished-at="2022-11-22T19:56:03 GMT+07:00" duration-ms="156083">
     <groups>
     </groups>
-    <test started-at="2022-11-15T16:20:27 GMT+07:00" name="Default test" finished-at="2022-11-15T16:20:32 GMT+07:00" duration-ms="5268">
-      <class name="com.edu.graduationproject.test.TestCart">
-        <test-method is-config="true" signature="connect()[pri:0, instance:com.edu.graduationproject.test.TestCart@cd1e646]" started-at="2022-11-15T16:20:27 GMT+07:00" name="connect" finished-at="2022-11-15T16:20:32 GMT+07:00" duration-ms="5197" status="PASS">
+    <test started-at="2022-11-22T19:53:27 GMT+07:00" name="Default test" finished-at="2022-11-22T19:56:03 GMT+07:00" duration-ms="156083">
+      <class name="com.edu.graduationproject.test.Testlogin">
+        <test-method is-config="true" signature="initiateStep()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:53:27 GMT+07:00" name="initiateStep" finished-at="2022-11-22T19:53:27 GMT+07:00" duration-ms="10" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- connect -->
-        <test-method signature="main()[pri:0, instance:com.edu.graduationproject.test.TestCart@cd1e646]" started-at="2022-11-15T16:20:32 GMT+07:00" name="main" finished-at="2022-11-15T16:20:32 GMT+07:00" duration-ms="26" status="FAIL">
-          <exception class="org.openqa.selenium.NoSuchElementException">
+        </test-method> <!-- initiateStep -->
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:53:27 GMT+07:00" name="launchBrowser" finished-at="2022-11-22T19:53:30 GMT+07:00" duration-ms="3506" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchBrowser -->
+        <test-method signature="f()[pri:1, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:53:30 GMT+07:00" name="f" finished-at="2022-11-22T19:53:31 GMT+07:00" duration-ms="281" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- f -->
+        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:53:31 GMT+07:00" name="terminateBrowser" finished-at="2022-11-22T19:53:47 GMT+07:00" duration-ms="16236" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- terminateBrowser -->
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:53:47 GMT+07:00" name="launchBrowser" finished-at="2022-11-22T19:53:49 GMT+07:00" duration-ms="1945" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchBrowser -->
+        <test-method signature="testtitle()[pri:2, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:53:49 GMT+07:00" name="testtitle" finished-at="2022-11-22T19:53:49 GMT+07:00" duration-ms="10" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testtitle -->
+        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:53:49 GMT+07:00" name="terminateBrowser" finished-at="2022-11-22T19:54:05 GMT+07:00" duration-ms="16250" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- terminateBrowser -->
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:54:06 GMT+07:00" name="launchBrowser" finished-at="2022-11-22T19:54:08 GMT+07:00" duration-ms="2125" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchBrowser -->
+        <test-method signature="testLogin2(java.lang.String,java.lang.String)[pri:3, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:54:08 GMT+07:00" name="testLogin2" data-provider="loginDataProvider" finished-at="2022-11-22T19:54:20 GMT+07:00" duration-ms="11893" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
             <message>
-              <![CDATA[no such element: Unable to locate element: {"method":"xpath","selector":"//body/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/button[1]
-"}
-  (Session info: chrome=107.0.5304.107)
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: '4.1.4', revision: '535d840ee2'
-System info: host: 'ADMIN-PC', ip: '192.168.1.10', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [6bf7cabe4f028d01b926c956791c28bf, findElement {using=xpath, value=//body/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/button[1]
-}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 107.0.5304.107, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: C:\Users\Admin\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:49694}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:49694/devtoo..., se:cdpVersion: 107.0.5304.107, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 6bf7cabe4f028d01b926c956791c28bf]]>
+              <![CDATA[expected [true] but found [false]]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//body/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/button[1]
-"}
-  (Session info: chrome=107.0.5304.107)
-For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
-Build info: version: '4.1.4', revision: '535d840ee2'
-System info: host: 'ADMIN-PC', ip: '192.168.1.10', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.2'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [6bf7cabe4f028d01b926c956791c28bf, findElement {using=xpath, value=//body/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/button[1]
-}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 107.0.5304.107, chrome: {chromedriverVersion: 106.0.5249.61 (511755355844..., userDataDir: C:\Users\Admin\AppData\Loca...}, goog:chromeOptions: {debuggerAddress: localhost:49694}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:49694/devtoo..., se:cdpVersion: 107.0.5304.107, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 6bf7cabe4f028d01b926c956791c28bf
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:567)
-at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:162)
-at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:385)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:377)
-at com.edu.graduationproject.test.TestCart.main(TestCart.java:26)
+              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:110)
+at org.testng.Assert.failNotEquals(Assert.java:1413)
+at org.testng.Assert.assertTrue(Assert.java:56)
+at org.testng.Assert.assertTrue(Assert.java:66)
+at com.edu.graduationproject.test.Testlogin.testLogin2(Testlogin.java:193)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -85,15 +93,175 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchElementException -->
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- main -->
-        <test-method is-config="true" signature="close()[pri:0, instance:com.edu.graduationproject.test.TestCart@cd1e646]" started-at="2022-11-15T16:20:32 GMT+07:00" name="close" finished-at="2022-11-15T16:20:32 GMT+07:00" duration-ms="0" status="PASS">
+        </test-method> <!-- testLogin2 -->
+        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:54:20 GMT+07:00" name="terminateBrowser" finished-at="2022-11-22T19:54:36 GMT+07:00" duration-ms="16269" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- close -->
-      </class> <!-- com.edu.graduationproject.test.TestCart -->
+        </test-method> <!-- terminateBrowser -->
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:54:36 GMT+07:00" name="launchBrowser" finished-at="2022-11-22T19:54:38 GMT+07:00" duration-ms="2139" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchBrowser -->
+        <test-method signature="testLogin2(java.lang.String,java.lang.String)[pri:3, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:54:38 GMT+07:00" name="testLogin2" data-provider="loginDataProvider" finished-at="2022-11-22T19:54:47 GMT+07:00" duration-ms="8314" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[thuan]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[123456]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin2 -->
+        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:54:47 GMT+07:00" name="terminateBrowser" finished-at="2022-11-22T19:55:03 GMT+07:00" duration-ms="16266" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- terminateBrowser -->
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:55:03 GMT+07:00" name="launchBrowser" finished-at="2022-11-22T19:55:05 GMT+07:00" duration-ms="2125" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchBrowser -->
+        <test-method signature="testLogin2(java.lang.String,java.lang.String)[pri:3, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:55:05 GMT+07:00" name="testLogin2" data-provider="loginDataProvider" finished-at="2022-11-22T19:55:17 GMT+07:00" duration-ms="11722" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[1]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:110)
+at org.testng.Assert.failNotEquals(Assert.java:1413)
+at org.testng.Assert.assertTrue(Assert.java:56)
+at org.testng.Assert.assertTrue(Assert.java:66)
+at com.edu.graduationproject.test.Testlogin.testLogin2(Testlogin.java:193)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:135)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:673)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:220)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:945)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:193)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:808)
+at org.testng.TestRunner.run(TestRunner.java:603)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:429)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:423)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:383)
+at org.testng.SuiteRunner.run(SuiteRunner.java:326)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1249)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
+at org.testng.TestNG.runSuites(TestNG.java:1092)
+at org.testng.TestNG.run(TestNG.java:1060)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin2 -->
+        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:55:17 GMT+07:00" name="terminateBrowser" finished-at="2022-11-22T19:55:33 GMT+07:00" duration-ms="16241" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- terminateBrowser -->
+        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:55:33 GMT+07:00" name="launchBrowser" finished-at="2022-11-22T19:55:35 GMT+07:00" duration-ms="1870" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- launchBrowser -->
+        <test-method signature="testLogin2(java.lang.String,java.lang.String)[pri:3, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:55:35 GMT+07:00" name="testLogin2" data-provider="loginDataProvider" finished-at="2022-11-22T19:55:46 GMT+07:00" duration-ms="11735" status="FAIL">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[hh]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[1221]]>
+              </value>
+            </param>
+          </params>
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:110)
+at org.testng.Assert.failNotEquals(Assert.java:1413)
+at org.testng.Assert.assertTrue(Assert.java:56)
+at org.testng.Assert.assertTrue(Assert.java:66)
+at com.edu.graduationproject.test.Testlogin.testLogin2(Testlogin.java:193)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:135)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:673)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:220)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:945)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:193)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:808)
+at org.testng.TestRunner.run(TestRunner.java:603)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:429)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:423)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:383)
+at org.testng.SuiteRunner.run(SuiteRunner.java:326)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1249)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
+at org.testng.TestNG.runSuites(TestNG.java:1092)
+at org.testng.TestNG.run(TestNG.java:1060)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin2 -->
+        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:55:46 GMT+07:00" name="terminateBrowser" finished-at="2022-11-22T19:56:03 GMT+07:00" duration-ms="16249" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- terminateBrowser -->
+        <test-method is-config="true" signature="finalizeStep()[pri:0, instance:com.edu.graduationproject.test.Testlogin@7d94beb9]" started-at="2022-11-22T19:56:03 GMT+07:00" name="finalizeStep" finished-at="2022-11-22T19:56:03 GMT+07:00" duration-ms="206" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- finalizeStep -->
+      </class> <!-- com.edu.graduationproject.test.Testlogin -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

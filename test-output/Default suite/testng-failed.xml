@@ -3,13 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.edu.graduationproject.test.TestCart">
+      <class name="com.edu.graduationproject.test.Testlogin">
         <methods>
-          <include name="main"/>
-          <include name="connect"/>
-          <include name="close"/>
+          <include name="initiateStep"/>
+          <include name="launchBrowser"/>
+          <include name="testLogin2" invocation-numbers="0 2 3"/>
+          <include name="finalizeStep"/>
+          <include name="terminateBrowser"/>
         </methods>
-      </class> <!-- com.edu.graduationproject.test.TestCart -->
+      </class> <!-- com.edu.graduationproject.test.Testlogin -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -12,8 +12,10 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -35,7 +37,7 @@ public class Testlogin {
 	public void initiateStep() {
 		res = new LinkedHashMap<String, Object[]>();
 		index = 0;
-		res.put("" + index, new Object[] { "Test ID", "Action", "Input data", "Expected", "Actual", "Result" });
+		res.put("" + index, new Object[] { "Test ID", "Action", "UserName","Pass", "Expected", "Actual", "Result" });
 	}
 
 	@AfterClass
@@ -92,7 +94,8 @@ public class Testlogin {
 		try {
 			driver.get(url);
 			driver.manage().window().maximize();
-			res.put("", new Object[] {index,"WebDemo","","","","pass"});
+			index++;
+			res.put("", new Object[] {index,"WebDemo","","","","Pass"});
 
 		} catch (Exception e) {
 			res.put("", new Object[] {index,"WebDemo","","","","fail"});
@@ -120,7 +123,31 @@ public class Testlogin {
 	}
 	
 	
-	@Test(priority = 3,dataProvider = "loginDataProvider")
+//	@Test(priority = 3,dataProvider = "loginDataProvider")
+//	public void testLogin2(String username, String password) {
+//		try {
+//			System.out.println("testLogin1 running...");
+//			// sending test Input data
+//			driver.findElement(By.name("username")).sendKeys(username);
+//			System.out.println(username);
+//			driver.findElement(By.name("password")).sendKeys(password);
+//			System.out.println(password);
+//			driver.findElement(By.name("login")).click();
+//			// check login result by checking page title
+//			String expectedTitle = "Shoe Store";
+//			String actualTitle = driver.getTitle();
+//			assertEquals(username, password);
+//			boolean result = username.equals(password);
+//			index++;
+//			res.put("" + index, new Object[] { index, "Verify login page", String.format(username, password), expectedTitle,
+//					actualTitle, result ? "Passed" : "Fail" });
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+
+	
+	@Test(priority = 3, dataProvider = "loginDataProvider")
 	public void testLogin2(String username, String password) {
 		try {
 			System.out.println("testLogin1 running...");
@@ -131,22 +158,49 @@ public class Testlogin {
 			System.out.println(password);
 			driver.findElement(By.name("login")).click();
 			// check login result by checking page title
-			String expectedTitle = "Shoe Store";
-			String actualTitle = driver.getTitle();
-			assertEquals(username, password);
-			boolean result = username.equals(password);
-			index++;
-			res.put("" + index, new Object[] { index, "Verify login page", String.format(username, password), expectedTitle,
-					actualTitle, result ? "Passed" : "Fail" });
+			
+			
+			WebElement tt = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/header[1]/nav[1]/div[1]/div[2]/div[1]/a[1]/span[1]/span[1]"));
+			Thread.sleep(4000);
+			
+			
+			
+			
+//			WebElement tt = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/main[1]/article[1]/section[1]/div[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[4]/span[1]"));
+//			Thread.sleep(4000);
+//			org.testng.Assert.assertEquals(tt.getText(), "Sai thông tin hoặc tài khoản chưa được kích hoạt!");
+//			
+			
+			if(tt.getText().equalsIgnoreCase(username)) {
+				index++;
+				res.put("" + index, new Object[] { index, "Verify login page",username, password, "login is Succes",
+						"Login Pass", "Passed" });
+			}
+			else {
+				index++;
+				res.put("" + index, new Object[] { index, "Verify login page", username, password, "Login is Succes",
+						"Login Fail", "Fail" });
+			}
+			
+			org.testng.Assert.assertEquals(tt.getText(), username);
+			
+				
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			index++;
+			res.put("" + index, new Object[] { index, "Verify login page", username, password, "Login is Sussces",
+					"Login Fail", "Fail" });
+			 org.testng.Assert.assertTrue(false);
 		}
 	}
+	
 
+	
+	
 	@DataProvider
 	public Object[][] loginDataProvider() throws Exception {
 		String excelFilePath = Paths.get("src","main","resources","test_data", "LoginData.xlsx").toFile().getAbsolutePath();
-		Object[][] arr = ExcelUtil.getTableArray(excelFilePath, "Sheet1", 2);
+		Object[][] arr = ExcelUtil.getTableArray(excelFilePath, "Sheet2", 2);
 		return arr;
 	}
 

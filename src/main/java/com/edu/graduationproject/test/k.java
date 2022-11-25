@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-import dev.failsafe.internal.util.Assert;
+
 
 public class k {
 	@Test
@@ -19,22 +19,32 @@ public class k {
 //		  WebDriverManager.chromedriver().setup();
 //			ChromeOptions op = new ChromeOptions();
 			  WebDriver dri = new ChromeDriver();
-	  String url = "http://localhost:8080/security/login/form";
+	  String url = "http://localhost:8080/account/forgotpassword";
 	  dri.get(url);
 	
 	 
-	 
-	  WebElement email=dri.findElement(By.name("username"));
-	  WebElement pass=dri.findElement(By.name("password"));
-	  WebElement login=dri.findElement(By.name("login"));
+	 try {
+		  WebElement email=dri.findElement(By.name("email"));
+			 
+		  WebElement login=dri.findElement(By.xpath("/html/body/div[1]/main/article/section/div/div/div/div/div/form/div[2]/button"));
+		
+		  email.sendKeys("thuanle2425@");
+		 
+		  login.click();
+		  
+		 Thread.sleep(1000);
+	WebElement tt = dri.findElement(By.className("message badge rounded-pill badge-danger mb-2 p-3"));
 	
-	  WebElement p=dri.findElement(By.xpath("/html/body/div[1]/main/article/section/div/div/div/div/form/div/div[4]"));
-	  email.sendKeys("thuanle2425@gmail");
-	  pass.sendKeys("24250");
-	  login.click();
-	 
-WebElement tt = dri.findElement(By.className("badge rounded-pill badge-danger mb-2 p-3"));
-org.testng.Assert.assertEquals(tt.getText(), "Sai thông tin hoặc tài khoản chưa được kích hoạt!");
+	org.testng.Assert.assertEquals(tt.getText(), "Tài khoản của bạn không tồn tạ");
+	
+	if(tt.isDisplayed()) {
+		System.out.println("PASS");
+	}
+	System.out.println("fail");
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
+
 	
 }
 }
