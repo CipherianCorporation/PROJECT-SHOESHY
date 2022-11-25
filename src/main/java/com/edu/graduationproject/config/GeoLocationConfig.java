@@ -34,6 +34,7 @@ public class GeoLocationConfig {
                     .fileMode(Reader.FileMode.MEMORY)
                     .build();
         } catch (Exception e) {
+            log.error("Datbase loader could not be initiated!!", e);
             System.out.println("-----Datbase loader could not be initiated!!----");
             return null;
         }

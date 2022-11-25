@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edu.graduationproject.entity.OrderDetails;
 
 import com.edu.graduationproject.model.EOrderStatus;
+import com.edu.graduationproject.model.IOrderTypeCount;
 import com.edu.graduationproject.service.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,11 @@ public class OrderRestController {
     @GetMapping("/rest/orders/count")
     public ResponseEntity<Long> getOrdersCount() {
         return ResponseEntity.ok(orderService.getCount());
+    }
+
+    @GetMapping("/rest/orders/type-count")
+    public ResponseEntity<List<IOrderTypeCount>> getOrdersTypeCount() {
+        return ResponseEntity.ok(orderService.getTypeCount());
     }
 
     @GetMapping("/rest/orders/revenue")

@@ -2,15 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{index :: dynamic(~{::main})}">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQLGRZ47JQ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
 
-        gtag('config', 'G-DQLGRZ47JQ');
-    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,135 +13,53 @@
         <div class="container mb-3">
             <div class="row">
                 <div class="col-md-6">
-                    <img th:src="@{|/assets/images/*{image}|}" class="card-img-top" alt="Fissure in Sandstone" />
+                    <img th:src="${ (#strings.startsWith(item.image,'upload') ? '/upload/images/':'/assets/images/') + (!#strings.isEmpty(item.image)? item.image : 'default-product.jpg')  }"
+                        class="card-img-top" alt="Error loading image" />
                 </div>
                 <div class="col-md-6">
-                    <p class="fw-bold" th:text="*{name}"></p>
-                    <p class="fw-light text-danger">đ <span th:text="*{price}"></span></p>
-                    <div class="btn-group border-3">
-                        <button type="button" class="btn btn-light" data-mdb-color="dark">Đên</button>
-                        <button type="button" class="btn btn-light" data-mdb-color="dark">Trắng</button>
+                    <h3 class="fw-bold mb-4" th:text="*{name}"></h3>
+                    <p th:if="*{sale_off != 0}" class="fw-lighttext-secondary mb-4">
+                        <del class="small">đ [(*{price})]</del>
+                        <span class="fw-bold">
+                            đ [(*{price} - ( *{price} * *{sale_off} / 100 ) )]
+                        </span>
+                    </p>
+                    <p th:if="*{sale_off == 0 || sale_off == null}" class="fw-light text-secondary mb-4">
+                        đ <span th:text="*{price}"></span>
+                    </p>
+                    <div th:if="*{sale_off != 0}" class="mb-4">
+                        <span class="">Giảm: </span>
+                        <button class="mx-2 btn btn-outline-danger btn-sm">[(*{sale_off})]%</button>
                     </div>
-                    <br>
-                    <br>
-                    <div class="btn-group border-3">
-                        <button type="button" class="btn btn-light" data-mdb-color="dark">40</button>
-                        <button type="button" class="btn btn-light" data-mdb-color="dark">41</button>
-                        <button type="button" class="btn btn-light" data-mdb-color="dark">42</button>
+                    <div class="mb-4">
+                        <span class="">Kích cỡ: </span>
+                        <button class="mx-2 btn btn-outline-secondary btn-sm">[(*{size.value})]</button>
+                        <a class="" data-mdb-toggle="modal" data-mdb-target="#exampleModal">Tính size</a>
                     </div>
 
-                    <a data-mdb-toggle="modal" data-mdb-target="#exampleModal">Tính size</a>
-
-                    <!-- Modal content-->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Hướng dẫn chọn size</h5>
-                                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row p-1">
-                                        <img class="col-md-3" src="/assets/images/anh1.png">
-                                        <div class="col-md-9">01. Vẽ khung bàn chân.<br>Đặt bàn chân lên tờ giấy trắng, dùng bút đánh dấu theo khung bàn chân
-                                            trên giấy.
-                                        </div>
-                                    </div>
-                                    <div class="row p-1">
-                                        <img class="col-md-3" src="/assets/images/anh2.png">
-                                        <div class="col-md-9">02. Đo chiều dài bàn chân.<br>Dùng thước đo chiều dài lớn nhất từ mũi chân đến gót chân trên khung
-                                            bàn
-                                            chân đã đánh đấu.</div>
-                                    </div>
-                                    <div class="row p-1">
-                                        <img class="col-md-3" src="/assets/images/anh3.png">
-                                        <div class="col-md-9">03. Đo độ rộng vòng chân.<br>Lấy thước dây quấn quanh 1 vòng bàn chân từ khớp ngón chân cái đến
-                                            khớp ngón
-                                            chân út.</div>
-                                    </div>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Size</th>
-                                                <th scope="col">Độ Rộng</th>
-                                                <th scope="col">Độ dài</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>35</th>
-                                                <th>8.5</th>
-                                                <th>22.1 - 22.5</th>
-                                            </tr>
-                                            <tr>
-                                                <th>36</th>
-                                                <th>8.5 - 9</th>
-                                                <th>22.6 - 23</th>
-                                            </tr>
-                                            <tr>
-                                                <th>37</th>
-                                                <th>9</th>
-                                                <th>23.1 - 23.5</th>
-                                            </tr>
-                                            <tr>
-                                                <th>38</th>
-                                                <th>9 - 9.5</th>
-                                                <th>23.6 - 24</th>
-                                            </tr>
-                                            <tr>
-                                                <th>39</th>
-                                                <th>9.5</th>
-                                                <th>24.1 - 24.5</th>
-                                            </tr>
-                                            <tr>
-                                                <th>40</th>
-                                                <th>9.5 - 10</th>
-                                                <th>24.6 - 25</th>
-                                            </tr>
-                                            <tr>
-                                                <th>41</th>
-                                                <th>10</th>
-                                                <th>25.1 - 25.5</th>
-                                            </tr>
-                                            <tr>
-                                                <th>42</th>
-                                                <th>10 - 10.5</th>
-                                                <th>25.6 - 26</th>
-                                            </tr>
-                                            <tr>
-                                                <th>43</th>
-                                                <th>10.5</th>
-                                                <th>26.1 - 26.5 </th>
-                                            </tr>
-                                            <tr>
-                                                <th>44</th>
-                                                <th>10.5 - 11</th>
-                                                <th>26.6 - 27</th>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="mb-4">
+                        <span class="">Màu sắc: </span>
+                        <button class="btn mx-2 btn-outline-secondary btn-sm">[(*{color.name})]</button>
                     </div>
-                    <!-- Modal content - end -->
                     <br>
                     <br>
-                    <p class="fw-normal" th:text="*{description}"></p>
-                    <p class="text-center">
-                        <button type="button" class="btn btn-outline-dark" style="width: 300px;" data-mdb-ripple-color="dark">Add to card</button>
+                    <p class="fw-normal  mb-4" th:text="*{description}"></p>
+                    <p class="text-center row">
+                        <button type="button" class="btn btn-outline-secondary py-2" data-mdb-ripple-color="dark"
+                            th:attr=" ng-click='cart.add(' + ${id} + ')' ">Thêm vào giỏ</button>
                     </p>
                 </div>
             </div>
 
-            <hr>
+            <hr class="my-4">
 
             <!-- relevant products START-->
             <div class="row row-cols-md-4 row-cols-sm-2 text-center d-flex justify-content-start">
                 <div class="col-md-3" th:each="p : ${item.category.products}">
                     <div class="card">
                         <a th:href="@{|/product/detail/${p.id}|}">
-                            <img th:src="@{|/assets/images/${p.image}|}" class="card-img-top" alt="Error loading image..." />
+                            <img th:src="${ (#strings.startsWith(p.image,'upload') ? '/upload/images/':'/assets/images/') + (!#strings.isEmpty(p.image)? p.image : 'default-product.jpg') }"
+                                class="card-img-top" alt="Error loading image..." />
                         </a>
                         <div class="card-body text-center">
                             <h5 class="card-title" th:text="${p.name}"></h5>
@@ -159,6 +69,101 @@
             </div>
             <!-- relevant products END-->
         </div>
+
+
+        <!-- Modal content-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hướng dẫn chọn size</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row p-1">
+                            <img class="col-md-3" src="/assets/images/anh1.png">
+                            <div class="col-md-9">01. Vẽ khung bàn chân.<br>Đặt bàn chân lên tờ giấy trắng, dùng bút đánh dấu theo khung bàn chân
+                                trên giấy.
+                            </div>
+                        </div>
+                        <div class="row p-1">
+                            <img class="col-md-3" src="/assets/images/anh2.png">
+                            <div class="col-md-9">02. Đo chiều dài bàn chân.<br>Dùng thước đo chiều dài lớn nhất từ mũi chân đến gót chân trên khung
+                                bàn
+                                chân đã đánh đấu.</div>
+                        </div>
+                        <div class="row p-1">
+                            <img class="col-md-3" src="/assets/images/anh3.png">
+                            <div class="col-md-9">03. Đo độ rộng vòng chân.<br>Lấy thước dây quấn quanh 1 vòng bàn chân từ khớp ngón chân cái đến
+                                khớp ngón
+                                chân út.</div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Size</th>
+                                    <th scope="col">Độ Rộng</th>
+                                    <th scope="col">Độ dài</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>35</th>
+                                    <th>8.5</th>
+                                    <th>22.1 - 22.5</th>
+                                </tr>
+                                <tr>
+                                    <th>36</th>
+                                    <th>8.5 - 9</th>
+                                    <th>22.6 - 23</th>
+                                </tr>
+                                <tr>
+                                    <th>37</th>
+                                    <th>9</th>
+                                    <th>23.1 - 23.5</th>
+                                </tr>
+                                <tr>
+                                    <th>38</th>
+                                    <th>9 - 9.5</th>
+                                    <th>23.6 - 24</th>
+                                </tr>
+                                <tr>
+                                    <th>39</th>
+                                    <th>9.5</th>
+                                    <th>24.1 - 24.5</th>
+                                </tr>
+                                <tr>
+                                    <th>40</th>
+                                    <th>9.5 - 10</th>
+                                    <th>24.6 - 25</th>
+                                </tr>
+                                <tr>
+                                    <th>41</th>
+                                    <th>10</th>
+                                    <th>25.1 - 25.5</th>
+                                </tr>
+                                <tr>
+                                    <th>42</th>
+                                    <th>10 - 10.5</th>
+                                    <th>25.6 - 26</th>
+                                </tr>
+                                <tr>
+                                    <th>43</th>
+                                    <th>10.5</th>
+                                    <th>26.1 - 26.5 </th>
+                                </tr>
+                                <tr>
+                                    <th>44</th>
+                                    <th>10.5 - 11</th>
+                                    <th>26.6 - 27</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal content - end -->
     </main>
 </body>
 

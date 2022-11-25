@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,6 +53,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 return provider;
         }
 
+        @Bean
+        public SessionRegistry sessionRegistry() {
+                return new SessionRegistryImpl();
+        }
+
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
                 auth.authenticationProvider(getDaoAuthenticationProvider());
@@ -70,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/upload/**",
                                                 "/rest/order/**",
                                                 "/rest/sub-categories/**",
+                                                "/rest/voucher/**",
                                                 "/cart/**",
                                                 "/account/**",
                                                 "/verify/**",
@@ -122,6 +129,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 http.exceptionHandling()
                                 .accessDeniedPage("/security/unauthorized");
+
+                // để lưu số lượng session (lưu active users)
+                http.sessionManagement()
+                                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS).maximumSessions(1)
+                                .sessionRegistry(sessionRegistry());
 
                 http.oauth2Login()
                                 .loginPage("/security/login/form")

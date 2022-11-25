@@ -51,6 +51,7 @@ public class Product implements Serializable {
 
     private Double sale_off;
     private Long sold;
+    private Long stock;
     private String description;
 
     @ManyToOne

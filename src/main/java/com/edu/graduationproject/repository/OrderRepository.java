@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.edu.graduationproject.entity.Order;
+import com.edu.graduationproject.model.IOrderTypeCount;
+
 import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -38,4 +40,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
         @Query("SELECT SUM(o.total) FROM Order o")
         public Double getTotalRevenue();
+
+        @Query(value = """
+                select 
+                count(case o.order_status when 'processing' then 1 else null end) as processingCount,
+                count(case o.order_status when 'success' then 1 else null end) as successCount,
+                count(case o.order_status when 'cancel' then 1 else null end) as cancelCount
+                from orders o
+                """, nativeQuery = true)
+        public List<IOrderTypeCount> getTypeCount();
 }

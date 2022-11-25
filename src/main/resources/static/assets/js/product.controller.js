@@ -84,12 +84,14 @@ function productController($scope, $http, $interval) {
     };
 
     $scope.getProductList = function () {
+        $scope.productListLoading = true;
         $http.get('/rest/products').then(res => {
             $scope.productList = res.data;
-        }).catch(error => { console.error(error); })
-            .finally(function () {
-                $scope.productListLoading = false;
-            });
+        }).catch(error => {
+            console.error(error);
+        }).finally(function () {
+            $scope.productListLoading = false;
+        });
     };
 
     $scope.getCategoryList = function () {
@@ -116,7 +118,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 
@@ -127,7 +129,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 
@@ -138,7 +140,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 
@@ -149,7 +151,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading = false;
             });
     };
 
@@ -160,7 +162,7 @@ function productController($scope, $http, $interval) {
             $scope.productList = res.data;
         }).catch(error => { console.error(error); })
             .finally(function () {
-                $scope.loading = false;
+                $scope.productListLoading= false;
             });
     };
 
@@ -174,14 +176,14 @@ function productController($scope, $http, $interval) {
     $scope.removeAllFilters = function () {
         $scope.productList = [];
         $scope.loading = true;
-        $scope.getProductList();
         $scope.selectedColor = '';
         $scope.priceRange = $scope.rangeUI.max;
+        $scope.getProductList();
     };
 
     $scope.pager = {
         page: 0,
-        size: 8,
+        size: 10,
         get productList() {
             let start = this.page * this.size;
             return $scope.productList.slice(start, start + this.size);

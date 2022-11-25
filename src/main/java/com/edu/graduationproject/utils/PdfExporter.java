@@ -28,10 +28,12 @@ public class PdfExporter<T> {
     private List<T> list;
     private String title;
     private String[] headers;
-    private String[] userHeaders = { "ID", "Username", "Password", "Fullname","Email", "Phone", "Address", "ImageUrl", "Enabled", "Provider",
+    private String[] userHeaders = { "ID", "Username", "Password", "Fullname", "Email", "Phone", "Address", "ImageUrl",
+            "Enabled", "Provider",
             "Verify_code", "Reset_pwd_token", "Authorities", };
     // private String[] categoryHeaders = { "ID", "Category Name" };
-    private String[] productHeaders = { "ID", "Name", "Image", "Price", "Available", "Color", "Size", "Sale off",
+    private String[] productHeaders = { "ID", "Name", "Image", "Price", "Stock", "Available", "Color", "Size",
+            "Sale off",
             "Sold", "Description", "Category", "SubCategory", "Created By", "Updated At", "Created At" };
     private String[] orderHeaders = { "ID", "Address", "Create Date", "Username" };
 
@@ -113,6 +115,7 @@ public class PdfExporter<T> {
                 table.addCell(product.getName());
                 table.addCell(product.getImage());
                 table.addCell(product.getPrice().toString());
+                table.addCell(product.getStock().toString());
                 table.addCell(product.getAvailable().toString());
                 table.addCell(String.valueOf(product.getColor().getName()));
                 table.addCell(

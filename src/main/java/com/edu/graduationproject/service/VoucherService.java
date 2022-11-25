@@ -12,4 +12,11 @@ public interface VoucherService {
     Optional<Voucher> findByCode(String code);
 
     List<Voucher> findAll();
+
+    Voucher create(Voucher voucher);
+
+    Voucher update(Integer id, Voucher voucher);
+
+    Voucher deleteById(Integer id);
+
 }
