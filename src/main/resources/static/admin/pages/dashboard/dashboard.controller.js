@@ -14,22 +14,24 @@ const MONTHS = [
     'December'
 ];
 let MonthUtils = (config) => {
-    var cfg = config || {};
-    var count = cfg.count || 12;
-    var section = cfg.section;
-    var values = [];
-    var i, value;
-
+    let cfg = config || {};
+    let count = cfg.count || 12;
+    let section = cfg.section;
+    let values = [];
+    let i, value;
     for (i = 0; i < count; ++i) {
         value = MONTHS[Math.ceil(i) % 12];
         values.push(value.substring(0, section));
     }
-
     return values;
 };
 // Utils - END
 
 app.controller("dashboard-ctrl", function ($scope, $http) {
+
+    $scope.longtitude = '10.8326';
+    $scope.latitude = '106.6581';
+
     $scope.userPrincipal = {};
     $scope.usersCount = [];
     $scope.onlineUsersCount = 0;
@@ -42,7 +44,6 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
     $scope.ordersCount = 0;
     $scope.orderTypeCount = [];
     $scope.orderTotalRevenue = 0;
-
 
     let rolesLabel = new Set();
 
@@ -64,7 +65,6 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
 
     $scope.initialize = function () {
         $scope.userPrincipal = JSON.parse(localStorage.getItem('userPrincipal')) || {};
-
         $http.get('/rest/authorities').then((resp) => {
             $scope.userRolesList = resp.data;
             // thêm role vào rolesLabel độc nhât (Set)
@@ -130,7 +130,6 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
 
         $http.get('/rest/orders/type-count').then((resp) => {
             $scope.orderTypeCount = resp.data[0];
-            console.log(resp.data);
         }).catch((error) => {
             console.error('Error:', error);
         }).finally(() => {
@@ -353,16 +352,29 @@ app.controller("dashboard-ctrl", function ($scope, $http) {
         };
         let userTypeChart = new Chart(ctx, config);
     };
-
-
-
     //chart.js - END
+    $scope.initializeMap = function () {
+        let mapOptions = {
+            zoom: 4,
+            center: new google.maps.LatLng(40.0000, -98.0000),
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        };
+        $scope.map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+    };
 
-
-
-
-
+    $scope.loadScript = function () {
+        var script = document.createElement('script');
+        script.src = 'http://maps.googleapis.com/maps/api/js?sensor=false&language=en';
+        document.body.appendChild(script);
+        setTimeout(function () {
+            $scope.initializeMap();
+        }, 500);
+    };
 });
+
+
+
+
 
 
 

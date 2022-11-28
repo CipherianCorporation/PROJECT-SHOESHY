@@ -55,11 +55,13 @@ public class OrderServiceImpl implements OrderService {
                 })
                 .stream().peek(o -> o.setOrder(order)).collect(Collectors.toList());
 
-        // increment product sold to 1
+        // increment product sold to 1, decrease product stock to 1
         list.forEach((detail) -> {
             Product product = productService.findById(detail.getProduct().getId());
             Long oldSold = product.getSold();
+            Long oldStock = product.getStock();
             product.setSold(++oldSold);
+            product.setStock(--oldStock);
         });
         orderDetailRepo.saveAll(list);
         return order;

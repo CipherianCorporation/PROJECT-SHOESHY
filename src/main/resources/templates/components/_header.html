@@ -49,7 +49,8 @@
                     </ul>
                     <!-- search input -->
                     <form class="d-flex input-group w-auto ">
-                        <input type="search" class="form-control rounded" placeholder="Tìm..." aria-label="Search" aria-describedby="search-addon" />
+                        <input type="search" class="form-control rounded" placeholder="Tìm..." aria-label="Search" aria-describedby="search-addon"
+                            ng-model="searchTextProdList" />
                         <span class="input-group-text border-0" id="search-addon">
                             <i class="fas fa-search"></i>
                         </span>
@@ -71,15 +72,16 @@
 
                     <!-- Icon Avatar -->
                     <div class="dropdown me-3">
-                        <a class="dropdown-toggle d-flex align-items-center text-reset hidden-arrow" href="#" id="avatarDropdown" role="button"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            <span th:if="${#request.remoteUser}" class="me-2">
+                        <a class="dropdown-toggle d-flex align-items-center text-reset" href="#" id="avatarDropdown" role="button" data-mdb-toggle="dropdown"
+                            data-mdb-display="static" aria-expanded="false">
+                            <!-- user icon -->
+                            <i class="fa-solid fa-user me-2"></i>
+                            <span th:if="${#request.remoteUser}">
                                 <!-- limit username string to only 14 words. Ex: myusernameisreal... -->
                                 <span class="fw-bold" th:text="${#strings.abbreviate(#request.remoteUser,14)}"></span>
                             </span>
-                            <i class="fa-solid fa-user"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
+                        <ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="avatarDropdown">
                             <!-- appear when login -->
                             <th:block th:if="${#request.remoteUser}">
                                 <!-- <span sec:authentication="authorities"></span> -->
@@ -109,7 +111,7 @@
                     </div>
 
                     <!-- Icon dropdown -->
-                    <div class="dropdown dropstart">
+                    <!-- <div class="dropdown dropstart">
                         <a class="dropdown-toggle" href="#" id="langDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                             <i class="flag-vietnam flag m-0"></i>
                         </a>
@@ -128,7 +130,7 @@
                             </li>
                         </ul>
                         </li>
-                    </div>
+                    </div> -->
                     <!-- Right elements -->
                 </div>
                 <!-- Container wrapper -->
