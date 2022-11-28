@@ -17,8 +17,6 @@ app.controller("order-ctrl", function ($scope, $http) {
     };
 
     $scope.initialize();
-
-    $scope.initialize();
     
     $scope.update_status = function (item) {
         item.orderStatus.name = "success";
