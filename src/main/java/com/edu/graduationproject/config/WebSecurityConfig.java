@@ -78,12 +78,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/sub-categories/**",
                                                 "/rest/voucher/**",
                                                 "/cart/**",
-                                                "/account/**",
+                                                "/account/signup",
+                                                "/account/register",
+                                                "/account/forgotpassword/**",
                                                 "/verify/**",
                                                 "/oauth2/**",
-                                                "/account/forgotpassword/**",
                                                 "/reset_password/**",
-                                                "/product/**",
+                                                "/product/list",
+                                                "/product/detail/**",
                                                 "/callback/",
                                                 "/webjars/**",
                                                 "/error**",
@@ -96,8 +98,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/**/*.css",
                                                 "/**/*.js")
                                 .permitAll()
-                                .antMatchers("/account/editprofile")
-                                .authenticated()
                                 .antMatchers("/admin/products/**",
                                                 "/rest/roles",
                                                 "/rest/usersrole/**",

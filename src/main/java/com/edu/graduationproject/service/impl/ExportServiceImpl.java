@@ -102,7 +102,7 @@ public class ExportServiceImpl implements ExportService {
 
     @Override
     public void exportInvoice(Long orderId, HttpServletResponse response) throws IOException {
-        response.setContentType("appplication/pdf");
+        response.setContentType("appplication/pdf;charset=UTF-8");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
 

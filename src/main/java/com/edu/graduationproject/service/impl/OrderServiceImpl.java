@@ -12,11 +12,14 @@ import com.edu.graduationproject.entity.OrderDetails;
 import com.edu.graduationproject.entity.Product;
 import com.edu.graduationproject.entity.User;
 import com.edu.graduationproject.model.IOrderTypeCount;
+import com.edu.graduationproject.model.MailInfo;
 import com.edu.graduationproject.repository.OrderDetailRepository;
 import com.edu.graduationproject.repository.OrderRepository;
+import com.edu.graduationproject.service.MailerService;
 import com.edu.graduationproject.service.OrderService;
 import com.edu.graduationproject.service.ProductService;
 import com.edu.graduationproject.service.UserService;
+import com.edu.graduationproject.utils.DateUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +38,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    MailerService mailerService;
 
     @Override
     public Order create(JsonNode orderData) {
@@ -59,6 +65,47 @@ public class OrderServiceImpl implements OrderService {
         });
         orderDetailRepo.saveAll(list);
         return order;
+    }
+
+    @Override
+    public void sendEmailReceipt(JsonNode orderData) {
+        Order order = new ObjectMapper().convertValue(orderData, Order.class);
+
+        MailInfo mailInfo = new MailInfo();
+        String recipientEmail = order.getUser().getEmail();
+        mailInfo.setTo(recipientEmail);
+        mailInfo.setSubject("ShoeShy - Hóa đơn mua hàng - #" + order.getId());
+        String content = """
+                Xin chào, %s <br>
+
+                Cảm ơn bạn đã mua hàng tại website ShoeShy - Cửa hàng giày dép chất lượng nhất Việt Nam, dưới
+                đây là hóa đơn của bạn <br><br>
+
+                Mã số đơn: %s <br>
+                Tên khách hàng: %s <br>
+                SDT: %s <br>
+                Địa chỉ giao hàng: %s <br>
+                Phương thức thanh toán: %s <br>
+                Ngày đặt: %s <br>
+
+                Tổng số tiền: đ <strong> %s </strong> <br><br>
+
+
+                Hân hạnh, <br>
+                ShoeShy Team <br>
+                """
+                .formatted(
+                        order.getUser().getFullname(),
+                        order.getId().toString(),
+                        order.getUser().getFullname(),
+                        order.getUser().getPhone(),
+                        order.getAddress(),
+                        order.getPayment_method().toString().toUpperCase(),
+                        DateUtils.formatDateTime(order.getCreatedAt()),
+                        String.format("%,.0d", order.getTotal()));
+        mailInfo.setBody(content);
+        mailerService.queue(mailInfo);
+
     }
 
     @Override

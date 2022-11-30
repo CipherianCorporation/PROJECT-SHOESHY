@@ -31,4 +31,6 @@ public interface OrderService {
     Double getTotalRevenue();
 
     List<IOrderTypeCount> getTypeCount();
+
+    void sendEmailReceipt(JsonNode orderData);
 }
