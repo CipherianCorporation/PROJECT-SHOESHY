@@ -103,7 +103,6 @@ public class ExportServiceImpl implements ExportService {
     @Override
     public void exportInvoice(Long orderId, HttpServletResponse response) throws IOException {
         response.setContentType("appplication/pdf;charset=UTF-8");
-
         List<OrderDetails> listOrdersDetails = orderService.findOrderDetailsByOrderId(orderId);
         Order order = orderService.findById(orderId);
 

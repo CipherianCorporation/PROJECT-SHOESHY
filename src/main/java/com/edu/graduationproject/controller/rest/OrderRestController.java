@@ -80,6 +80,15 @@ public class OrderRestController {
         return ResponseEntity.ok(orderService.create(orderData));
     }
 
+    @PostMapping("/rest/orders/send-email-receipt")
+    public ResponseEntity<Object> sendEmailReceipt(@RequestBody JsonNode orderData) {
+        if (orderData.get("total").asDouble() == 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        orderService.sendEmailReceipt(orderData);
+        return ResponseEntity.ok(null);
+    }
+
     @GetMapping("/rest/order/list")
     public List<Order> findAllOrder() {
         return orderService.findAll();
