@@ -6,7 +6,6 @@ import com.edu.graduationproject.entity.Order;
 import com.edu.graduationproject.entity.OrderDetails;
 import com.edu.graduationproject.model.IOrderTypeCount;
 import com.fasterxml.jackson.databind.JsonNode;
-import java.util.List;
 
 public interface OrderService {
     Order create(JsonNode orderData);
@@ -23,7 +22,7 @@ public interface OrderService {
 
     List<Order> findAllSortStatus();
 
-    int updateStatus(String orderStatus, Long orderId);
+    int updateStatus(String orderStatus, Long orderId, List<OrderDetails> productId);
 
     List<Order> searchByOrderId(Long orderId);
 

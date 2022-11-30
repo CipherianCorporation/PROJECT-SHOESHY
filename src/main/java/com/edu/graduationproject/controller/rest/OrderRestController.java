@@ -1,10 +1,12 @@
 package com.edu.graduationproject.controller.rest;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import com.edu.graduationproject.entity.OrderDetails;
 
+import com.edu.graduationproject.entity.Product;
 import com.edu.graduationproject.service.ExportService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,7 +102,8 @@ public class OrderRestController {
 
     @PutMapping("/rest/order/orderstatus/{orderId}")
     public int updateOrder(@PathVariable("orderId") Long orderId, @RequestBody Order order) {
-        return orderService.updateStatus(String.valueOf(order.getOrderStatus().getName()), orderId);
+        List<OrderDetails> order_details = order.getOrder_details();
+        return orderService.updateStatus(String.valueOf(order.getOrderStatus().getName()), orderId,order_details );
     }
 
     @GetMapping("/rest/order/{orderId}")
