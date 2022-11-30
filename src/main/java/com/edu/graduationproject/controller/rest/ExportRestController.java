@@ -125,7 +125,7 @@ public class ExportRestController {
         }
     }
 
-    @GetMapping("/admin/order/invoice/{orderId}")
+    @GetMapping("/admin/orders/invoice/{orderId}")
     public ResponseEntity<String> exportInvoice(HttpServletResponse response, @PathVariable("orderId") Long orderId) {
         try {
             exportService.exportInvoice(orderId , response);

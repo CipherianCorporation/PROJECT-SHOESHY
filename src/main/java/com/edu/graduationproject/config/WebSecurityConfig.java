@@ -75,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/categories/**",
                                                 "/rest/upload/**",
                                                 "/rest/order/**",
+                                                "/rest/orders/download-invoice**",
                                                 "/rest/sub-categories/**",
                                                 "/rest/voucher/**",
                                                 "/cart/**",
@@ -99,6 +100,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/**/*.js")
                                 .permitAll()
                                 .antMatchers("/admin/products/**",
+                                                "/admin/users/**",
+                                                "/admin/orders/**",
                                                 "/rest/roles",
                                                 "/rest/usersrole/**",
                                                 "/assets/admin/**",
