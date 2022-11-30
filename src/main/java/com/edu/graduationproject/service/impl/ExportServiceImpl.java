@@ -103,15 +103,12 @@ public class ExportServiceImpl implements ExportService {
     @Override
     public void exportInvoice(Long orderId, HttpServletResponse response) throws IOException {
         response.setContentType("appplication/pdf;charset=UTF-8");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date());
-
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=Invoice_" + currentDateTime + ".pdf";
-        response.setHeader(headerKey, headerValue);
-
         List<OrderDetails> listOrdersDetails = orderService.findOrderDetailsByOrderId(orderId);
         Order order = orderService.findById(orderId);
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Invoice_" + order.getId() + ".pdf";
+        response.setHeader(headerKey, headerValue);
 
         InvoiceExport exporter = new InvoiceExport(listOrdersDetails, order);
         exporter.export(response);

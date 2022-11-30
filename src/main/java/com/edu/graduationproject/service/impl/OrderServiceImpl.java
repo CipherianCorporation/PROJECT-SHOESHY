@@ -2,10 +2,12 @@ package com.edu.graduationproject.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.graduationproject.entity.Order;
 import com.edu.graduationproject.entity.OrderDetails;
@@ -60,8 +62,8 @@ public class OrderServiceImpl implements OrderService {
             Product product = productService.findById(detail.getProduct().getId());
             Long oldSold = product.getSold();
             Long oldStock = product.getStock();
-            product.setSold(++oldSold);
-            product.setStock(--oldStock);
+            product.setSold(oldSold + detail.getQuantity());
+            product.setStock(oldStock - detail.getQuantity());
         });
         orderDetailRepo.saveAll(list);
         return order;
@@ -139,7 +141,27 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public int updateStatus(String orderStatus, Long orderId) {
+    @Transactional(rollbackFor = { Exception.class, Throwable.class })
+    public int updateStatus(String orderStatus, Long orderId, List<OrderDetails> orderDetails) {
+        Optional<Order> orderOpt = orderRepo.findById(orderId);
+        Order orderData = orderOpt.get();
+        ObjectMapper mapper = new ObjectMapper();
+        Order order = mapper.convertValue(orderData, Order.class);
+        if (orderStatus.equals("cancel")) {
+            List<OrderDetails> list = mapper
+                    .convertValue(orderData.getOrder_details(), new TypeReference<List<OrderDetails>>() {
+                    })
+                    .stream().peek(o -> o.setOrder(order)).collect(Collectors.toList());
+
+            // increment product sold to 1, decrease product stock to 1
+            list.forEach((detail) -> {
+                Product product = productService.findById(detail.getProduct().getId());
+                Long oldSold = product.getSold();
+                Long oldStock = product.getStock();
+                product.setSold(oldSold - detail.getQuantity());
+                product.setStock(oldStock + detail.getQuantity());
+            });
+        }
         return orderRepo.updateStatus(orderStatus, orderId);
     }
 
