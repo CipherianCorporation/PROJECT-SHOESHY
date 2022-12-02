@@ -104,7 +104,7 @@ public class ExportServiceImpl implements ExportService {
     public void exportInvoice(Long orderId, HttpServletResponse response) throws IOException {
         response.setContentType("appplication/pdf;charset=UTF-8");
         List<OrderDetails> listOrdersDetails = orderService.findOrderDetailsByOrderId(orderId);
-        Order order = orderService.findById(orderId);
+        Order order = orderService.findById(orderId).get();
 
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=Invoice_" + order.getId() + ".pdf";
