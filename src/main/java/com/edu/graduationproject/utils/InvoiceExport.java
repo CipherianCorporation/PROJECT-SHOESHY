@@ -89,7 +89,8 @@ public class InvoiceExport {
         Paragraph p2 = new Paragraph("Total price: "+numberFormatter.format(order.getTotal()) , font1);
         p2.setAlignment(Paragraph.ALIGN_RIGHT);
 
-        Paragraph p3 = new Paragraph("\nThank you for shopping at SHOESHY website - The best quality shoe store in Vietnam, here is your invoice", font1);
+        Paragraph p3 = new Paragraph("\nThank you for shopping at SHOESHY website - " +
+                "The best quality shoe store in Vietnam, here is your invoice.", font1);
         p3.setAlignment(Paragraph.ALIGN_LEFT);
 
         document.add(p);
