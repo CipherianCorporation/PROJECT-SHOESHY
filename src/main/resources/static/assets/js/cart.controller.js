@@ -29,7 +29,7 @@ function shoppingCartCtrl($scope, $http, $window) {
 
 
     $scope.initialize = function () {
-        if ($window.location.pathname === '/order/checkout') {
+        if ($window.location.pathname === '/order/checkout' || $window.location.pathname === '/cart/view') {
             if ($scope.cart.items.length === 0) {
                 alert('Giỏ hàng bạn đang trống!');
                 $window.location.href = '/';
@@ -112,15 +112,19 @@ function shoppingCartCtrl($scope, $http, $window) {
     $scope.checkVoucherValid = function (voucherCode) {
         $scope.voucherResponse = {};
         $http.get(`/rest/vouchers/code/${voucherCode}`).then(resp => {
-            console.log('voucher exist');
-            let todayDate = new Date();
-            let voucherEndDate = new Date(resp.data.endDate);
-            if (todayDate > voucherEndDate) {
+            if (resp.data.isDeleted) {
                 $scope.voucherResponse = {};
-                console.log('voucher hết hạn!');
-            } else if (todayDate < voucherEndDate) {
-                $scope.voucherResponse = resp.data;
-                console.log('voucher còn hạn!');
+            } else {
+                console.log('voucher exist and not deleted');
+                let todayDate = new Date();
+                let voucherEndDate = new Date(resp.data.endDate);
+                if (todayDate > voucherEndDate) {
+                    $scope.voucherResponse = {};
+                    console.log('voucher hết hạn!');
+                } else if (todayDate < voucherEndDate) {
+                    $scope.voucherResponse = resp.data;
+                    console.log('voucher còn hạn!');
+                }
             }
 
         }).catch(err => {

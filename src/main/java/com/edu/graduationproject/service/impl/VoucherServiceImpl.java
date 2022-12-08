@@ -41,7 +41,12 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public Voucher deleteById(Integer id) {
-        voucherRepo.deleteById(id);
+        Optional<Voucher> findVoucher = voucherRepo.findById(id);
+        if (findVoucher.isPresent()) {
+            findVoucher.get().setIsDeleted(true);
+            return voucherRepo.save(findVoucher.get());
+        }
+        // voucherRepo.deleteById(id);
         return null;
     }
 

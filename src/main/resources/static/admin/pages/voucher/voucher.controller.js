@@ -8,7 +8,7 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
 
     $scope.initialize = function () {
         $http.get(`/rest/vouchers`).then(resp => {
-            $scope.list_vouchers = resp.data;
+            $scope.list_vouchers = resp.data.filter(v => v.isDeleted === false);
         }).catch(error => {
             console.log("Error", error);
         }).finally(function () {
@@ -28,9 +28,12 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
     };
 
     $scope.create = function () {
-        var voucher = angular.copy($scope.form_new);
+        let voucher = angular.copy($scope.form_new);
+        if (voucher.isDeleted == null) {
+            voucher.isDeleted = false;
+        }
         $http.get(`/rest/vouchers/code/${voucher.code}`).then(resp => {
-            if(resp.data.length === 0){
+            if (resp.data.length === 0) {
                 $http.post(`/rest/vouchers`, voucher).then(resp => {
                     $scope.list_vouchers.push(resp.data);
                     $scope.reset();
@@ -40,10 +43,10 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
                     alert('Lỗi khi tạo voucher : ' + error);
                     console.log("Error", error);
                 });
-            }else{
-                alert('Mã code đã tồn tại')
+            } else {
+                alert('Mã code đã tồn tại');
             }
-        })
+        });
     };
 
     $scope.delete = function (voucher) {
@@ -65,9 +68,9 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
     $scope.update = function () {
         let item = angular.copy($scope.form);
         console.log(item);
+        item.isDeleted = false;
         let check = confirm(`Bạn có chắc chắn cập nhật voucher này không ?`);
         if (check) {
-
             $http.put(`/rest/vouchers/id/${item.id}`, item).then(resp => {
                 let index = $scope.list_vouchers.findIndex(item => item.id == item.id);
                 $scope.list_vouchers[index] = item;
@@ -79,7 +82,6 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
                 console.log("Error", error);
             });
         }
-
     };
 
     $scope.pager = {

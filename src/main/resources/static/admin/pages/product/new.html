@@ -54,6 +54,7 @@
             <input type="number" id="sale_off" class="form-control" ng-model="newForm.sale_off" name="sale_off" min="0" max="100" title="Min sale off is 0%"
                 required />
         </div>
+        <div class="text-danger" ng-show="myNewForm.sale_off.$invalid">Phần trăm giảm từ 0-100%.</div>
     </div>
 
     <!-- Text input -->

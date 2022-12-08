@@ -3,6 +3,7 @@ package com.edu.graduationproject.controller.rest;
 import java.util.List;
 import java.util.Optional;
 
+import org.eclipse.jdt.internal.compiler.ast.FalseLiteral;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,12 @@ public class VoucherRestController {
     @GetMapping("/rest/vouchers/code/{code}")
     public ResponseEntity<Voucher> findByCode(@PathVariable String code) {
         Optional<Voucher> findVoucher = voucherService.findByCode(code);
-        return ResponseEntity.ok(findVoucher.orElse(null));
+        if (findVoucher.isPresent()) {
+            if (findVoucher.get().getIsDeleted() == false) {
+                return ResponseEntity.ok(findVoucher.get());
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("/rest/vouchers")
@@ -70,11 +76,10 @@ public class VoucherRestController {
 
     @DeleteMapping("/rest/vouchers/id/{id}")
     public ResponseEntity<Voucher> deleteVoucher(@PathVariable("id") Integer id) {
-        if (id == null) {
-            return new ResponseEntity<Voucher>(HttpStatus.NOT_FOUND);
-        } else {
-            voucherService.deleteById(id);
-            return new ResponseEntity<Voucher>(HttpStatus.OK);
+        try {
+            return ResponseEntity.ok(voucherService.deleteById(id));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
         }
     }
 }

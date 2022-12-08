@@ -38,6 +38,8 @@ public class Voucher implements Serializable {
     private String code;
     private String description;
     private Double value;
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
 
     // bắt buộc dùng @TemporalType.Date cho các class từ java.util.*
     @Temporal(TemporalType.DATE)
