@@ -3,15 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.edu.graduationproject.test.Testlogin">
+      <class name="com.edu.graduationproject.test.ForgotPassword">
         <methods>
-          <include name="initiateStep"/>
-          <include name="launchBrowser"/>
-          <include name="testLogin2" invocation-numbers="0 2 3"/>
-          <include name="finalizeStep"/>
-          <include name="terminateBrowser"/>
+          <include name="Wrongmail"/>
+          <include name="connect"/>
+          <include name="suiteteardown"/>
         </methods>
-      </class> <!-- com.edu.graduationproject.test.Testlogin -->
+      </class> <!-- com.edu.graduationproject.test.ForgotPassword -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -31,7 +31,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class TestCart {
+public class TestCartheroapp {
 
 	WebDriver driver;
 	private XSSFWorkbook workbook;
@@ -58,7 +58,7 @@ public class TestCart {
 		try {
 			System.setProperty("webdriver.chrome.driver", "D:\\chome\\chromedriver.exe");
 			driver = new ChromeDriver();
-			String url = "http://localhost:8080/product/list";
+			String url = "https://shoeshy.herokuapp.com/product/list";
 			driver.get(url);
 			TestNGResult.put("2", new Object[] { 1d, "Demo Website", "Get open", "Pass", });
 		} catch (Exception e) {
@@ -75,12 +75,12 @@ public class TestCart {
 		try {
 			Thread.sleep(6000);
 			WebElement add = driver.findElement(By.xpath(
-					"/html[1]/body[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/button[1]"));
+					"/html/body/div[1]/div/main/article/main/div/div[3]/div[1]/div/div[3]/div[2]/button"));
 			add.click();
 
 			Thread.sleep(3000);
 			WebElement view = driver
-					.findElement(By.xpath("/html[1]/body[1]/div[1]/header[1]/nav[1]/div[1]/div[2]/a[1]/i[1]"));
+					.findElement(By.xpath("/html/body/div[1]/div/header/nav/div/div[2]/a"));
 			view.click();
 			Thread.sleep(3000);
 			TestNGResult.put("3", new Object[] { 2d, "Add product and view cart ", "View cart", "Pass", });
@@ -98,15 +98,15 @@ public class TestCart {
 		try {
 			Thread.sleep(8000);
 			WebElement add = driver.findElement(By.xpath(
-					"/html[1]/body[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/button[1]"));
+					"/html/body/div[1]/div/main/article/main/div/div[3]/div[1]/div/div[3]/div[2]/button"));
 			add.click();
 			WebElement add2 = driver.findElement(By.xpath(
-					"/html[1]/body[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[2]/div[1]/div[2]/div[2]/button[1]"));
+					"/html/body/div[1]/div/main/article/main/div/div[3]/div[2]/div/div[3]/div[2]/button"));
 			add2.click();
 
 			Thread.sleep(3000);
 			WebElement view = driver
-					.findElement(By.xpath("/html[1]/body[1]/div[1]/header[1]/nav[1]/div[1]/div[2]/a[1]/i[1]"));
+					.findElement(By.xpath("/html/body/div[1]/div/header/nav/div/div[2]/a"));
 			view.click();
 			Thread.sleep(2000);
 			WebElement clear = driver.findElement(By.xpath("//button[contains(text(),'Xóa hết')]"));
@@ -145,24 +145,25 @@ public class TestCart {
 		try {
 			Thread.sleep(6000);
 			WebElement add = driver.findElement(By.xpath(
-					"/html[1]/body[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/button[1]"));
+					"/html/body/div[1]/div/main/article/main/div/div[3]/div[1]/div/div[3]/div[2]/button"));
 			add.click();
 			WebElement add2 = driver.findElement(By.xpath(
-					"/html[1]/body[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[2]/div[1]/div[2]/div[2]/button[1]"));
+					"/html/body/div[1]/div/main/article/main/div/div[3]/div[2]/div/div[3]/div[2]/button"));
 			add2.click();
+
 
 			Thread.sleep(3000);
 			
 			WebElement view = driver
-					.findElement(By.xpath("/html[1]/body[1]/div[1]/header[1]/nav[1]/div[1]/div[2]/a[1]/i[1]"));
+					.findElement(By.xpath("/html/body/div[1]/div/header/nav/div/div[2]/a"));
 			view.click();
 			Thread.sleep(1000);
 			WebElement plus = driver
-					.findElement(By.xpath("/html/body/div[1]/main/article/main/div/section/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/button[2]"));
+					.findElement(By.xpath("/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/button[2]"));
 			plus.click();
 			Thread.sleep(3000);
 			WebElement minus = driver
-					.findElement(By.xpath("/html/body/div[1]/main/article/main/div/section/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/button[1]"));
+					.findElement(By.xpath("/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/button[1]"));
 			minus.click();
 			WebElement back = driver.findElement(By.className("text-body"));
 			back.click();
@@ -184,18 +185,19 @@ public class TestCart {
 			
 			Thread.sleep(6000);
 			WebElement add = driver.findElement(By.xpath(
-					"/html[1]/body[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/button[1]"));
+					"/html/body/div[1]/div/main/article/main/div/div[3]/div[1]/div/div[3]/div[2]/button"));
 			add.click();
 			WebElement add2 = driver.findElement(By.xpath(
-					"/html[1]/body[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[2]/div[1]/div[2]/div[2]/button[1]"));
+					"/html/body/div[1]/div/main/article/main/div/div[3]/div[2]/div/div[3]/div[2]/button"));
 			add2.click();
+
 
 			Thread.sleep(3000);
 			WebElement view = driver
-					.findElement(By.xpath("/html[1]/body[1]/div[1]/header[1]/nav[1]/div[1]/div[2]/a[1]/i[1]"));
+					.findElement(By.xpath("/html/body/div[1]/div/header/nav/div/div[2]/a"));
 			view.click();
 			Thread.sleep(2000);
-			WebElement order = driver.findElement(By.xpath("/html/body/div[1]/main/article/main/div/section/div/div/div/div/div/div/div[2]/div/a"));
+			WebElement order = driver.findElement(By.xpath("/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[2]/div/a"));
 			order.click();
 			
 			  WebElement name=driver.findElement(By.name("username"));

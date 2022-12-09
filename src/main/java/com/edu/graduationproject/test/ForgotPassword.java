@@ -56,13 +56,13 @@ public class ForgotPassword {
 	@Test(priority = 1)
 	public void launcher() throws Exception{
 		try {
-			System.setProperty("webdriver.chrome.driver", "D:\\chrome\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "D:\\chome\\chromedriver.exe");
 			driver = new ChromeDriver();
 			String url = "http://localhost:8080/account/forgotpassword";
 			driver.get(url);
-			TestNGResult.put("2", new Object[] { 1d, "Demo Website", "Get open", "Pass", });
+			TestNGResult.put("2", new Object[] { 1d, "Demo Website", "Get open","open", "Pass", });
 		} catch (Exception e) {
-			TestNGResult.put("2", new Object[] { 1d, "Demo Website", "Get open", "Fail", });
+			TestNGResult.put("2", new Object[] { 1d, "Demo Website", "Get open","not open", "Fail", });
 			org.testng.Assert.assertTrue(false);
 		}
 		
@@ -70,7 +70,7 @@ public class ForgotPassword {
 	}
 
 
-	@Test(priority = 1)
+	@Test(priority = 2)
 	public void Wrongmail() {
 
 
@@ -87,16 +87,16 @@ public class ForgotPassword {
 		WebElement tt = driver.findElement(By.xpath("/html/body/div[1]/main/article/section/div/div/div/div/div/form/div[3]/span"));
 		Thread.sleep(2000);
 		org.testng.Assert.assertEquals(tt.getText(), "Tài khoản của bạn không tồn tại");
-		TestNGResult.put("3", new Object[] { 2d, "Input wrong mail and check message", "Wrong mail", "Pass", });
+		TestNGResult.put("3", new Object[] { 2d, "Input wrong mail and check message", "Wrong mail","wrong mail", "Pass", });
 		
 		} catch (Exception e) {
-			TestNGResult.put("3", new Object[] { 2d, "Input wrong mail and check message", "Wrong mail", "Fail", });
+			TestNGResult.put("3", new Object[] { 2d, "Input wrong mail and check message", "Wrong mail","have email", "Fail", });
 			org.testng.Assert.assertTrue(false);
 		}
 
 	}
 	
-	@Test(priority = 2)
+	@Test(priority = 3)
 	public void truemail() {
 
 
@@ -113,10 +113,10 @@ public class ForgotPassword {
 		WebElement tt = driver.findElement(By.xpath("/html/body/div[1]/main/article/section/div/div/div/div/div/form/div[3]/span"));
 		Thread.sleep(2000);
 		org.testng.Assert.assertEquals(tt.getText(), "Chúng tôi đã gửi liên kết để đặt lại đến email cảu bạn. Vui lòng kiểm tra!!!");
-		TestNGResult.put("3", new Object[] { 2d, "Input True mail and check message", "True", "Pass", });
+		TestNGResult.put("4", new Object[] { 2d, "Input True mail and check message", "True","check mail", "Pass", });
 		
 		} catch (Exception e) {
-			TestNGResult.put("3", new Object[] { 2d, "Input True mail and check message", "True mail", "Fail", });
+			TestNGResult.put("4", new Object[] { 2d, "Input True mail and check message", "True mail","wrong mail", "Fail", });
 			org.testng.Assert.assertTrue(false);
 		}
 
