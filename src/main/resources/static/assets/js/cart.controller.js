@@ -1,6 +1,6 @@
 app.controller("shopping-cart-ctrl", shoppingCartCtrl);
 
-function shoppingCartCtrl($scope, $http) {
+function shoppingCartCtrl($scope, $http, $window) {
 
     $scope.userPrincipal = {};
     $scope.cartOrderType = '';
@@ -14,17 +14,30 @@ function shoppingCartCtrl($scope, $http) {
     $scope.get_user_pricipal = function () {
         $http.get("/rest/users/principal").then(resp => {
             $scope.userPrincipal = resp.data;
+            if ($window.location.pathname === '/order/checkout') {
+                if (resp.data.address === null || resp.data.phone === null || resp.data.fullname === null) {
+                    alert('Cần cung cấp thông tin địa chỉ, họ tên và SDT để tiến hành thanh toán!');
+                    $window.location.href = '/account/editprofile';
+                }
+            }
             // localStorage.setItem("user", JSON.stringify(resp.data.id));
         }).catch(error => {
             console.log("Error", error);
         });
     };
 
+
+
     $scope.initialize = function () {
+        if ($window.location.pathname === '/order/checkout') {
+            if ($scope.cart.items.length === 0) {
+                alert('Giỏ hàng bạn đang trống!');
+                $window.location.href = '/';
+            }
+        }
+
         $scope.get_user_pricipal();
     };
-
-    $scope.initialize();
 
     $scope.cart = {
         items: [],
@@ -120,6 +133,16 @@ function shoppingCartCtrl($scope, $http) {
         return Object.keys(obj).length === 0;
     };
 
+    $scope.semdEmailReceipt = function (orderObj) {
+        $http.post('/rest/orders/send-email-receipt', orderObj).then(res => {
+            if (res.status === 200) {
+                alert('Đã gửi email hóa đơn!');
+            }
+        }).catch(err => {
+            console.error("Lỗi gửi hóa đơn email!", err);
+        });
+    };
+
     $scope.order = {
         // createdAt: new Date(),
         total: 0.0,
@@ -149,26 +172,27 @@ function shoppingCartCtrl($scope, $http) {
             order.address = $scope.userPrincipal.address;
             order.user.username = $scope.userPrincipal.username;
             if (!$scope.isObjEmpty($scope.voucherResponse)) {
+                // thêm property voucher vào object order
                 order.voucher = { id: null };
                 order.voucher.id = $scope.voucherResponse.id;
             }
             order.total = $scope.order.total_cost();
-            console.log(order);
+            // console.log(order);
             if ($scope.cart.count === 0) {
                 alert("Error creating order or your cart is empty! Please try again!");
             } else {
-                if (order.payment_method == "paypal") {
-                    $http.post('/pay', order).then(res => {
-                        console.log(res.data.returned_url);
+                if (order.payment_method === "paypal") {
+                    $http.post('/paypal', order).then(res => {
                         $scope.cart.clear();
                         location.href = res.data.returned_url;
                     }).catch(err => {
                         alert("Error creating order or your cart is empty! Please try again!");
                         console.log(err);
                     });
-                } else if (order.payment_method == "cod") {
+                } else if (order.payment_method === "cod") {
                     $http.post('/rest/orders', order).then(res => {
-                        alert("Order successfully created");
+                        alert("Đặt hàng thành công, chúng tôi sẽ gửi mail hóa đơn vào địa chỉ email của bạn!");
+                        $scope.semdEmailReceipt(res.data);
                         $scope.cart.clear();
                         location.href = "/order/list";
                     }).catch(err => {
@@ -179,6 +203,8 @@ function shoppingCartCtrl($scope, $http) {
             }
         }
     };
+
+    $scope.initialize();
 
 
 }
