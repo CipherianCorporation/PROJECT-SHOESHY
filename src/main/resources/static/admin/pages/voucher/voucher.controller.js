@@ -33,19 +33,17 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
             voucher.isDeleted = false;
         }
         $http.get(`/rest/vouchers/code/${voucher.code}`).then(resp => {
-            if (resp.data.length === 0) {
-                $http.post(`/rest/vouchers`, voucher).then(resp => {
-                    $scope.list_vouchers.push(resp.data);
-                    $scope.reset();
-                    $scope.initialize();
-                    alert('Tạo voucher mới thành công');
-                }).catch(error => {
-                    alert('Lỗi khi tạo voucher : ' + error);
-                    console.log("Error", error);
-                });
-            } else {
-                alert('Mã code đã tồn tại');
-            }
+            alert('Mã code đã tồn tại');
+        }).catch(error => {
+            $http.post(`/rest/vouchers`, voucher).then(resp => {
+                $scope.list_vouchers.push(resp.data);
+                $scope.reset();
+                $scope.initialize();
+                alert('Tạo voucher mới thành công');
+            }).catch(error => {
+                alert('Lỗi khi tạo voucher : ' + error);
+                console.log("Error", error);
+            });
         });
     };
 
@@ -67,12 +65,12 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
 
     $scope.update = function () {
         let item = angular.copy($scope.form);
-        console.log(item);
         item.isDeleted = false;
+        console.log(item);
         let check = confirm(`Bạn có chắc chắn cập nhật voucher này không ?`);
         if (check) {
             $http.put(`/rest/vouchers/id/${item.id}`, item).then(resp => {
-                let index = $scope.list_vouchers.findIndex(item => item.id == item.id);
+                let index = $scope.list_vouchers.findIndex(voucher => item.id == voucher.id);
                 $scope.list_vouchers[index] = item;
                 $scope.initialize();
                 $scope.reset();

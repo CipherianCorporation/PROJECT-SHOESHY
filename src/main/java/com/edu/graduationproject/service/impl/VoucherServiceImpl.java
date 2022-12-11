@@ -23,8 +23,8 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public Optional<Voucher> findByCode(String code) {
-        return voucherRepo.findByCode(code);
+    public Optional<Voucher> findByCodeIsNotDeleted(String code) {
+        return voucherRepo.findByCodeIsNotDeleted(code);
     }
 
     @Override
