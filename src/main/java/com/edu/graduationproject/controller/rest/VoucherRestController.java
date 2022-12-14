@@ -65,7 +65,7 @@ public class VoucherRestController {
         }
     }
 
-    @PutMapping("/rest/vouchers/id/{id}")
+    @PutMapping("/rest/vouchers/{id}")
     public ResponseEntity<Voucher> updateVoucher(@PathVariable("id") Integer id, @RequestBody Voucher voucher) {
         Optional<Voucher> findVoucher = voucherService.findById(id);
         if (findVoucher.isPresent()) {
@@ -75,7 +75,7 @@ public class VoucherRestController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/rest/vouchers/id/{id}")
+    @DeleteMapping("/rest/vouchers/{id}")
     public ResponseEntity<Voucher> deleteVoucher(@PathVariable("id") Integer id) {
         try {
             return ResponseEntity.ok(voucherService.deleteById(id));
