@@ -55,7 +55,7 @@ public class VoucherRestController {
         }
     }
 
-    @PutMapping("/rest/vouchers/id/{id}")
+    @PutMapping("/rest/vouchers/{id}")
     public ResponseEntity<Voucher> updateVoucher(@PathVariable("id") Integer id, @RequestBody Voucher voucher) {
         Optional<Voucher> v = voucherService.findById(id);
         if (v.isPresent()) {
@@ -66,7 +66,7 @@ public class VoucherRestController {
         }
     }
 
-    @DeleteMapping("/rest/vouchers/id/{id}")
+    @DeleteMapping("/rest/vouchers/{id}")
     public ResponseEntity<Voucher> deleteVoucher(@PathVariable("id") Integer id) {
         if (id == null) {
             return new ResponseEntity<Voucher>(HttpStatus.NOT_FOUND);
