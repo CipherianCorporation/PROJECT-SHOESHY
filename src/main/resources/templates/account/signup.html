@@ -15,14 +15,14 @@
                 <div class="card rounded-4 shadow">
                     <div class="card-body p-md-5 p-sm-2 ">
                         <h2 class="fw-bold mb-4">Đăng ký </h2>
-                        <form th:action="@{/account/register}" method="post" class="row g-3 needs-validation" novalidate th:object="${user}">
+                        <form th:action="@{/account/register}" method="post" class="row g-3 needs-validation" th:object="${user}" name="formSignup" novalidate>
                             <div>
                                 <div class="mb-4 py-1">
                                     <div class="form-outline">
                                         <input name="username" type="text" th:field="*{username}" id="floatingUsername"
                                             class="form-control form-control-lg rounded-3" required />
                                         <label class="form-label" for="floatingUsername">Tên đăng nhập </label>
-                                        <div class="invalid-feedback">Hãy nhập tên đăng nhập!</div>
+                                        <div class="invalid-feedback" ng-show="formSignup.username.$invalid">Hãy nhập tên đăng nhập!</div>
                                     </div>
                                 </div>
 
@@ -31,25 +31,25 @@
                                         <input type="email" name="mail" th:field="*{email}" id="floatingEmail" class="form-control form-control-lg rounded-3"
                                             required />
                                         <label class="form-label" for="floatingEmail">E-mail </label>
-                                        <div class="invalid-feedback">Hãy nhập địa chỉ email!</div>
+                                        <div class="invalid-feedback" ng-show="formSignup.email.$invalid">Hãy nhập địa chỉ email!</div>
                                     </div>
                                 </div>
 
                                 <div class="mb-4 py-1">
                                     <div class="form-outline">
-                                        <input type="password" id="password" name="pass" th:field="*{password}" class="form-control form-control-lg rounded-3"
-                                            minlength="6" maxlength="10" required />
+                                        <input type="password" id="password" name="password" th:field="*{password}"
+                                            class="form-control form-control-lg rounded-3" minlength="6" maxlength="15" required />
                                         <label class="form-label" for="password">Mật khẩu </label>
-                                        <div class="invalid-feedback">Hãy nhập mật khẩu!</div>
+                                        <div class="invalid-feedback" ng-show="formSignup.password.$invalid">Hãy nhập mật khẩu!</div>
                                     </div>
                                 </div>
 
                                 <div class="mb-4 py-1">
                                     <div class="form-outline">
                                         <input type="password" name="repass" id="floatingRetype" class="form-control form-control-lg rounded-3" minlength="6"
-                                            maxlength="10" oninput="checkPasswordMatch(this);" required />
+                                            maxlength="15" oninput="checkPasswordMatch(this);" required />
                                         <label class="form-label" for="floatingRetype">Nhập lại mật khẩu </label>
-                                        <div class="invalid-feedback">Hãy nhập lại mật khẩu!</div>
+                                        <div class="invalid-feedback" ng-show="formSignup.repass.$invalid">Hãy nhập lại mật khẩu!</div>
                                     </div>
                                 </div>
 
@@ -61,7 +61,7 @@
                                         </label>
                                         <div class="invalid-feedback">Bạn phải đồng ý với các điều khoản của dịch vụ.</div>
                                     </small>
-                                    <button type="submit" name="ok" class="btn btn-lg rounded-3 btn-success">Đăng Ký</button>
+                                    <button type="submit" name="ok" ng-disabled="formSignup.$invalid" class="btn btn-lg rounded-3 btn-success">Đăng Ký</button>
                                 </div>
 
                                 <hr class="my-4">
