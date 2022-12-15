@@ -8,7 +8,7 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
 
     $scope.initialize = function () {
         $http.get(`/rest/vouchers`).then(resp => {
-            $scope.list_vouchers = resp.data;
+            $scope.list_vouchers = resp.data.filter(v => v.isDeleted === false);
         }).catch(error => {
             console.log("Error", error);
         }).finally(function () {
@@ -28,8 +28,11 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
     };
 
     $scope.create = function () {
-        var voucher = angular.copy($scope.form_new);
-        if(voucher.startDate < voucher.endDate) {
+        let voucher = angular.copy($scope.form_new);
+        if (voucher.isDeleted == null) {
+            voucher.isDeleted = false;
+        }
+        if (voucher.startDate < voucher.endDate) {
             $http.get(`/rest/vouchers/code/${voucher.code}`).then(resp => {
                 if (resp.data.length === 0) {
                     $http.post(`/rest/vouchers`, voucher).then(resp => {
@@ -42,11 +45,11 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
                         console.log("Error", error);
                     });
                 } else {
-                    alert('Mã code đã tồn tại')
+                    alert('Mã code đã tồn tại');
                 }
-            })
-        }else{
-            alert('Ngày hiệu lực phải trước ngày kết thúc')
+            });
+        } else {
+            alert('Ngày hiệu lực phải trước ngày kết thúc');
         }
     };
 
@@ -68,6 +71,7 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
 
     $scope.update = function () {
         let item = angular.copy($scope.form);
+        item.isDeleted = false;
         console.log(item);
         // if (item.startDate < item.endDate) {
             let check = confirm(`Bạn có chắc chắn cập nhật voucher này không ?`);
