@@ -190,6 +190,15 @@ CREATE TABLE [dbo].[favorite_products] (
     CONSTRAINT [FK_favorite_products_users] FOREIGN KEY ([user_id]) REFERENCES [dbo].[users] ([id]) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE [dbo].[personal_access_token] (
+    [id]         INT            IDENTITY (100001, 1) NOT NULL,
+    [token]      NVARCHAR (MAX) NOT NULL,
+    [abilities]  NVARCHAR (50)  NOT NULL,
+    [updated_at] DATE           NULL,
+    [created_at] DATE           DEFAULT (getdate()) NOT NULL,
+    CONSTRAINT [PK_personal_access_token] PRIMARY KEY CLUSTERED ([id] ASC)
+);
+
 
 
 -- insert to database
@@ -214,7 +223,7 @@ on c.id = s.category_id
 select * from categories
 select * from sub_categories
 select * from products p WHERE p.price BETWEEN '0' AND '100000'
-select * from users
+select * from users where id = '100001'
 select * from roles
 select u.role_id, count(u.role_id) from user_roles u group by u.role_id
 select * from orders 
@@ -223,6 +232,8 @@ select * from order_statuses
 select * from vouchers
 select * from colors
 select * from visitors
+select * from favorite_products
+select * from personal_access_token
 
 select 
 count(case o.order_status when 'processing' then 1 else null end) as 'processingCount',
@@ -237,7 +248,17 @@ group by s.name
 select  s.name as 'SubCates', p.sold from products p
 inner join sub_categories s on p.sub_category_id = s.id
 
-alter table products
-add  [stock]            BIGINT         DEFAULT ((0)) NOT NULL
+-- Update rows in table '[TableName]' in schema '[dbo]'
+UPDATE [dbo].[vouchers]
+SET
+    [is_deleted] = 1
+    -- Add more columns and values here
+WHERE /* add search conditions here */
+id = '1000056'
+GO
+
+alter table vouchers
+add [is_used] BIT DEFAULT ((0)) NOT NULL
+
 
 
