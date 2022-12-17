@@ -16,6 +16,7 @@ import com.edu.graduationproject.entity.OrderDetails;
 import com.edu.graduationproject.entity.PersonalAccessToken;
 import com.edu.graduationproject.entity.Product;
 import com.edu.graduationproject.entity.User;
+import com.edu.graduationproject.entity.Voucher;
 import com.edu.graduationproject.model.IOrderTypeCount;
 import com.edu.graduationproject.model.MailInfo;
 import com.edu.graduationproject.repository.OrderDetailRepository;
@@ -25,6 +26,7 @@ import com.edu.graduationproject.service.OrderService;
 import com.edu.graduationproject.service.PersonalAccessTokenService;
 import com.edu.graduationproject.service.ProductService;
 import com.edu.graduationproject.service.UserService;
+import com.edu.graduationproject.service.VoucherService;
 import com.edu.graduationproject.utils.CommonUtils;
 import com.edu.graduationproject.utils.DateUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -54,6 +56,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     MailerService mailerService;
 
+    @Autowired
+    VoucherService voucherService;
+
     @Override
     public Order create(JsonNode orderData) {
         ObjectMapper mapper = new ObjectMapper();
@@ -62,6 +67,8 @@ public class OrderServiceImpl implements OrderService {
         order.setCreatedAt(new Date());
         order.setUser(user);
         orderRepo.save(order);
+        Optional<Voucher> v = voucherService.findById(order.getVoucher().getId());
+
         List<OrderDetails> list = mapper
                 .convertValue(orderData.get("order_details"), new TypeReference<List<OrderDetails>>() {
                 })

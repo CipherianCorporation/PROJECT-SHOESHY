@@ -117,6 +117,7 @@ CREATE TABLE [dbo].[vouchers] (
     [start_date]  DATE           DEFAULT (getdate()) NOT NULL,
     [end_date]    DATE           NOT NULL,
     [updated_at]  DATE           NULL,
+    [is_used] BIT DEFAULT ((0)) NOT NULL,
     CONSTRAINT [PK_vouchers] PRIMARY KEY CLUSTERED ([id] ASC),
 );
 

@@ -1,5 +1,6 @@
 package com.edu.graduationproject.controller.rest;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.graduationproject.entity.User;
+import com.edu.graduationproject.entity.UserRole;
 import com.edu.graduationproject.exception.ResourceNotFoundException;
 import com.edu.graduationproject.model.EAuthProvider;
+import com.edu.graduationproject.service.UserRoleService;
 import com.edu.graduationproject.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -32,6 +35,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 public class UserRestController {
     @Autowired
     UserService userService;
+    @Autowired
+    UserRoleService userRoleService;
 
     @GetMapping("/rest/users")
     public ResponseEntity<List<User>> getAccounts(@RequestParam("admin") Optional<Boolean> admin) {
@@ -44,6 +49,7 @@ public class UserRestController {
     @GetMapping("/rest/users/principal")
     public ResponseEntity<Object> getAuthenticatedUser(Authentication authentication) {
         Map<String, Object> map = new HashMap<String, Object>();
+        Collection<? extends GrantedAuthority> userRoles =  authentication.getAuthorities();
         try {
             Optional<User> loggedinUser = userService.findByUsername(authentication.getName());
             map.put("id", loggedinUser.get().getId());
@@ -54,6 +60,7 @@ public class UserRestController {
             map.put("address", loggedinUser.get().getAddress());
             map.put("fullname", loggedinUser.get().getFullname());
             map.put("image_url", loggedinUser.get().getImage_url());
+            map.put("roles", userRoles);
             return ResponseEntity.ok(map);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
@@ -113,9 +120,15 @@ public class UserRestController {
 
     // admin
     @DeleteMapping("/rest/users/{username}")
-    public void delete(@PathVariable("username") Optional<String> username) {
+    public void delete(@PathVariable("username") Optional<String> username, Authentication auth) {
         try {
+            Optional<User> reqUser = userService.findByUsername(auth.getName());
+            Optional<User> findUser = userService.findByUsername(username.get());
+            if (findUser.isPresent() && reqUser.isPresent()) {
+                List<UserRole> reqRoles = userRoleService.findRolesOfAdministrators();
+            }
             userService.deleteByUsername(username.get());
+            throw new ResourceNotFoundException("User", "username", username.get());
         } catch (Exception e) {
             throw new ResourceNotFoundException("User", "username", username.get());
         }

@@ -97,7 +97,7 @@ app.controller("user-ctrl", function ($scope, $http) {
         let check = confirm(`Bạn có chắc chắn cập nhật người dùng này không ?`);
         if (check) {
             $http.put(`/rest/admin/${item.id}`, item).then(resp => {
-                let index = $scope.items.findIndex(item => item.id == item.id);
+                let index = $scope.items.findIndex(user => user.id == item.id);
                 $scope.items[index] = item;
                 $scope.reset();
                 alert("Cập nhật thành công ");
