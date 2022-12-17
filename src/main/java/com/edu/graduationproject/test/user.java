@@ -44,7 +44,7 @@ public class user {
 
 	@BeforeTest
 	public void open() {
-		System.setProperty("webdriver.chrome.driver", "D:\\chrome\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "D:\\chome\\chromedriver.exe");
 		driver = new ChromeDriver();
 		String url = "http://localhost:8080/product/list";
 		driver.get(url);
@@ -145,7 +145,7 @@ public class user {
 		 try {
 			 
 			
-				driver.findElement(By.xpath("//header/nav[1]/div[1]/div[1]/ul[1]/li[4]/a[1]")).click();
+				driver.findElement(By.xpath("//header/nav[1]/div[1]/div[1]/ul[1]/li[6]/a[1]")).click();
 			 
 			  
 			 Thread.sleep(7000);
@@ -166,7 +166,7 @@ public class user {
 			
 			 
 			
-				driver.findElement(By.xpath("//*[@id=\"categoryHeading\"]/button")).click();
+				driver.findElement(By.xpath("//button[contains(text(),'Danh mục')]")).click();
 				Thread.sleep(5000);
 				
 				driver.findElement(By.xpath("//a[contains(text(),'> Giày thể thao nam')]")).click();
@@ -200,12 +200,12 @@ public class user {
 			
 			 Thread.sleep(6000);
 				WebElement add = driver.findElement(By.xpath(
-						"/html[1]/body[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[2]/div[2]/button[1]"));
+						"//body/div[1]/div[1]/main[1]/article[1]/main[1]/div[1]/div[3]/div[1]/div[1]/div[3]/div[2]/button[1]"));
 				add.click();
 
 				Thread.sleep(3000);
 				WebElement view = driver
-						.findElement(By.xpath("/html[1]/body[1]/div[1]/header[1]/nav[1]/div[1]/div[2]/a[1]/i[1]"));
+						.findElement(By.xpath("//header/nav[1]/div[1]/div[2]/a[1]/i[1]"));
 				view.click();
 				Thread.sleep(3000);
 				

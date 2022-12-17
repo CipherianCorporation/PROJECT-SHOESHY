@@ -81,7 +81,7 @@ public class CrudUser {
 			
 			 driver.findElement(By.name("username")).sendKeys("batman");
 				
-				driver.findElement(By.name("password")).sendKeys("1221");
+				driver.findElement(By.name("password")).sendKeys("123123");
 			
 				driver.findElement(By.name("login")).click();
 				

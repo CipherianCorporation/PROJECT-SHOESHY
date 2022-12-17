@@ -58,7 +58,7 @@ public class TestCartheroapp {
 		try {
 			System.setProperty("webdriver.chrome.driver", "D:\\chome\\chromedriver.exe");
 			driver = new ChromeDriver();
-			String url = "https://shoeshy.herokuapp.com/product/list";
+			String url = "http://localhost:8080/product/list";
 			driver.get(url);
 			TestNGResult.put("2", new Object[] { 1d, "Demo Website", "Get open", "Pass", });
 		} catch (Exception e) {

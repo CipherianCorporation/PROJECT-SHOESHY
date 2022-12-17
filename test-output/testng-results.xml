@@ -1,217 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+<testng-results ignored="0" total="9" passed="7" failed="2" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-12-03T21:28:33 GMT+07:00" name="Default suite" finished-at="2022-12-03T21:31:49 GMT+07:00" duration-ms="196670">
+  <suite started-at="2022-12-16T22:49:00 GMT+07:00" name="Default suite" finished-at="2022-12-16T22:49:59 GMT+07:00" duration-ms="58689">
     <groups>
     </groups>
-    <test started-at="2022-12-03T21:28:33 GMT+07:00" name="Default test" finished-at="2022-12-03T21:31:49 GMT+07:00" duration-ms="196670">
-      <class name="com.edu.graduationproject.test.CrudUser">
-        <test-method is-config="true" signature="initiateStep()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:28:33 GMT+07:00" name="initiateStep" finished-at="2022-12-03T21:28:33 GMT+07:00" duration-ms="9" status="PASS">
+    <test started-at="2022-12-16T22:49:00 GMT+07:00" name="Default test" finished-at="2022-12-16T22:49:59 GMT+07:00" duration-ms="58689">
+      <class name="com.edu.graduationproject.test.Admin">
+        <test-method is-config="true" signature="open()[pri:0, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:00 GMT+07:00" name="open" finished-at="2022-12-16T22:49:08 GMT+07:00" duration-ms="7659" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- initiateStep -->
-        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:28:34 GMT+07:00" name="launchBrowser" finished-at="2022-12-03T21:28:38 GMT+07:00" duration-ms="4099" status="PASS">
+        </test-method> <!-- open -->
+        <test-method is-config="true" signature="connect()[pri:0, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:08 GMT+07:00" name="connect" finished-at="2022-12-16T22:49:08 GMT+07:00" duration-ms="627" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- launchBrowser -->
-        <test-method signature="testRegistration(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:28:38 GMT+07:00" name="testRegistration" data-provider="RegistrationDataProvider" finished-at="2022-12-03T21:29:16 GMT+07:00" duration-ms="38227" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Aka47]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[123456]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[AAA]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[aka@gmail.com]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
-                <![CDATA[32225356]]>
-              </value>
-            </param>
-            <param index="5">
-              <value>
-                <![CDATA[Q2]]>
-              </value>
-            </param>
-            <param index="6">
-              <value>
-                <![CDATA[Staff]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- connect -->
+        <test-method signature="launcherfail()[pri:1, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:08 GMT+07:00" name="launcherfail" finished-at="2022-12-16T22:49:10 GMT+07:00" duration-ms="2042" status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:110)
+at org.testng.Assert.failNotEquals(Assert.java:1413)
+at org.testng.Assert.assertTrue(Assert.java:56)
+at org.testng.Assert.assertTrue(Assert.java:66)
+at com.edu.graduationproject.test.Admin.launcherfail(Admin.java:72)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:135)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:673)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:220)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:945)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:193)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:808)
+at org.testng.TestRunner.run(TestRunner.java:603)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:429)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:423)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:383)
+at org.testng.SuiteRunner.run(SuiteRunner.java:326)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1249)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
+at org.testng.TestNG.runSuites(TestNG.java:1092)
+at org.testng.TestNG.run(TestNG.java:1060)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testRegistration -->
-        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:29:16 GMT+07:00" name="terminateBrowser" finished-at="2022-12-03T21:29:32 GMT+07:00" duration-ms="16178" status="PASS">
+        </test-method> <!-- launcherfail -->
+        <test-method signature="loginadmin()[pri:2, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:10 GMT+07:00" name="loginadmin" finished-at="2022-12-16T22:49:17 GMT+07:00" duration-ms="6779" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- terminateBrowser -->
-        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:29:32 GMT+07:00" name="launchBrowser" finished-at="2022-12-03T21:29:34 GMT+07:00" duration-ms="1868" status="PASS">
+        </test-method> <!-- loginadmin -->
+        <test-method signature="product()[pri:3, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:17 GMT+07:00" name="product" finished-at="2022-12-16T22:49:21 GMT+07:00" duration-ms="4138" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- launchBrowser -->
-        <test-method signature="testRegistration(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:29:34 GMT+07:00" name="testRegistration" data-provider="RegistrationDataProvider" finished-at="2022-12-03T21:30:13 GMT+07:00" duration-ms="38285" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Yasuo]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[123456]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Ctrl6]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[cantem@gmail.com]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
-                <![CDATA[32225356]]>
-              </value>
-            </param>
-            <param index="5">
-              <value>
-                <![CDATA[Q1]]>
-              </value>
-            </param>
-            <param index="6">
-              <value>
-                <![CDATA[User]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- product -->
+        <test-method signature="user()[pri:4, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:21 GMT+07:00" name="user" finished-at="2022-12-16T22:49:23 GMT+07:00" duration-ms="2092" status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:110)
+at org.testng.Assert.failNotEquals(Assert.java:1413)
+at org.testng.Assert.assertTrue(Assert.java:56)
+at org.testng.Assert.assertTrue(Assert.java:66)
+at com.edu.graduationproject.test.Admin.user(Admin.java:144)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:135)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:673)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:220)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:945)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:193)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+at org.testng.TestRunner.privateRun(TestRunner.java:808)
+at org.testng.TestRunner.run(TestRunner.java:603)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:429)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:423)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:383)
+at org.testng.SuiteRunner.run(SuiteRunner.java:326)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1249)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
+at org.testng.TestNG.runSuites(TestNG.java:1092)
+at org.testng.TestNG.run(TestNG.java:1060)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testRegistration -->
-        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:30:13 GMT+07:00" name="terminateBrowser" finished-at="2022-12-03T21:30:13 GMT+07:00" duration-ms="130" status="PASS">
+        </test-method> <!-- user -->
+        <test-method signature="order()[pri:5, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:23 GMT+07:00" name="order" finished-at="2022-12-16T22:49:27 GMT+07:00" duration-ms="4144" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- terminateBrowser -->
-        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:30:13 GMT+07:00" name="launchBrowser" finished-at="2022-12-03T21:30:15 GMT+07:00" duration-ms="1931" status="PASS">
+        </test-method> <!-- order -->
+        <test-method signature="category()[pri:6, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:27 GMT+07:00" name="category" finished-at="2022-12-16T22:49:32 GMT+07:00" duration-ms="4092" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- launchBrowser -->
-        <test-method signature="testRegistration(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:30:15 GMT+07:00" name="testRegistration" data-provider="RegistrationDataProvider" finished-at="2022-12-03T21:30:53 GMT+07:00" duration-ms="38468" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[Maak]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[123456]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[Matna]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[eaaaa@gmail.com]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
-                <![CDATA[32225356]]>
-              </value>
-            </param>
-            <param index="5">
-              <value>
-                <![CDATA[Dong nai]]>
-              </value>
-            </param>
-            <param index="6">
-              <value>
-                <![CDATA[User]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- category -->
+        <test-method signature="voucher()[pri:7, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:32 GMT+07:00" name="voucher" finished-at="2022-12-16T22:49:32 GMT+07:00" duration-ms="82" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testRegistration -->
-        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:30:53 GMT+07:00" name="terminateBrowser" finished-at="2022-12-03T21:30:53 GMT+07:00" duration-ms="92" status="PASS">
+        </test-method> <!-- voucher -->
+        <test-method signature="auth()[pri:8, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:32 GMT+07:00" name="auth" finished-at="2022-12-16T22:49:36 GMT+07:00" duration-ms="4169" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- terminateBrowser -->
-        <test-method is-config="true" signature="launchBrowser()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:30:53 GMT+07:00" name="launchBrowser" finished-at="2022-12-03T21:30:55 GMT+07:00" duration-ms="1449" status="PASS">
+        </test-method> <!-- auth -->
+        <test-method signature="back()[pri:9, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:36 GMT+07:00" name="back" finished-at="2022-12-16T22:49:40 GMT+07:00" duration-ms="4175" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- launchBrowser -->
-        <test-method signature="testRegistration(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:2, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:30:55 GMT+07:00" name="testRegistration" data-provider="RegistrationDataProvider" finished-at="2022-12-03T21:31:33 GMT+07:00" duration-ms="38175" status="PASS">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[aa]]>
-              </value>
-            </param>
-            <param index="1">
-              <value>
-                <![CDATA[123456]]>
-              </value>
-            </param>
-            <param index="2">
-              <value>
-                <![CDATA[tran van a ]]>
-              </value>
-            </param>
-            <param index="3">
-              <value>
-                <![CDATA[hoho@gmail.com]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
-                <![CDATA[32225356]]>
-              </value>
-            </param>
-            <param index="5">
-              <value>
-                <![CDATA[Lam dong]]>
-              </value>
-            </param>
-            <param index="6">
-              <value>
-                <![CDATA[User]]>
-              </value>
-            </param>
-          </params>
+        </test-method> <!-- back -->
+        <test-method is-config="true" signature="suiteteardown()[pri:0, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:40 GMT+07:00" name="suiteteardown" finished-at="2022-12-16T22:49:40 GMT+07:00" duration-ms="428" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testRegistration -->
-        <test-method is-config="true" signature="terminateBrowser()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:31:33 GMT+07:00" name="terminateBrowser" finished-at="2022-12-03T21:31:49 GMT+07:00" duration-ms="16226" status="PASS">
+        </test-method> <!-- suiteteardown -->
+        <test-method is-config="true" signature="close()[pri:0, instance:com.edu.graduationproject.test.Admin@7b993c65]" started-at="2022-12-16T22:49:40 GMT+07:00" name="close" finished-at="2022-12-16T22:49:59 GMT+07:00" duration-ms="18210" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- terminateBrowser -->
-        <test-method is-config="true" signature="finalizeStep()[pri:0, instance:com.edu.graduationproject.test.CrudUser@5f20155b]" started-at="2022-12-03T21:31:49 GMT+07:00" name="finalizeStep" finished-at="2022-12-03T21:31:49 GMT+07:00" duration-ms="327" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- finalizeStep -->
-      </class> <!-- com.edu.graduationproject.test.CrudUser -->
+        </test-method> <!-- close -->
+      </class> <!-- com.edu.graduationproject.test.Admin -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

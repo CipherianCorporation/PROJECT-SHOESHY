@@ -160,7 +160,7 @@ public class Testlogin {
 			// check login result by checking page title
 			
 			
-			WebElement tt = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/header[1]/nav[1]/div[1]/div[2]/div[1]/a[1]/span[1]/span[1]"));
+			WebElement tt = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/header[1]/nav[1]/div[1]/div[2]/div[1]/a[1]/span[1]/span[1]"));
 			Thread.sleep(4000);
 			
 			

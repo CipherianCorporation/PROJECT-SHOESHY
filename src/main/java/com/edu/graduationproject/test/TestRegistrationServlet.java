@@ -86,10 +86,13 @@ public class TestRegistrationServlet {
 			driver.findElement(By.name("ok")).click();
 			
 			
-			WebElement tt = driver.findElement(By.xpath("//body/div[1]/main[1]/article[1]/section[1]/div[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[6]"));
+			WebElement tt = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[1]/main[1]/article[1]/section[1]/div[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[6]/span[1]"));
 			Thread.sleep(6000);
 			
 			String t = "Please check your email to verify your account";
+			org.testng.Assert.assertEquals(tt.getText(), t);
+			
+			
 			if(tt.getText().equalsIgnoreCase(t)) {
 				index++;
 				res.put("" + index, new Object[] { index, "Check sign up",username,email, password,repass, "Signup is sucess",
@@ -101,7 +104,6 @@ public class TestRegistrationServlet {
 						"Sign up is fail", "Fail" });
 			}
 			
-			org.testng.Assert.assertEquals(tt.getText(), t);
 			
 				
 			
