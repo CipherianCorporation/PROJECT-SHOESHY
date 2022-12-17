@@ -23,8 +23,8 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public Optional<Voucher> findByCode(String code) {
-        return voucherRepo.findByCode(code);
+    public Optional<Voucher> findByCodeIsNotDeleted(String code) {
+        return voucherRepo.findByCodeIsNotDeleted(code);
     }
 
     @Override
@@ -41,7 +41,12 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public Voucher deleteById(Integer id) {
-        voucherRepo.deleteById(id);
+        Optional<Voucher> findVoucher = voucherRepo.findById(id);
+        if (findVoucher.isPresent()) {
+            findVoucher.get().setIsDeleted(true);
+            return voucherRepo.save(findVoucher.get());
+        }
+        // voucherRepo.deleteById(id);
         return null;
     }
 

@@ -92,9 +92,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteByUsername(String username) {
-        userRepo.deleteByUsername(username);
-
+    public User deleteByUsername(String username) {
+        Optional<User> findUser = userRepo.findByUsername(username);
+        if (findUser.isPresent()) {
+            findUser.get().setIsDeleted(true);
+            findUser.get().setEnabled(false);
+            findUser.get().setDeletedAt(new Date());
+            return userRepo.save(findUser.get());
+        }
+        return null;
     }
 
     @Override

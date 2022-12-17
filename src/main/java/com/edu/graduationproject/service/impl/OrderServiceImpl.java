@@ -25,8 +25,8 @@ import com.edu.graduationproject.service.OrderService;
 import com.edu.graduationproject.service.PersonalAccessTokenService;
 import com.edu.graduationproject.service.ProductService;
 import com.edu.graduationproject.service.UserService;
+import com.edu.graduationproject.utils.CommonUtils;
 import com.edu.graduationproject.utils.DateUtils;
-import com.edu.graduationproject.utils.URLUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,10 +86,10 @@ public class OrderServiceImpl implements OrderService {
         // create accessToken
         String randomStr = RandomString.make(30);
         String abilities = "DOWNLOAD";
-        String downloadLink = URLUtils.getBaseURl(request) + "/rest/orders/download-invoice?accessToken="
+        String downloadLink = CommonUtils.getSiteURL(request) + "/rest/orders/download-invoice?accessToken="
                 + randomStr + "&orderId=" + order.getId();
         accessTokenService.create(new PersonalAccessToken(randomStr, abilities));
-
+        System.out.println(downloadLink);
         MailInfo mailInfo = new MailInfo();
         String recipientEmail = order.getUser().getEmail();
         mailInfo.setTo(recipientEmail);
@@ -109,6 +109,7 @@ public class OrderServiceImpl implements OrderService {
                 Tổng số tiền: đ <strong> %s </strong> <br><br>
 
                 Nhấn vào <a href="%s">ĐÂY</a> để download hóa đơn <br><br>
+                Hoặc link sau: %s <br><br>
 
                 Hân hạnh, <br>
                 ShoeShy Team <br>
@@ -122,6 +123,7 @@ public class OrderServiceImpl implements OrderService {
                         order.getPayment_method().toString().toUpperCase(),
                         DateUtils.formatDateTime(order.getCreatedAt()),
                         String.format("%,.0f", order.getTotal()),
+                        downloadLink,
                         downloadLink);
         mailInfo.setBody(content);
         mailerService.queue(mailInfo);

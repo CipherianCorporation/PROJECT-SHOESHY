@@ -79,6 +79,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/sub-categories/**",
                                                 "/rest/voucher/**",
                                                 "/rest/send_contact",
+                                                "/order/shipper",
+                                                "/rest/vouchers/**",
                                                 "/cart/**",
                                                 "/account/signup",
                                                 "/account/contact",
