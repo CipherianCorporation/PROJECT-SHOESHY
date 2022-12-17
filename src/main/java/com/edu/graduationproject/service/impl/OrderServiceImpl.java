@@ -29,6 +29,7 @@ import com.edu.graduationproject.service.UserService;
 import com.edu.graduationproject.service.VoucherService;
 import com.edu.graduationproject.utils.CommonUtils;
 import com.edu.graduationproject.utils.DateUtils;
+import com.edu.graduationproject.utils.URLUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
     VoucherService voucherService;
 
     @Override
+    @Transactional(rollbackFor = { Exception.class, Throwable.class })
     public Order create(JsonNode orderData) {
         ObjectMapper mapper = new ObjectMapper();
         Order order = mapper.convertValue(orderData, Order.class);
@@ -67,20 +69,26 @@ public class OrderServiceImpl implements OrderService {
         order.setCreatedAt(new Date());
         order.setUser(user);
         orderRepo.save(order);
-        Optional<Voucher> v = voucherService.findById(order.getVoucher().getId());
-
+        // is voucher is present then set isUsed to true
+        if (order.getVoucher().getId() != null) {
+            Optional<Voucher> optV = voucherService.findById(order.getVoucher().getId());
+            if (optV.isPresent()) {
+                Voucher v = optV.get();
+                v.setIsUsed(true);
+                voucherService.update(v.getId(), v);
+            }
+        }
         List<OrderDetails> list = mapper
                 .convertValue(orderData.get("order_details"), new TypeReference<List<OrderDetails>>() {
                 })
                 .stream().peek(o -> o.setOrder(order)).collect(Collectors.toList());
-
-        // increment product sold to 1, decrease product stock to 1
+        // increment product sold, decrease product stock
         list.forEach((detail) -> {
             Product product = productService.findById(detail.getProduct().getId());
             Long oldSold = product.getSold();
             Long oldStock = product.getStock();
             product.setSold(oldSold + detail.getQuantity());
-            product.setStock(oldStock - detail.getQuantity());
+            product.setStock(oldStock < 0 ? 0 : oldStock - detail.getQuantity()); // prevent stock < 0
         });
         orderDetailRepo.saveAll(list);
         return order;
@@ -93,7 +101,7 @@ public class OrderServiceImpl implements OrderService {
         // create accessToken
         String randomStr = RandomString.make(30);
         String abilities = "DOWNLOAD";
-        String downloadLink = CommonUtils.getSiteURL(request) + "/rest/orders/download-invoice?accessToken="
+        String downloadLink = URLUtils.getBaseURl(request) + "/rest/orders/download-invoice?accessToken="
                 + randomStr + "&orderId=" + order.getId();
         accessTokenService.create(new PersonalAccessToken(randomStr, abilities));
         System.out.println(downloadLink);
@@ -184,7 +192,7 @@ public class OrderServiceImpl implements OrderService {
                 Product product = productService.findById(detail.getProduct().getId());
                 Long oldSold = product.getSold();
                 Long oldStock = product.getStock();
-                product.setSold(oldSold - detail.getQuantity());
+                product.setSold(oldSold < 0 ? 0 : oldSold - detail.getQuantity()); // prevent sold < 0
                 product.setStock(oldStock + detail.getQuantity());
             });
         }

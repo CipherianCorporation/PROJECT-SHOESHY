@@ -19,37 +19,33 @@
                             <div>
                                 <div class="mb-4 py-1">
                                     <div class="form-outline">
-                                        <input name="username" type="text" th:field="*{username}" id="floatingUsername"
-                                            class="form-control form-control-lg rounded-3" required />
+                                        <input name="username" type="text" th:field="*{username}" id="floatingUsername" class="form-control form-control-lg rounded-3" required />
                                         <label class="form-label" for="floatingUsername">Tên đăng nhập </label>
-                                        <div class="invalid-feedback" ng-show="formSignup.username.$invalid">Hãy nhập tên đăng nhập!</div>
+                                        <div class="invalid-feedback">Hãy nhập tên đăng nhập!</div>
                                     </div>
                                 </div>
 
                                 <div class="mb-4 py-1">
                                     <div class="form-outline">
-                                        <input type="email" name="mail" th:field="*{email}" id="floatingEmail" class="form-control form-control-lg rounded-3"
-                                            required />
+                                        <input type="email" name="mail" th:field="*{email}" id="floatingEmail" pattern="" class="form-control form-control-lg rounded-3" required />
                                         <label class="form-label" for="floatingEmail">E-mail </label>
-                                        <div class="invalid-feedback" ng-show="formSignup.email.$invalid">Hãy nhập địa chỉ email!</div>
+                                        <div class="invalid-feedback">Hãy nhập địa chỉ email!</div>
                                     </div>
                                 </div>
 
                                 <div class="mb-4 py-1">
                                     <div class="form-outline">
-                                        <input type="password" id="password" name="password" th:field="*{password}"
-                                            class="form-control form-control-lg rounded-3" minlength="6" maxlength="15" required />
+                                        <input type="password" id="password" name="password" th:field="*{password}" class="form-control form-control-lg rounded-3" minlength="6" maxlength="15" required />
                                         <label class="form-label" for="password">Mật khẩu </label>
-                                        <div class="invalid-feedback" ng-show="formSignup.password.$invalid">Hãy nhập mật khẩu!</div>
+                                        <div class="invalid-feedback">Hãy nhập mật khẩu!</div>
                                     </div>
                                 </div>
 
                                 <div class="mb-4 py-1">
                                     <div class="form-outline">
-                                        <input type="password" name="repass" id="floatingRetype" class="form-control form-control-lg rounded-3" minlength="6"
-                                            maxlength="15" oninput="checkPasswordMatch(this);" required />
+                                        <input type="password" name="repass" id="floatingRetype" class="form-control form-control-lg rounded-3" minlength="6" maxlength="15" oninput="checkPasswordMatch(this);" required />
                                         <label class="form-label" for="floatingRetype">Nhập lại mật khẩu </label>
-                                        <div class="invalid-feedback" ng-show="formSignup.repass.$invalid">Hãy nhập lại mật khẩu!</div>
+                                        <div class="invalid-feedback">Hãy nhập lại mật khẩu!</div>
                                     </div>
                                 </div>
 

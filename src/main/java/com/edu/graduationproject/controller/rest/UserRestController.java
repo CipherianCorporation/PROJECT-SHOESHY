@@ -1,7 +1,6 @@
 package com.edu.graduationproject.controller.rest;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.graduationproject.entity.User;
 import com.edu.graduationproject.entity.UserRole;
+import com.edu.graduationproject.exception.BadRequestException;
 import com.edu.graduationproject.exception.ResourceNotFoundException;
-import com.edu.graduationproject.model.EAuthProvider;
 import com.edu.graduationproject.service.UserRoleService;
 import com.edu.graduationproject.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -49,7 +48,7 @@ public class UserRestController {
     @GetMapping("/rest/users/principal")
     public ResponseEntity<Object> getAuthenticatedUser(Authentication authentication) {
         Map<String, Object> map = new HashMap<String, Object>();
-        Collection<? extends GrantedAuthority> userRoles =  authentication.getAuthorities();
+        Collection<? extends GrantedAuthority> userRoles = authentication.getAuthorities();
         try {
             Optional<User> loggedinUser = userService.findByUsername(authentication.getName());
             map.put("id", loggedinUser.get().getId());
@@ -91,12 +90,16 @@ public class UserRestController {
     public ResponseEntity<User> update(@PathVariable("idOrUsername") Optional<Object> idOrUsername,
             @RequestBody User user) throws JsonProcessingException {
         try {
-            Optional<User> existingUser = userService.findByUsername((String) idOrUsername.get());
-            if (!existingUser.isPresent()) {
-                existingUser = userService.findById(Integer.valueOf((String) idOrUsername.get()));
+            Optional<User> userByUsername = userService.findByUsername((String) idOrUsername.get());
+            Optional<User> userById = userService.findById(Integer.valueOf((String) idOrUsername.get()));
+            if (userByUsername.isPresent() || userById.isPresent()) {
+                if (user.getIsDeleted() == null) {
+                    user.setIsDeleted(false);
+                }
+                User savedUser = userService.update(user);
+                return ResponseEntity.ok(savedUser);
             }
-            User savedUser = userService.update(user);
-            return ResponseEntity.ok(savedUser);
+            return ResponseEntity.notFound().build();
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
@@ -105,14 +108,18 @@ public class UserRestController {
     // update admin
     @PutMapping("/rest/admin/{idOrUsername}")
     public ResponseEntity<User> adminUpdate(@PathVariable("idOrUsername") Optional<Object> idOrUsername,
-            @RequestBody User user) throws JsonProcessingException {
+            @RequestBody User user, Authentication auth) throws JsonProcessingException {
         try {
-            Optional<User> existingUser = userService.findByUsername((String) idOrUsername.get());
-            if (!existingUser.isPresent()) {
-                existingUser = userService.findById(Integer.valueOf((String) idOrUsername.get()));
+            Optional<User> userByUsername = userService.findByUsername((String) idOrUsername.get());
+            Optional<User> userById = userService.findById(Integer.valueOf((String) idOrUsername.get()));
+            if (userByUsername.isPresent() || userById.isPresent()) {
+                if (user.getIsDeleted() == null) {
+                    user.setIsDeleted(false);
+                }
+                User savedUser = userService.update(user);
+                return ResponseEntity.ok(savedUser);
             }
-            User savedUser = userService.update(user);
-            return ResponseEntity.ok(savedUser);
+            return ResponseEntity.notFound().build();
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
@@ -125,6 +132,9 @@ public class UserRestController {
             Optional<User> reqUser = userService.findByUsername(auth.getName());
             Optional<User> findUser = userService.findByUsername(username.get());
             if (findUser.isPresent() && reqUser.isPresent()) {
+                if (auth.getName().equals(username.get())) {
+                    throw new BadRequestException("You can't delete yourself");
+                }
                 List<UserRole> reqRoles = userRoleService.findRolesOfAdministrators();
             }
             userService.deleteByUsername(username.get());

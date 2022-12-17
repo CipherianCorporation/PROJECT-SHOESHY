@@ -56,7 +56,7 @@ public class Voucher implements Serializable {
     private Boolean isUsed;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Order> orders = new HashSet<>();
+    @OneToMany(mappedBy = "voucher")
+    private List<Order> orders;
 
 }

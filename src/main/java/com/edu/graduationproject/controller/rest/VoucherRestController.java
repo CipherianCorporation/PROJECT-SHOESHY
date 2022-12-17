@@ -56,13 +56,12 @@ public class VoucherRestController {
 
     @PostMapping("/rest/vouchers")
     public ResponseEntity<Voucher> createVoucher(@RequestBody Voucher voucher) {
-        Optional<Voucher> v = voucherService.findByCodeIsNotDeleted(voucher.getCode());
-        if (v.isPresent()) {
+        Optional<Voucher> findVoucher = voucherService.findByCodeIsNotDeleted(voucher.getCode());
+        if (findVoucher.isPresent()) {
             return ResponseEntity.status(HttpStatus.FOUND).build();
-        } else {
-            Voucher newVoucher = voucherService.create(voucher);
-            return ResponseEntity.ok(newVoucher);
         }
+        Voucher newVoucher = voucherService.create(voucher);
+        return ResponseEntity.ok(newVoucher);
     }
 
     @PutMapping("/rest/vouchers/{id}")

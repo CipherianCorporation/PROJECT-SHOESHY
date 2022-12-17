@@ -5,9 +5,11 @@ app.controller("user-ctrl", function ($scope, $http) {
     $scope.editForm = {};
     $scope.roles = [];
     $scope.searchTextUser = '';
+    $scope.userPrincipal = {}
 
     $scope.initialize = function () {
         $scope.loading = true;
+        $scope.userPrincipal = JSON.parse(localStorage.getItem('userPrincipal'));
         $http.get("/rest/roles").then(resp => {
             new Set(resp.data).forEach(role => {
                 if (!$scope.roles.includes({ id: role.id })) {
@@ -132,6 +134,11 @@ app.controller("user-ctrl", function ($scope, $http) {
     $scope.delete = function (item) {
         let check = confirm(`Bạn có chắn chắc muốn xóa người dùng này không ${item.username}`);
         if (check) {
+            const loggedInUser = JSON.parse(localStorage.getItem('userPrincipal'));
+            if (item.id === loggedInUser.id || item.username === loggedInUser.username) {
+                alert('Không thể xóa người dùng đang đăng nhập');
+                return;
+            }
             $http.delete(`/rest/users/${item.username}`).then(resp => {
                 let index = $scope.items.findIndex(p => p.username == item.username);
                 $scope.items.splice(index, 1);

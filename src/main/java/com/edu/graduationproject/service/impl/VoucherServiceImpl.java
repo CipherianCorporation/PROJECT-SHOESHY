@@ -29,6 +29,9 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public Voucher create(Voucher voucher) {
+        if (voucher.getIsUsed() == null) {
+            voucher.setIsUsed(false);
+        }
         return voucherRepo.save(voucher);
     }
 
