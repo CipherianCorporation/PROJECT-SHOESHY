@@ -33,7 +33,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestCart {
 
-
 	WebDriver driver;
 	private XSSFWorkbook workbook;
 	private XSSFSheet worksheet;
@@ -41,21 +40,17 @@ public class TestCart {
 
 	private final String EX_DIR = "C:\\Users\\Admin\\Documents\\GRADUATION-PROJECT\\src\\main\\resources\\test_data\\";
 
-	
-	
-	
 	@BeforeClass
 	public void connect() {
 		TestNGResult = new LinkedHashMap<String, Object[]>();
 		workbook = new XSSFWorkbook();
 		worksheet = workbook.createSheet("TestNG");
-	
-	TestNGResult.put("1", new Object[] { "Test Step", "Action", "Expected", "Actual", "Result" });
-}
 
-	
+		TestNGResult.put("1", new Object[] { "Test Step", "Action", "Expected", "Actual", "Result" });
+	}
+
 	@Test(priority = 1)
-	public void launcher() throws Exception{
+	public void launcher() throws Exception {
 		try {
 			System.setProperty("webdriver.chrome.driver", "D:\\chome\\chromedriver.exe");
 			driver = new ChromeDriver();
@@ -66,8 +61,7 @@ public class TestCart {
 			TestNGResult.put("2", new Object[] { 1d, "Demo Website", "Get open", "Fail", });
 			org.testng.Assert.assertTrue(false);
 		}
-		
-		
+
 	}
 
 	@Test(priority = 2)
@@ -89,7 +83,7 @@ public class TestCart {
 			TestNGResult.put("3", new Object[] { 2d, "Add product and view cart ", "View cart", "fail", });
 			org.testng.Assert.assertTrue(false);
 			e.printStackTrace();
-			
+
 		}
 
 	}
@@ -116,9 +110,11 @@ public class TestCart {
 			WebElement back = driver.findElement(By.className("text-body"));
 			back.click();
 			Thread.sleep(3000);
-			TestNGResult.put("5", new Object[] { 4d, "Add product in the cart and clearall  ", "clear all product", "Pass", });
+			TestNGResult.put("5",
+					new Object[] { 4d, "Add product in the cart and clearall  ", "clear all product", "Pass", });
 		} catch (InterruptedException e) {
-			TestNGResult.put("5", new Object[] { 4d, "Add product in the cart and clearall  ", "clear all product", "fail", });
+			TestNGResult.put("5",
+					new Object[] { 4d, "Add product in the cart and clearall  ", "clear all product", "fail", });
 			org.testng.Assert.assertTrue(false);
 			e.printStackTrace();
 		}
@@ -126,21 +122,20 @@ public class TestCart {
 	}
 
 	@Test(priority = 3)
-	
+
 	public void backtohome() {
 		try {
 			WebElement back = driver.findElement(By.className("text-body"));
 			back.click();
 			TestNGResult.put("4", new Object[] { 3d, "Back to home ", "Back home", "Pass", });
 		} catch (Exception e) {
-			
-		TestNGResult.put("4", new Object[] { 3d, "Back to home ", "Back home", "fail", });
-		org.testng.Assert.assertTrue(false);
+
+			TestNGResult.put("4", new Object[] { 3d, "Back to home ", "Back home", "fail", });
+			org.testng.Assert.assertTrue(false);
 		}
-		
 
 	}
-	
+
 	@Test(priority = 5)
 	public void Quantity() {
 		try {
@@ -152,38 +147,39 @@ public class TestCart {
 					"/html/body/div[1]/div/main/article/main/div/div[3]/div[2]/div/div[3]/div[2]/button"));
 			add2.click();
 
-
 			Thread.sleep(3000);
-			
+
 			WebElement view = driver
 					.findElement(By.xpath("/html/body/div[1]/div/header/nav/div/div[2]/a"));
 			view.click();
 			Thread.sleep(1000);
 			WebElement plus = driver
-					.findElement(By.xpath("/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/button[2]"));
+					.findElement(By.xpath(
+							"/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/button[2]"));
 			plus.click();
 			Thread.sleep(3000);
 			WebElement minus = driver
-					.findElement(By.xpath("/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/button[1]"));
+					.findElement(By.xpath(
+							"/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[1]/div/div[2]/div[3]/button[1]"));
 			minus.click();
 			WebElement back = driver.findElement(By.className("text-body"));
 			back.click();
 			Thread.sleep(3000);
-			TestNGResult.put("6", new Object[] { 5d, "Add product in the cart and Setup quantity", "Setupquantity", "Pass", });
+			TestNGResult.put("6",
+					new Object[] { 5d, "Add product in the cart and Setup quantity", "Setupquantity", "Pass", });
 		} catch (InterruptedException e) {
-			TestNGResult.put("6", new Object[] { 5d, "Add product in the cart and Setup quantity ", "Setupquantity", "fail", });
+			TestNGResult.put("6",
+					new Object[] { 5d, "Add product in the cart and Setup quantity ", "Setupquantity", "fail", });
 			org.testng.Assert.assertTrue(false);
 			e.printStackTrace();
 		}
 
 	}
-	
-	
-	
+
 	@Test(priority = 6)
 	public void order() {
 		try {
-			
+
 			Thread.sleep(6000);
 			WebElement add = driver.findElement(By.xpath(
 					"/html/body/div[1]/div/main/article/main/div/div[3]/div[1]/div/div[3]/div[2]/button"));
@@ -192,71 +188,73 @@ public class TestCart {
 					"/html/body/div[1]/div/main/article/main/div/div[3]/div[2]/div/div[3]/div[2]/button"));
 			add2.click();
 
-
 			Thread.sleep(3000);
 			WebElement view = driver
 					.findElement(By.xpath("/html/body/div[1]/div/header/nav/div/div[2]/a"));
 			view.click();
 			Thread.sleep(2000);
-			WebElement order = driver.findElement(By.xpath("/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[2]/div/a"));
+			WebElement order = driver.findElement(By
+					.xpath("/html/body/div[1]/div/main/article/main/div/section/div/div/div/div/div/div/div[2]/div/a"));
 			order.click();
-			
-			  WebElement name=driver.findElement(By.name("username"));
-			  WebElement pass=driver.findElement(By.name("password"));
-			  WebElement login=driver.findElement(By.name("login"));
-			  name.sendKeys("thuan");
-			  pass.sendKeys("123456");
-			  login.click();
+
+			WebElement name = driver.findElement(By.name("username"));
+			WebElement pass = driver.findElement(By.name("password"));
+			WebElement login = driver.findElement(By.name("login"));
+			name.sendKeys("thuan");
+			pass.sendKeys("123456");
+			login.click();
 			Thread.sleep(3000);
-			TestNGResult.put("7", new Object[] { 6d, "Add product in the cart and Order  ", "login And order", "Pass", });
+			TestNGResult.put("7",
+					new Object[] { 6d, "Add product in the cart and Order  ", "login And order", "Pass", });
 		} catch (InterruptedException e) {
-			TestNGResult.put("7", new Object[] { 6d, "Add product in the cart and Order  ", "Login and order", "fail", });
+			TestNGResult.put("7",
+					new Object[] { 6d, "Add product in the cart and Order  ", "Login and order", "fail", });
 			org.testng.Assert.assertTrue(false);
 			e.printStackTrace();
 		}
 
 	}
 
-//	@Test
-//	public void quantity() {
-//
-//	}
-//
-//	@Test
-//	public void pay() {
-//
-//	}
+	// @Test
+	// public void quantity() {
+	//
+	// }
+	//
+	// @Test
+	// public void pay() {
+	//
+	// }
 
 	@AfterClass
-	public void suiteteardown(){
+	public void suiteteardown() {
 		Set<String> keyset = TestNGResult.keySet();
 		int rownum = 0;
-		for(String key : keyset) {
+		for (String key : keyset) {
 			CellStyle rowstyle = workbook.createCellStyle();
 			Row row = worksheet.createRow(rownum++);
 			Object[] objarr = TestNGResult.get(key);
 			int cellnum = 0;
-			for(Object obj : objarr) {
-				int flag = cellnum ++;
+			for (Object obj : objarr) {
+				int flag = cellnum++;
 				Cell cell = row.createCell(flag);
-				if(obj instanceof Date) {
+				if (obj instanceof Date) {
 					cell.setCellValue((Date) obj);
-				}else if(obj instanceof Boolean) {
+				} else if (obj instanceof Boolean) {
 					cell.setCellValue((Boolean) obj);
-				}else if(obj instanceof String) {
+				} else if (obj instanceof String) {
 					cell.setCellValue((String) obj);
-				}else if(obj instanceof Double) {
+				} else if (obj instanceof Double) {
 					cell.setCellValue((Double) obj);
 				}
-				
+
 			}
 			try {
-				FileOutputStream out  = new FileOutputStream(new File(EX_DIR+"cart_result.xlsx"));
+				FileOutputStream out = new FileOutputStream(new File(EX_DIR + "cart_result.xlsx"));
 				workbook.write(out);
 				out.close();
 				System.out.println("Successfully !!");
-			} catch (Exception e) { 
-				System.out.println("suiteteardown() :" +e.getMessage());
+			} catch (Exception e) {
+				System.out.println("suiteteardown() :" + e.getMessage());
 				// TODO: handle exception
 			}
 		}

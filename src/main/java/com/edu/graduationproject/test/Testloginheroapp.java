@@ -37,7 +37,7 @@ public class Testloginheroapp {
 	public void initiateStep() {
 		res = new LinkedHashMap<String, Object[]>();
 		index = 0;
-		res.put("" + index, new Object[] { "Test ID", "Action", "UserName","Pass", "Expected", "Actual", "Result" });
+		res.put("" + index, new Object[] { "Test ID", "Action", "UserName", "Pass", "Expected", "Actual", "Result" });
 	}
 
 	@AfterClass
@@ -46,7 +46,8 @@ public class Testloginheroapp {
 			System.out.println(entry.getKey() + " : " + Arrays.toString(entry.getValue()));
 		});
 		try {
-			ExcelUtil.exportTestResultExcel(Paths.get("src","main","resources","test_data", "LoginData.xlsx").toFile(), res);
+			ExcelUtil.exportTestResultExcel(
+					Paths.get("src", "main", "resources", "test_data", "LoginData.xlsx").toFile(), res);
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -64,51 +65,51 @@ public class Testloginheroapp {
 		driver.get(url);
 	}
 
-//	@Test(dataProvider = "loginDataProvider")
-//	public void testLogin1(String username, String password) {
-//		try {
-//			System.out.println("testLogin1 running...");
-//			// sending test Input data
-//			driver.findElement(By.name("username")).sendKeys(username);
-//			System.out.println(username);
-//			driver.findElement(By.name("password")).sendKeys(password);
-//			System.out.println(password);
-//			driver.findElement(By.name("login")).click();
-//			// check login result by checking page title
-//			String expectedTitle = "Shoe Store";
-//			String actualTitle = driver.getTitle();
-//			assertEquals(expectedTitle, actualTitle);
-//			
-//			
-//			boolean result = expectedTitle.equals(actualTitle);
-//			index++;
-//			res.put("" + index, new Object[] { index, "Verify login page", String.format(username, password), expectedTitle,
-//					actualTitle, result ? "Passed" : "Fail" });
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-	@Test(priority = 1 )
+	// @Test(dataProvider = "loginDataProvider")
+	// public void testLogin1(String username, String password) {
+	// try {
+	// System.out.println("testLogin1 running...");
+	// // sending test Input data
+	// driver.findElement(By.name("username")).sendKeys(username);
+	// System.out.println(username);
+	// driver.findElement(By.name("password")).sendKeys(password);
+	// System.out.println(password);
+	// driver.findElement(By.name("login")).click();
+	// // check login result by checking page title
+	// String expectedTitle = "Shoe Store";
+	// String actualTitle = driver.getTitle();
+	// assertEquals(expectedTitle, actualTitle);
+	//
+	//
+	// boolean result = expectedTitle.equals(actualTitle);
+	// index++;
+	// res.put("" + index, new Object[] { index, "Verify login page",
+	// String.format(username, password), expectedTitle,
+	// actualTitle, result ? "Passed" : "Fail" });
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+
+	@Test(priority = 1)
 	public void f() {
 		try {
 			driver.get(url);
 			driver.manage().window().maximize();
 			index++;
-			res.put("", new Object[] {index,"WebDemo","","","","Pass"});
+			res.put("", new Object[] { index, "WebDemo", "", "", "", "Pass" });
 
 		} catch (Exception e) {
-			res.put("", new Object[] {index,"WebDemo","","","","fail"});
-			
-	            org.testng.Assert.assertTrue(false);
+			res.put("", new Object[] { index, "WebDemo", "", "", "", "fail" });
+
+			org.testng.Assert.assertTrue(false);
 		}
 	}
-	
+
 	@Test(priority = 2)
 	public void testtitle() {
 		try {
-			
-	
+
 			// check login result by checking page title
 			String expectedTitle = "SHOESHY";
 			String actualTitle = driver.getTitle();
@@ -121,32 +122,31 @@ public class Testloginheroapp {
 			e.printStackTrace();
 		}
 	}
-	
-	
-//	@Test(priority = 3,dataProvider = "loginDataProvider")
-//	public void testLogin2(String username, String password) {
-//		try {
-//			System.out.println("testLogin1 running...");
-//			// sending test Input data
-//			driver.findElement(By.name("username")).sendKeys(username);
-//			System.out.println(username);
-//			driver.findElement(By.name("password")).sendKeys(password);
-//			System.out.println(password);
-//			driver.findElement(By.name("login")).click();
-//			// check login result by checking page title
-//			String expectedTitle = "Shoe Store";
-//			String actualTitle = driver.getTitle();
-//			assertEquals(username, password);
-//			boolean result = username.equals(password);
-//			index++;
-//			res.put("" + index, new Object[] { index, "Verify login page", String.format(username, password), expectedTitle,
-//					actualTitle, result ? "Passed" : "Fail" });
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 
-	
+	// @Test(priority = 3,dataProvider = "loginDataProvider")
+	// public void testLogin2(String username, String password) {
+	// try {
+	// System.out.println("testLogin1 running...");
+	// // sending test Input data
+	// driver.findElement(By.name("username")).sendKeys(username);
+	// System.out.println(username);
+	// driver.findElement(By.name("password")).sendKeys(password);
+	// System.out.println(password);
+	// driver.findElement(By.name("login")).click();
+	// // check login result by checking page title
+	// String expectedTitle = "Shoe Store";
+	// String actualTitle = driver.getTitle();
+	// assertEquals(username, password);
+	// boolean result = username.equals(password);
+	// index++;
+	// res.put("" + index, new Object[] { index, "Verify login page",
+	// String.format(username, password), expectedTitle,
+	// actualTitle, result ? "Passed" : "Fail" });
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+
 	@Test(priority = 3, dataProvider = "loginDataProvider")
 	public void testLogin2(String username, String password) {
 		try {
@@ -158,48 +158,41 @@ public class Testloginheroapp {
 			System.out.println(password);
 			driver.findElement(By.name("login")).click();
 			// check login result by checking page title
-			
-			
+
 			WebElement tt = driver.findElement(By.xpath("//*[@id=\"avatarDropdown\"]/span/span"));
 			Thread.sleep(4000);
-			
-			
-			
-			
-//			WebElement tt = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/main[1]/article[1]/section[1]/div[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[4]/span[1]"));
-//			Thread.sleep(4000);
-//			org.testng.Assert.assertEquals(tt.getText(), "Sai thông tin hoặc tài khoản chưa được kích hoạt!");
-//			
-			
-			if(tt.getText().equalsIgnoreCase(username)) {
+
+			// WebElement tt =
+			// driver.findElement(By.xpath("/html[1]/body[1]/div[1]/main[1]/article[1]/section[1]/div[1]/div[1]/div[1]/div[1]/form[1]/div[1]/div[4]/span[1]"));
+			// Thread.sleep(4000);
+			// org.testng.Assert.assertEquals(tt.getText(), "Sai thông tin hoặc tài khoản
+			// chưa được kích hoạt!");
+			//
+
+			if (tt.getText().equalsIgnoreCase(username)) {
 				index++;
-				res.put("" + index, new Object[] { index, "Verify login page",username, password, "login is Succes",
+				res.put("" + index, new Object[] { index, "Verify login page", username, password, "login is Succes",
 						"Login Pass", "Passed" });
-			}
-			else {
+			} else {
 				index++;
 				res.put("" + index, new Object[] { index, "Verify login page", username, password, "Login is Succes",
 						"Login Fail", "Fail" });
 			}
-			
+
 			org.testng.Assert.assertEquals(tt.getText(), username);
-			
-				
-			
+
 		} catch (Exception e) {
 			index++;
 			res.put("" + index, new Object[] { index, "Verify login page", username, password, "Login is Sussces",
 					"Login Fail", "Fail" });
-			 org.testng.Assert.assertTrue(false);
+			org.testng.Assert.assertTrue(false);
 		}
 	}
-	
 
-	
-	
 	@DataProvider
 	public Object[][] loginDataProvider() throws Exception {
-		String excelFilePath = Paths.get("src","main","resources","test_data", "LoginData.xlsx").toFile().getAbsolutePath();
+		String excelFilePath = Paths.get("src", "main", "resources", "test_data", "LoginData.xlsx").toFile()
+				.getAbsolutePath();
 		Object[][] arr = ExcelUtil.getTableArray(excelFilePath, "Sheet2", 2);
 		return arr;
 	}
@@ -209,4 +202,3 @@ public class Testloginheroapp {
 		driver.close();
 	}
 }
-
