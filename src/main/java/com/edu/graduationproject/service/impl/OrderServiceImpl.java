@@ -68,14 +68,14 @@ public class OrderServiceImpl implements OrderService {
         User user = userService.findByUsername(order.getUser().getUsername()).get();
         order.setCreatedAt(new Date());
         order.setUser(user);
-        orderRepo.save(order);
-        // is voucher is present then set isUsed to true
-        if (order.getVoucher().getId() != null) {
+        orderRepo.save(order); // 1. save order
+        if (order.getVoucher() != null) {
+            // if voucher is present then set isUsed to true
             Optional<Voucher> optV = voucherService.findById(order.getVoucher().getId());
             if (optV.isPresent()) {
                 Voucher v = optV.get();
                 v.setIsUsed(true);
-                voucherService.update(v.getId(), v);
+                voucherService.update(v.getId(), v); // 2. update voucher
             }
         }
         List<OrderDetails> list = mapper
@@ -90,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
             product.setSold(oldSold + detail.getQuantity());
             product.setStock(oldStock < 0 ? 0 : oldStock - detail.getQuantity()); // prevent stock < 0
         });
-        orderDetailRepo.saveAll(list);
+        orderDetailRepo.saveAll(list); // 3. save order details
         return order;
     }
 
