@@ -117,6 +117,7 @@ CREATE TABLE [dbo].[vouchers] (
     [start_date]  DATE           DEFAULT (getdate()) NOT NULL,
     [end_date]    DATE           NOT NULL,
     [updated_at]  DATE           NULL,
+    [is_used] BIT DEFAULT ((0)) NOT NULL,
     CONSTRAINT [PK_vouchers] PRIMARY KEY CLUSTERED ([id] ASC),
 );
 
@@ -249,16 +250,13 @@ select  s.name as 'SubCates', p.sold from products p
 inner join sub_categories s on p.sub_category_id = s.id
 
 -- Update rows in table '[TableName]' in schema '[dbo]'
-UPDATE [dbo].[vouchers]
-SET
-    [is_deleted] = 1
-    -- Add more columns and values here
+-- Delete rows from table '[vouchers]' in schema '[dbo]'
+DELETE FROM [dbo].[vouchers]
 WHERE /* add search conditions here */
-id = '1000056'
+code = 'testdel3'
 GO
 
-alter table vouchers
-add [is_used] BIT DEFAULT ((0)) NOT NULL
+select * from users u where u.username = 'testdel' and u.is_deleted = 0
 
 
 
