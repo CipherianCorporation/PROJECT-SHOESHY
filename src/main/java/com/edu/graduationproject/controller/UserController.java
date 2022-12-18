@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edu.graduationproject.entity.User;
+import com.edu.graduationproject.service.ForgotPasswordService;
 import com.edu.graduationproject.service.UserService;
 import com.edu.graduationproject.utils.CommonUtils;
 
@@ -28,6 +30,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    ForgotPasswordService forgotPasswordService;
 
     @GetMapping("/account/signup")
     public String form(Model model) {
@@ -67,6 +72,24 @@ public class UserController {
         } else {
             return "account/verify-fail";
         }
-
     }
+    
+    @GetMapping("/change_password")
+    public String change_password() {
+    	return "account/change_password";
+    }
+    
+    @PostMapping("/change_password")
+    public String showResetPasswordForm(Model model, Authentication authentication, @RequestParam("password") String password, 
+    		RedirectAttributes redirAttrs) {
+    	Optional<User> loggedinUser = userService.findByUsername(authentication.getName());
+    	if(loggedinUser.isPresent()) {
+    		forgotPasswordService.updatePassword(loggedinUser.get(), password);
+    	}	
+    	redirAttrs.addFlashAttribute("message", "Đổi mật khẩu thành công");
+//    	model.addAttribute("message", "đổi mật khẩu thành công");
+    	return "redirect:/security/logoff";
+    	
+    }
+    
 }
