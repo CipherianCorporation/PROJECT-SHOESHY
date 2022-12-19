@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,9 +82,10 @@ public class UserRestController {
     // update user
     @PutMapping("/rest/users/{idOrUsername}")
     public ResponseEntity<User> update(@PathVariable("idOrUsername") Optional<Object> idOrUsername,
-            @RequestBody User user) throws JsonProcessingException {
+            @RequestBody User user , Model model) throws JsonProcessingException {
         try {
             Optional<User> existingUser = userService.findByUsername((String) idOrUsername.get());
+            Optional<User> existUserByEmail = userService.findByEmail(user.getEmail());
             if (!existingUser.isPresent()) {
                 existingUser = userService.findById(Integer.valueOf((String) idOrUsername.get()));
             }
@@ -96,6 +97,11 @@ public class UserRestController {
             }
             if (user.getProvider() != EAuthProvider.DATABASE) {
                 user.setProvider(EAuthProvider.DATABASE);
+            }
+            if (existUserByEmail.isPresent()) {
+//                model.addAttribute("message", "email" + user.getEmail() + "already in used");
+            	System.out.printf("Email đã được sử dụng");
+            	return ResponseEntity.badRequest().build();
             }
             user.setUpdatedAt(new Date());
             user.setPassword(existingUser.get().getPassword());
