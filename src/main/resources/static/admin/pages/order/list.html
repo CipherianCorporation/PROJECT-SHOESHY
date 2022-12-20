@@ -30,7 +30,7 @@
                             </div>
                         </th>
                     </tr>
-                    <tr ng-repeat="item in pager.list_items | filter: searchTextOrder">
+                    <tr ng-repeat="item in pager.items | filter: searchTextOrder">
                         <td>{{$index+1}}</td>
                         <td>{{item.id}}</td>
                         <td>{{item.createdAt | date:'dd-MM-yyyy'}}</td>

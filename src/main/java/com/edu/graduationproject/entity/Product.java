@@ -40,7 +40,8 @@ public class Product implements Serializable {
     private String image;
     private Double price;
     private Boolean available;
-
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
     @ManyToOne
     @JoinColumn(name = "color")
     private Color color;
@@ -51,6 +52,7 @@ public class Product implements Serializable {
 
     private Double sale_off;
     private Long sold;
+    private Long stock;
     private String description;
 
     @ManyToOne
@@ -79,4 +81,8 @@ public class Product implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<OrderDetails> orderDetails;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<Favorite> favorites;
 }

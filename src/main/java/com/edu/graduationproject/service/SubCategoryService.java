@@ -11,4 +11,12 @@ public interface SubCategoryService {
     public List<SubCategory> findAllByCatesId(Integer category_id);
 
     public List<IProductSoldBySubCategoryCount> getProductSold();
+
+	SubCategory save(SubCategory subcategory);
+	
+	SubCategory update(SubCategory subcategory);
+	
+	void deleteById(Integer id);
+	
+	
 }

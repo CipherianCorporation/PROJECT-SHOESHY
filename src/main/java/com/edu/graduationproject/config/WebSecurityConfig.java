@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,6 +53,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 return provider;
         }
 
+        @Bean
+        public SessionRegistry sessionRegistry() {
+                return new SessionRegistryImpl();
+        }
+
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
                 auth.authenticationProvider(getDaoAuthenticationProvider());
@@ -69,14 +75,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/categories/**",
                                                 "/rest/upload/**",
                                                 "/rest/order/**",
+                                                "/rest/orders/download-invoice**",
                                                 "/rest/sub-categories/**",
+                                                "/rest/voucher/**",
+                                                "/rest/send_contact",
+                                                "/order/shipper",
+                                                "/rest/vouchers/**",
                                                 "/cart/**",
-                                                "/account/**",
+                                                "/account/signup",
+                                                "/account/contact",
+                                                "/account/register",
+                                                "/account/forgotpassword/**",
                                                 "/verify/**",
                                                 "/oauth2/**",
-                                                "/account/forgotpassword/**",
                                                 "/reset_password/**",
-                                                "/product/**",
+                                                "/product/list",
+                                                "/product/detail/**",
                                                 "/callback/",
                                                 "/webjars/**",
                                                 "/error**",
@@ -89,9 +103,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/**/*.css",
                                                 "/**/*.js")
                                 .permitAll()
-                                .antMatchers("/account/editprofile")
-                                .authenticated()
                                 .antMatchers("/admin/products/**",
+                                                "/admin",
+                                                "/admin/home/index",
+                                                "/admin/users/**",
+                                                "/admin/orders/**",
                                                 "/rest/roles",
                                                 "/rest/usersrole/**",
                                                 "/assets/admin/**",
@@ -100,7 +116,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                                 "/rest/orders/revenue",
                                                 "/rest/sub-categories/product-sold")
                                 .hasAnyRole("ADMIN", "STAFF")
-                                .antMatchers("/rest/authorities/**").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.GET, "/rest/authorities/**").hasAnyRole("STAFF", "ADMIN")
+                                .antMatchers(HttpMethod.POST, "/rest/authorities/**").hasRole("ADMIN")
+                                .antMatchers(HttpMethod.DELETE, "/rest/authorities/**").hasRole("ADMIN")
                                 .anyRequest().authenticated(); // permitAll để code, debug dễ, nên để thành
                                                                // authenticated()
                                                                // sau khi xong
@@ -122,6 +140,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 http.exceptionHandling()
                                 .accessDeniedPage("/security/unauthorized");
+
+                // để lưu số lượng session (lưu active users)
+                http.sessionManagement()
+                                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS).maximumSessions(1)
+                                .sessionRegistry(sessionRegistry());
 
                 http.oauth2Login()
                                 .loginPage("/security/login/form")

@@ -110,6 +110,7 @@ public class ExcelExporter<T> {
                 createCell(row, colCount++, product.getName(), style);
                 createCell(row, colCount++, product.getImage(), style);
                 createCell(row, colCount++, product.getPrice(), style);
+                createCell(row, colCount++, product.getStock(), style);
                 createCell(row, colCount++, product.getAvailable(), style);
                 createCell(row, colCount++, product.getColor().getName(), style);
                 createCell(row, colCount++, product.getSize() == null ? "" : product.getSize().getValue(), style);

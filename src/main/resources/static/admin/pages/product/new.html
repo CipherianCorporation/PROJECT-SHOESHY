@@ -23,6 +23,13 @@
     </div>
 
     <!-- Text input -->
+    <label for="form6Example3">Kho</label>
+    <div class="form-outline-primary mb-4">
+        <input type="number" id="prodStock" class="form-control" ng-model="newForm.stock" name="stock" min="0" title="Min stock is 0" required />
+        <div class="text-danger" ng-show="myNewForm.stock.$invalid">Xin hãy nhập số lượng trong kho.</div>
+    </div>
+
+    <!-- Text input -->
     <label for="form6Example3">Màu</label>
     <div class="form-outline-primary mb-4">
         <select class="select" ng-model="newForm.color.name">
@@ -47,6 +54,7 @@
             <input type="number" id="sale_off" class="form-control" ng-model="newForm.sale_off" name="sale_off" min="0" max="100" title="Min sale off is 0%"
                 required />
         </div>
+        <div class="text-danger" ng-show="myNewForm.sale_off.$invalid">Phần trăm giảm từ 0-100%.</div>
     </div>
 
     <!-- Text input -->
@@ -59,11 +67,11 @@
     </div>
 
     <!-- Text input -->
-    <label for="form6Example3">Danh mục con</label>
+    <label for="form6Example3">Danh mục phụ</label>
     <div class="form-outline-primary mb-4">
         <select class="select" ng-model="newForm.subCategory.id">
             <option ng-if="sub_categories.length === 0" disabled selected>Đang load...</option>
-            <option value="{{c.id}}" ng-repeat="c in sub_categories">{{c.name}}</option>
+            <option value="{{c.id}}" ng-repeat="c in sub_categories | filter: { category: { id: newForm.category.id} }">{{c.name}}</option>
         </select>
     </div>
 
@@ -86,5 +94,5 @@
     </div>
 
     <!-- Submit button -->
-    <button ng-disabled="myNewForm.$invalid" ng-click="create()" type="submit" class="btn btn-success btn-block mt-4 mb-4">Tạo mới</button>
+    <button type="button" ng-disabled="myNewForm.$invalid" ng-click="create()" class="btn btn-success btn-block mb-4">Tạo mới</button>
 </form>

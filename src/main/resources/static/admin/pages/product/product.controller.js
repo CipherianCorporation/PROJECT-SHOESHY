@@ -19,22 +19,21 @@ app.controller("product-ctrl", function ($scope, $http) {
         $scope.loading = true;
         $scope.items = [];
         $http.get("/rest/products").then(resp => {
-            $scope.items = resp.data;
+            // lọc tất cả product isDeleted là false
+            $scope.items = resp.data.filter((p) => p.isDeleted === false);
             $scope.items.forEach(item => {
                 item.createdAt = new Date(item.createdAt);
             });
-            localStorage.removeItem('prodList');
-            localStorage.setItem('prodList', JSON.stringify($scope.items));
         }).finally(function () {
             $scope.loading = false;
         });
 
         $http.get("/rest/categories").then(resp => {
-            $scope.categories = resp.data;
+            $scope.categories = resp.data.filter((c) => c.isDeleted === false);
         });
 
         $http.get("/rest/sub-categories").then(resp => {
-            $scope.sub_categories = resp.data;
+            $scope.sub_categories = resp.data.filter((s) => s.isDeleted === false);
         });
 
         $http.get("/rest/colors").then(resp => {
@@ -57,22 +56,26 @@ app.controller("product-ctrl", function ($scope, $http) {
     };
 
     $scope.edit = function (item) {
-        let tmp = $scope.items.filter((prod) => prod.id === item.id);
+        let tmp = $scope.items.filter((p) => p.id === item.id);
         let prod = tmp[0];
         $scope.editForm = prod;
         $(".nav-tabs a:eq(1)").tab('show');
     };
 
     $scope.create = function () {
-        var item = angular.copy($scope.newForm);
+        let item = angular.copy($scope.newForm);
+        let isDuplicate = false;
         if (item.image == null) {
             item.image = 'default-product.jpg';
         }
+        if (item.stock == null) {
+            item.stock = 0;
+        }
+        if (item.isDeleted == null) {
+            item.isDeleted = false;
+        }
         if (item.available == null) {
             item.available = true;
-        }
-        if (item.size.value == null) {
-            item.size.value = null;
         }
         if (item.color.name == null) {
             item.color.name = colors[0];
@@ -84,32 +87,63 @@ app.controller("product-ctrl", function ($scope, $http) {
             item.subCategory.id = sub_categories[0].id;
         }
         item.user = {
-            // lấy user id từ localStorage khi dashboard.controller.js vừa chạy lên
+            // lấy user id từ localStorage khi main.controller.js vừa chạy lên
             id: JSON.parse(localStorage.getItem('userPrincipal')).id
         };
         item.sold = 0;
-        console.log(item);
-
-        $http.post(`/rest/products`, item).then(resp => {
-            resp.data.createdAt = new Date(resp.data.createdAt);
-            $scope.items.push(resp.date);
-            $scope.reset();
-            $scope.initialize();
-            alert("Thêm mới sản phẩm thành công");
-        }).catch(error => {
-            alert("Lỗi thêm mới sản phẩm");
-            console.log("Error", error);
+        $scope.items.forEach((p) => {
+            if (p.name === item.name) {
+                isDuplicate = true;
+            }
         });
+        if (isDuplicate) {
+            alert("Tên sản phẩm bị trùng!");
+        } else {
+            $http.post(`/rest/products`, item).then(resp => {
+                resp.data.createdAt = new Date(resp.data.createdAt);
+                $scope.items.push(resp.data);
+                $scope.reset();
+                $scope.initialize();
+                alert("Thêm mới sản phẩm thành công");
+            }).catch(error => {
+                alert("Lỗi thêm mới sản phẩm");
+                console.log("Error", error);
+            });
+        }
+
+        // cách kiểm tra trùng name bằng api => ko đc vì nó kiểm tra luôn mấy prod có isDeleted = true
+
+        // thay khoảng trắng bằng %20 và trim() trong product name mới gửi request đc
+        // nếu array trả về length là 0 => ko tìm thấy name => name ko bị trùng nên tạo prod mới đc
+        // let prodName = item.name.replace(/\s/g, '%20').trim();
+        // $http.get(`/rest/products/name/${prodName}`, item).then(resp => {
+        //     if (resp.data.length === 0) {
+        //         $http.post(`/rest/products`, item).then(resp => {
+        //             resp.data.createdAt = new Date(resp.data.createdAt);
+        //             $scope.items.push(resp.data);
+        //             $scope.reset();
+        //             $scope.initialize();
+        //             alert("Thêm mới sản phẩm thành công");
+        //         }).catch(error => {
+        //             alert("Lỗi thêm mới sản phẩm");
+        //             console.log("Error", error);
+        //         });
+        //     } else {
+        //         alert("Tên sản phẩm bị trùng!");
+        //     }
+        // }).catch(error => {
+        //     console.log("Lỗi tìm sp bằng name", error);
+        // });
     };
 
     $scope.update = function () {
-        var item = angular.copy($scope.editForm);
+        let item = angular.copy($scope.editForm);
         item.updatedAt = new Date();
-        let check = confirm(`Are you sure to update this product?`);
-        console.log(item);
+        item.isDeleted = false;
+        let check = confirm(`Bạn có muốn cập nhật sản phẩm này không?`);
         if (check) {
             $http.put(`/rest/products/${item.id}`, item).then(resp => {
-                var index = $scope.items.findIndex(p => p.id == item.id);
+                let index = $scope.items.findIndex(p => p.id == item.id);
                 $scope.items[index] = item;
                 $scope.initialize();
                 alert("Cập nhập sản phẩm thành công");
@@ -121,12 +155,11 @@ app.controller("product-ctrl", function ($scope, $http) {
     };
 
     $scope.delete = function (item) {
-        let check = confirm(`Are you sure to delete this product ${item.name}?`);
+        let check = confirm(`Bạn có muốn xóa sản phẩm ${item.name}?`);
         if (check) {
             $http.delete(`/rest/products/${item.id}`).then(resp => {
                 let index = $scope.items.findIndex(p => p.id == item.id);
                 $scope.items.splice(index, 1);
-                $scope.initialize();
                 alert("Xóa sản phẩm thành công");
             }).catch(error => {
                 alert("Xóa sản phẩm thất bại");
@@ -180,7 +213,6 @@ app.controller("product-ctrl", function ($scope, $http) {
             this.page = this.count - 1;
         }
     };
-    console.log($scope.pager.items);
 });
 
 

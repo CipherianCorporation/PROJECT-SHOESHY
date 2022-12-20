@@ -53,12 +53,16 @@ public class UserController {
         Optional<User> existUserByEmail = userService.findByEmail(user.getEmail());
         Optional<User> existUserByUsername = userService.findByUsername(user.getUsername());
         if (existUserByEmail.isPresent()) {
-            model.addAttribute("message", "User with email " + user.getEmail() + " is already registered");
-            return "account/signup";
+            if (existUserByEmail.get().getIsDeleted() == false) {
+                model.addAttribute("message", "User with email " + user.getEmail() + " is already registered");
+                return "account/signup";
+            }
         }
         if (existUserByUsername.isPresent()) {
-            model.addAttribute("message", "User with username " + user.getUsername() + " is already registered");
-            return "account/signup";
+            if (existUserByUsername.get().getIsDeleted() == false) {
+                model.addAttribute("message", "User with username " + user.getUsername() + " is already registered");
+                return "account/signup";
+            }
         }
         userService.register(user, CommonUtils.getSiteURL(req));
         model.addAttribute("message", "Please check your email to verify your account");
@@ -73,13 +77,11 @@ public class UserController {
             return "account/verify-fail";
         }
     }
-    
-    @GetMapping("/change_password")
+    @GetMapping("/account/change_password")
     public String change_password() {
     	return "account/change_password";
     }
-    
-    @PostMapping("/change_password")
+    @PostMapping("/account/change_password")
     public String showResetPasswordForm(Model model, Authentication authentication, @RequestParam("password") String password, 
     		RedirectAttributes redirAttrs) {
     	Optional<User> loggedinUser = userService.findByUsername(authentication.getName());
@@ -90,6 +92,7 @@ public class UserController {
 //    	model.addAttribute("message", "đổi mật khẩu thành công");
     	return "redirect:/security/logoff";
     	
+    	return "redirect:/security/logoff";
     }
     
 }

@@ -32,7 +32,8 @@
                         <!-- category list START -->
                         <li class="nav-item" ng-repeat="ca in categories">
                             <a class="nav-link" href="" ng-click="filterProductByCategory(ca.id)">
-                                <img ng-src="{{'/assets/images/'+ ca.image_url}}" class="rounded-circle" height="22" alt="category icon" loading="lazy" />
+                                <img ng-src="{{ (ca.image_url.startsWith('upload')?'/upload/images/':'/assets/images/') + (ca.image_url || 'default-category.jpg') }}"
+                                    class="rounded-circle" height="22" alt="category icon" loading="lazy" />
                                 {{ca.name}}
                             </a>
                         </li>
@@ -48,7 +49,8 @@
                     </ul>
                     <!-- search input -->
                     <form class="d-flex input-group w-auto ">
-                        <input type="search" class="form-control rounded" placeholder="Tìm..." aria-label="Search" aria-describedby="search-addon" />
+                        <input type="search" class="form-control rounded" placeholder="Tìm..." aria-label="Search" aria-describedby="search-addon"
+                            ng-model="searchTextProdList" />
                         <span class="input-group-text border-0" id="search-addon">
                             <i class="fas fa-search"></i>
                         </span>
@@ -70,24 +72,36 @@
 
                     <!-- Icon Avatar -->
                     <div class="dropdown me-3">
-                        <a class="dropdown-toggle d-flex align-items-center text-reset hidden-arrow" href="#" id="avatarDropdown" role="button"
-                            data-mdb-toggle="dropdown" aria-expanded="false">
-                            <span th:if="${#request.remoteUser}" class="me-2">
-                                <span class="fw-bold" th:text="${#request.remoteUser}"></span>
+                        <a class="dropdown-toggle d-flex align-items-center text-reset" href="#" id="avatarDropdown" role="button" data-mdb-toggle="dropdown"
+                            data-mdb-display="static" aria-expanded="false">
+                            <!-- user icon -->
+                            <i class="fa-solid fa-user me-2"></i>
+                            <span th:if="${#request.remoteUser}">
+                                <!-- limit username string to only 14 words. Ex: myusernameisreal... -->
+                                <span class="fw-bold" th:text="${#strings.abbreviate(#request.remoteUser,14)}"></span>
                             </span>
-                            <i class="fa-solid fa-user"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="avatarDropdown">
+                        <ul class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="avatarDropdown">
+                            <!-- appear when login -->
                             <th:block th:if="${#request.remoteUser}">
-                                <!-- appear when login -->
-                                <li th:if="${#request.isUserInRole('ROLE_USER') or #request.isUserInRole('ROLE_STAFF') or #request.isUserInRole('ROLE_ADMIN')}">
+                                <!-- <span sec:authentication="authorities"></span> -->
+                                <!-- if user log in with OAuth2 GG and FB then hide Edit profile -->
+                                <!-- and !hasAuthority('SCOPE_openid') and !hasAuthority('SCOPE_email') and !hasAuthority('SCOPE_public_profile') -->
+                                <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER', 'ROLE_STAFF')">
                                     <a class="dropdown-item" th:href="@{/account/editprofile}">Chỉnh sửa tài khoản</a>
                                 </li>
                                 <li th:if="${#request.isUserInRole('ROLE_USER') or #request.isUserInRole('ROLE_STAFF') or #request.isUserInRole('ROLE_ADMIN')}">
-                                    <a class="dropdown-item" th:href="@{/change_password}">Đổi mật khẩu</a>
+
+                                    <a class="dropdown-item" th:href="@{/account/change_password}">Đổi mật khẩu</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" th:href="@{/order/list}" ng-click="swich_order_list()">Đơn hàng</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/product/favorite}">Yêu thích</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/account/contact}">Liên hệ</a>
                                 </li>
                                 <!-- appear only for admin or staff -->
                                 <li th:if="${#request.isUserInRole('ROLE_ADMIN') or #request.isUserInRole('ROLE_STAFF')}">
@@ -97,17 +111,18 @@
                                     <a class="dropdown-item" th:href="@{/security/logoff}">Đăng xuất</a>
                                 </li>
                             </th:block>
+                            <!-- appear when not login -->
                             <th:block th:unless="${#request.remoteUser}">
-                                <!-- appear when not login -->
                                 <li><a class="dropdown-item" th:href="@{/security/login/form}">Đăng nhập</a></li>
                                 <li><a class="dropdown-item" th:href="@{/account/signup}">Đăng ký</a></li>
-                                <li><a class="dropdown-item" th:href="@{/account/forgotpassword/form}">Quên mật khẩu</a>
+                                <li><a class="dropdown-item" th:href="@{/account/forgotpassword/form}">Quên mật khẩu</a></li>
+                                <li><a class="dropdown-item" th:href="@{/account/contact}">Liên hệ</a></li>
                             </th:block>
                         </ul>
                     </div>
 
                     <!-- Icon dropdown -->
-                    <div class="dropdown dropstart">
+                    <!-- <div class="dropdown dropstart">
                         <a class="dropdown-toggle" href="#" id="langDropdown" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
                             <i class="flag-vietnam flag m-0"></i>
                         </a>
@@ -126,7 +141,7 @@
                             </li>
                         </ul>
                         </li>
-                    </div>
+                    </div> -->
                     <!-- Right elements -->
                 </div>
                 <!-- Container wrapper -->

@@ -9,7 +9,14 @@ public interface VoucherService {
 
     Optional<Voucher> findById(Integer id);
 
-    Optional<Voucher> findByCode(String code);
+    Optional<Voucher> findByCodeIsNotDeleted(String code);
 
     List<Voucher> findAll();
+
+    Voucher create(Voucher voucher);
+
+    Voucher update(Integer id, Voucher voucher);
+
+    Voucher deleteById(Integer id);
+
 }

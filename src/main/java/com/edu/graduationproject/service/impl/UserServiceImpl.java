@@ -1,11 +1,13 @@
 package com.edu.graduationproject.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 
+import org.apache.commons.collections4.functors.FalsePredicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -66,21 +68,40 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-    	 Optional<User> findUser = userRepo.findByUsername(user.getUsername());
-         if (findUser.isPresent()) {
-             if (user.getPassword().equals(String.valueOf(findUser.get().getPassword()))) {
-                 user.setPassword((user.getPassword()));
-             } else if (!encoder.matches(user.getPassword(), findUser.get().getPassword())) {
-                 user.setPassword(encoder.encode(user.getPassword()));
-             } 
-         }
-         return userRepo.save(user);
+        Optional<User> findUser = userRepo.findByUsername(user.getUsername());
+        if (findUser.isPresent()) {
+            if (user.getEnabled() == null) {
+                user.setEnabled(true);
+            }
+            if (findUser.get().getProvider().equals(EAuthProvider.FACEBOOK)) {
+                user.setPassword(null);
+                user.setProvider(EAuthProvider.FACEBOOK);
+            } else if (findUser.get().getProvider().equals(EAuthProvider.GOOGLE)) {
+                user.setPassword(null);
+                user.setProvider(EAuthProvider.GOOGLE);
+            } else if (findUser.get().getProvider().equals(EAuthProvider.DATABASE)) {
+                user.setProvider(EAuthProvider.DATABASE);
+            } else if (findUser.get().getProvider() == null || user.getProvider() == null) {
+                user.setProvider(EAuthProvider.DATABASE);
+            }
+            if (findUser.get().getPassword() != null || findUser.get().getPassword() != "") {
+                user.setPassword((findUser.get().getPassword()));
+            }
+            user.setUpdatedAt(new Date());
+        }
+        return userRepo.save(user);
     }
 
     @Override
-    public void deleteByUsername(String username) {
-        userRepo.deleteByUsername(username);
-
+    public User deleteByUsername(String username) {
+        Optional<User> findUser = userRepo.findByUsername(username);
+        if (findUser.isPresent()) {
+            findUser.get().setIsDeleted(true);
+            findUser.get().setEnabled(false);
+            findUser.get().setDeletedAt(new Date());
+            return userRepo.save(findUser.get());
+        }
+        return null;
     }
 
     @Override
@@ -99,10 +120,10 @@ public class UserServiceImpl implements UserService {
         String randomCode = RandomString.make(64);
         user.setPassword(encodedPassword);
         user.setVerify_code(randomCode);
+        user.setIsDeleted(false);
         user.setEnabled(false);
         user.setProvider(EAuthProvider.DATABASE);
         User save = userRepo.save(user);
-
         // set role USER cho user vì nếu là người dùng bình thường đăng ký thì chỉ set
         // role là USER
         Optional<Role> role = roleRepo.findById("USER");
