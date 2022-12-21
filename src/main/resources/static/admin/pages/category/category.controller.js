@@ -119,7 +119,7 @@ app.controller("category-ctrl", function ($scope, $http) {
     $scope.createSubCate = function () {
         let item = angular.copy($scope.formsub);
         let isDuplicate = false;
-        $scope.category.forEach(cates => {
+        $scope.subcate.forEach(cates => {
             if (cates.name === item.name) {
                 isDuplicate = true;
             }
