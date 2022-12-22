@@ -1,6 +1,7 @@
 package com.edu.graduationproject.controller.rest;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+
 import org.springframework.security.core.GrantedAuthority;
+
+import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +31,7 @@ import com.edu.graduationproject.entity.User;
 import com.edu.graduationproject.entity.UserRole;
 import com.edu.graduationproject.exception.BadRequestException;
 import com.edu.graduationproject.exception.ResourceNotFoundException;
+import com.edu.graduationproject.model.EAuthProvider;
 import com.edu.graduationproject.service.UserRoleService;
 import com.edu.graduationproject.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -110,19 +116,27 @@ public class UserRestController {
     // update user
     @PutMapping("/rest/users/{idOrUsername}")
     public ResponseEntity<User> update(@PathVariable("idOrUsername") Optional<Object> idOrUsername,
-            @RequestBody User user) throws JsonProcessingException {
+            @RequestBody User user, Model model) throws JsonProcessingException {
         try {
-            Optional<User> userByUsername = userService.findByUsername((String) idOrUsername.get());
-            Optional<User> userById = userService.findById(Integer.valueOf((String) idOrUsername.get()));
-            if (userByUsername.isPresent() || userById.isPresent()) {
-                if (user.getIsDeleted() == null) {
-                    user.setIsDeleted(false);
-                }
-                User savedUser = userService.update(user);
-                return ResponseEntity.ok(savedUser);
+            Optional<User> existingUser = userService.findByUsername((String) idOrUsername.get());
+            Optional<User> existUserByEmail = userService.findByEmail(user.getEmail());
+            if (!existingUser.isPresent()) {
+                existingUser = userService.findById(Integer.valueOf((String) idOrUsername.get()));
             }
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
+            if (!existingUser.get().getProvider().equals(EAuthProvider.DATABASE)) {
+                return ResponseEntity.badRequest().body(user);
+            }
+            if (user.getProvider() != EAuthProvider.DATABASE) {
+                user.setProvider(EAuthProvider.DATABASE);
+            }
+            if (existUserByEmail.isPresent()) {
+                // model.addAttribute("message", "email" + user.getEmail() + "already in used");
+                System.out.printf("Email đã được sử dụng");
+                return ResponseEntity.badRequest().build();
+            }
+            User savedUser = userService.update(user);
+            return ResponseEntity.ok(savedUser);
+        } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }

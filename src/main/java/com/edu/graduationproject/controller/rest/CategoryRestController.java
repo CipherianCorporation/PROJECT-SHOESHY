@@ -41,6 +41,7 @@ public class CategoryRestController {
     
     @PostMapping("/rest/categories")
     public ResponseEntity<Category> create(@RequestBody Category category){
+        
     	return ResponseEntity.ok(categoryService.save(category));
     }
     
