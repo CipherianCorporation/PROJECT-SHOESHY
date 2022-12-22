@@ -52,8 +52,11 @@ public class Voucher implements Serializable {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    @Column(name = "is_used")
+    private Boolean isUsed;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Order> orders = new HashSet<>();
+    @OneToMany(mappedBy = "voucher")
+    private List<Order> orders;
 
 }

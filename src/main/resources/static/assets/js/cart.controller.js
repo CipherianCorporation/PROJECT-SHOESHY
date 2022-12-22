@@ -118,10 +118,11 @@ function shoppingCartCtrl($scope, $http, $window) {
                 console.log('voucher exist and not deleted');
                 let todayDate = new Date();
                 let voucherEndDate = new Date(resp.data.endDate);
-                if (todayDate > voucherEndDate) {
+                let voucherStartDate = new Date(resp.data.startDate);
+                if (todayDate > voucherEndDate || todayDate < voucherStartDate) {
                     $scope.voucherResponse = {};
                     console.log('voucher hết hạn!');
-                } else if (todayDate < voucherEndDate) {
+                } else if (todayDate < voucherEndDate && todayDate > voucherStartDate) {
                     $scope.voucherResponse = resp.data;
                     console.log('voucher còn hạn!');
                 }
@@ -183,14 +184,14 @@ function shoppingCartCtrl($scope, $http, $window) {
             order.total = $scope.order.total_cost();
             // console.log(order);
             if ($scope.cart.count === 0) {
-                alert("Error creating order or your cart is empty! Please try again!");
+                alert("Có lỗi khi tạo hóa đơn hoặc giỏ hàng của bạn đang trống, xin hãy thử lại!");
             } else {
                 if (order.payment_method === "paypal") {
                     $http.post('/paypal', order).then(res => {
                         $scope.cart.clear();
                         location.href = res.data.returned_url;
                     }).catch(err => {
-                        alert("Error creating order or your cart is empty! Please try again!");
+                        alert("Có lỗi khi tạo hóa đơn hoặc giỏ hàng của bạn đang trống, xin hãy thử lại!");
                         console.log(err);
                     });
                 } else if (order.payment_method === "cod") {
@@ -200,7 +201,7 @@ function shoppingCartCtrl($scope, $http, $window) {
                         $scope.cart.clear();
                         location.href = "/order/list";
                     }).catch(err => {
-                        alert("Error creating order or your cart is empty! Please try again!");
+                        alert("Có lỗi khi tạo hóa đơn hoặc giỏ hàng của bạn đang trống, xin hãy thử lại!");
                         console.log(err);
                     });
                 }

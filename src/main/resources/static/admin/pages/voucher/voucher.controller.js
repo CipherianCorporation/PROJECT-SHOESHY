@@ -19,6 +19,8 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
     $scope.initialize();
 
     $scope.edit = function (voucher) {
+        voucher.startDate = new Date(voucher.startDate);
+        voucher.endDate = new Date(voucher.endDate);
         $scope.form = angular.copy(voucher);
         $(".nav-tabs a:eq(1)").tab('show');
     };
@@ -32,13 +34,16 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
         if (voucher.isDeleted == null) {
             voucher.isDeleted = false;
         }
+        if (voucher.isUsed == null) {
+            voucher.isUsed = false;
+        }
         if (voucher.startDate < voucher.endDate) {
             $http.get(`/rest/vouchers/code/${voucher.code}`).then(resp => {
-                if (resp.data.length === 0) {
+                if (resp.status === 404) {
                     $http.post(`/rest/vouchers`, voucher).then(resp => {
                         $scope.list_vouchers.push(resp.data);
                         $scope.reset();
-                        $scope.initialize();
+                        // $scope.initialize();
                         alert('Tạo voucher mới thành công');
                     }).catch(error => {
                         alert('Lỗi khi tạo voucher : ' + error);
@@ -47,6 +52,16 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
                 } else {
                     alert('Mã code đã tồn tại');
                 }
+            }).catch((error) => {
+                $http.post(`/rest/vouchers`, voucher).then(resp => {
+                    $scope.list_vouchers.push(resp.data);
+                    $scope.reset();
+                    // $scope.initialize();
+                    alert('Tạo voucher mới thành công');
+                }).catch(error => {
+                    alert('Lỗi khi tạo voucher : ' + error);
+                    console.log("Error", error);
+                });
             });
         } else {
             alert('Ngày hiệu lực phải trước ngày kết thúc');
@@ -60,7 +75,7 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
                 let index = $scope.list_vouchers.findIndex(p => p.code == voucher.code);
                 $scope.list_vouchers.splice(index, 1);
                 $scope.reset();
-                $scope.initialize();
+                // $scope.initialize();
                 alert('Xóa voucher thành công');
             }).catch(error => {
                 alert('Lỗi khi xóa voucher : ' + error);
@@ -72,20 +87,23 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
     $scope.update = function () {
         let item = angular.copy($scope.form);
         item.isDeleted = false;
-        console.log(item);
-        let check = confirm(`Bạn có chắc chắn cập nhật voucher này không ?`);
-        if (check) {
 
-            $http.put(`/rest/vouchers/id/${item.id}`, item).then(resp => {
-                let index = $scope.list_vouchers.findIndex(item => item.id == item.id);
-                $scope.list_vouchers[index] = item;
-                $scope.initialize();
-                $scope.reset();
-                alert("Cập nhật thành công ");
-            }).catch(error => {
-                alert("Lỗi khi cập nhật voucher: " + error.message);
-                console.log("Error", error);
-            });
+        if(item.startDate < item.endDate) {
+            let check = confirm(`Bạn có chắc chắn cập nhật voucher này không ?`);
+            if (check) {
+                $http.put(`/rest/vouchers/${item.id}`, item).then(resp => {
+                    let index = $scope.list_vouchers.findIndex(v => v.id == item.id);
+                    $scope.list_vouchers[index] = item;
+                    // $scope.initialize();
+                    $scope.reset();
+                    alert("Cập nhật thành công ");
+                }).catch(error => {
+                    alert("Lỗi khi cập nhật voucher: " + error.message);
+                    console.log("Error", error);
+                });
+            }
+        }else{
+            alert('Ngày hiệu lực phải trước ngày kết thúc');
         }
 
     };
