@@ -90,7 +90,7 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
 
         if(item.startDate < item.endDate) {
             let check = confirm(`Bạn có chắc chắn cập nhật voucher này không ?`);
-            if (check) {
+            if (check && $scope.checkDateStart(item.startDate)) {
                 $http.put(`/rest/vouchers/${item.id}`, item).then(resp => {
                     let index = $scope.list_vouchers.findIndex(v => v.id == item.id);
                     $scope.list_vouchers[index] = item;
@@ -107,6 +107,36 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
         }
 
     };
+
+    $scope.checkDateStart = function () {
+        let todayDate = new Date();
+        if ($scope.form_new.startDate >= todayDate.setHours(0,0,0,0)){
+            return true;
+        }else if($scope.form_new.startDate === undefined){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    $scope.checkDateEnd = function (){
+        if ($scope.form_new.startDate < $scope.form_new.endDate){
+            return true;
+        }else if($scope.form_new.endDate === undefined){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    $scope.checkExistCode = function () {
+        let tmp = $scope.list_vouchers.find((v)=>v.code === $scope.form_new.code)
+        if(tmp){
+            return true;
+        }
+        return false;
+    }
 
     $scope.pager = {
         page: 0,
