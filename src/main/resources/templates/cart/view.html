@@ -46,8 +46,9 @@
                                                             <i class="fas fa-minus"></i>
                                                         </button>
 
-                                                        <input min="1" ng-change="cart.saveToLocalStorage()" ng-model="item.qty" value="1" type="number"
-                                                            class="form-control" style="min-width: 4vw;" />
+                                                        <input min="1" ng-model="item.qty" value="1" type="number"
+                                                               ng-change="(item.qty = item.qty==undefined?1:(item.qty<item.stock?item.qty:(item.stock)));cart.saveToLocalStorage()"
+                                                               class="form-control" style="min-width: 4vw;" />
 
                                                         <button class="btn btn-link px-2 shadow-none btn-outline-light"
                                                             ng-click="item.qty = (item.qty +1 ) < item.stock?(item.qty + 1):(item.stock); cart.saveToLocalStorage()">
