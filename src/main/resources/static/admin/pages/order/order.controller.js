@@ -17,13 +17,13 @@ app.controller("order-ctrl", function ($scope, $http) {
     };
 
     $scope.initialize();
-
+    
     $scope.update_status = function (item) {
         item.orderStatus.name = "success";
         $http.put(`/rest/order/orderstatus/${item.id}`, item).then(resp => {
             $scope.initialize();
-            alert("Cập nhập trạng thái đơn hàng thành công");
-        }).catch(error => {
+            alert("Cập nhập trạng thái đơn hàng thành công")
+        }).catch(error=>{
             alert("Lỗi cập nhập trạng thái");
             $scope.initialize();
             console.log("Error", error);
@@ -36,7 +36,7 @@ app.controller("order-ctrl", function ($scope, $http) {
         $(".nav-tabs a:eq(1)").tab('show');
         $http.get(`/rest/order/detail/${item.id}`).then(resp => {
             $scope.detail_items = resp.data;
-            console.log($scope.detail_items);
+            console.log($scope.detail_items)
         }).catch(error => {
             console.log("Error", error);
         }).finally(function () {

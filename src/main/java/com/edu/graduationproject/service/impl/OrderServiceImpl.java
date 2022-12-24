@@ -32,7 +32,10 @@ import com.edu.graduationproject.utils.DateUtils;
 import com.edu.graduationproject.utils.URLUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -175,7 +178,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(rollbackFor = { Exception.class, Throwable.class })
+    @Transactional(rollbackFor = {Exception.class, Throwable.class})
     public int updateStatus(String orderStatus, Long orderId, List<OrderDetails> orderDetails) {
         Optional<Order> orderOpt = orderRepo.findById(orderId);
         Order orderData = orderOpt.get();
