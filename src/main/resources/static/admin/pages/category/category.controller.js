@@ -28,6 +28,25 @@ app.controller("category-ctrl", function ($scope, $http) {
     };
 
     $scope.initialize();
+    
+    $scope.checkCateValid = function () {
+		let temData = $scope.category.find((c)=>c.name === $scope.form.name);
+		if(temData){
+			return true;
+		}else {
+			return false;
+		}
+    };
+    
+    $scope.checkSubCateValid = function () {
+		let temData = $scope.subcate.find((c)=>c.name === $scope.formsub.name);
+		if(temData){
+			return true;
+		}else {
+			return false;
+		}
+    };
+  
 
     $scope.create = function () {
         let item = angular.copy($scope.form);
@@ -119,7 +138,7 @@ app.controller("category-ctrl", function ($scope, $http) {
     $scope.createSubCate = function () {
         let item = angular.copy($scope.formsub);
         let isDuplicate = false;
-        $scope.category.forEach(cates => {
+        $scope.subcate.forEach(cates => {
             if (cates.name === item.name) {
                 isDuplicate = true;
             }

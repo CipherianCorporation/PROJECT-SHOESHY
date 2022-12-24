@@ -30,7 +30,7 @@ public class UserController {
 
     @Autowired
     UserService userService;
-    
+
     @Autowired
     ForgotPasswordService forgotPasswordService;
 
@@ -77,21 +77,23 @@ public class UserController {
             return "account/verify-fail";
         }
     }
-    
+
     @GetMapping("/account/change_password")
     public String change_password() {
-    	return "account/change_password";
+        return "account/change_password";
     }
-    
+
     @PostMapping("/account/change_password")
-    public String showResetPasswordForm(Model model, Authentication authentication, @RequestParam("password") String password, 
-    		RedirectAttributes redirAttrs) {
-    	Optional<User> loggedinUser = userService.findByUsername(authentication.getName());
-    	if(loggedinUser.isPresent()) {
-    		forgotPasswordService.updatePassword(loggedinUser.get(), password);
-    	}	
-    	redirAttrs.addFlashAttribute("message", "Đổi mật khẩu thành công");
-    	return "redirect:/security/logoff";
+    public String showResetPasswordForm(Model model, Authentication authentication,
+            @RequestParam("password") String password,
+            RedirectAttributes redirAttrs) {
+        Optional<User> loggedinUser = userService.findByUsername(authentication.getName());
+        if (loggedinUser.isPresent()) {
+            forgotPasswordService.updatePassword(loggedinUser.get(), password);
+        }
+        redirAttrs.addFlashAttribute("message", "Đổi mật khẩu thành công");
+        // model.addAttribute("message", "đổi mật khẩu thành công");
+        return "redirect:/security/logoff";
     }
-    
+
 }

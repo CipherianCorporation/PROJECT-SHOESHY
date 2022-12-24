@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
+import org.springframework.ui.Model;
 import org.springframework.security.core.GrantedAuthority;
 
 import org.springframework.ui.Model;
@@ -126,6 +127,9 @@ public class UserRestController {
             if (!existingUser.get().getProvider().equals(EAuthProvider.DATABASE)) {
                 return ResponseEntity.badRequest().body(user);
             }
+            if (user.getEnabled() == null) {
+                user.setEnabled(true);
+            }
             if (user.getProvider() != EAuthProvider.DATABASE) {
                 user.setProvider(EAuthProvider.DATABASE);
             }
@@ -134,6 +138,8 @@ public class UserRestController {
                 System.out.printf("Email đã được sử dụng");
                 return ResponseEntity.badRequest().build();
             }
+            user.setUpdatedAt(new Date());
+            user.setPassword(existingUser.get().getPassword());
             User savedUser = userService.update(user);
             return ResponseEntity.ok(savedUser);
         } catch (NoSuchElementException e) {
