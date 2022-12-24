@@ -46,7 +46,7 @@ function userController($scope, $http, $interval) {
             alert("Cập nhật thành công, xin hãy đăng nhập lại !!!");
             location.href = '/security/logoff';
         }).catch(error => {
-            alert("Cập nhật thất bại !!!");
+            alert("Cập nhật thất bại hoặc email bị trùng !!!");
             console.log("Error", error);
         });
     };
