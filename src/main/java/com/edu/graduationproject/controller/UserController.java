@@ -54,18 +54,18 @@ public class UserController {
         Optional<User> existUserByUsername = userService.findByUsername(user.getUsername());
         if (existUserByEmail.isPresent()) {
             if (existUserByEmail.get().getIsDeleted() == false) {
-                model.addAttribute("message", "User with email " + user.getEmail() + " is already registered");
+                model.addAttribute("message", "Email " + user.getEmail() + " đã tồn tại");
                 return "account/signup";
             }
         }
         if (existUserByUsername.isPresent()) {
             if (existUserByUsername.get().getIsDeleted() == false) {
-                model.addAttribute("message", "User with username " + user.getUsername() + " is already registered");
+                model.addAttribute("message", "Tên đăng nhập " + user.getUsername() + " đã tồn tại");
                 return "account/signup";
             }
         }
         userService.register(user, CommonUtils.getSiteURL(req));
-        model.addAttribute("message", "Please check your email to verify your account");
+        model.addAttribute("message", "Vui lòng kiểm tra email để xác nhận tài khoản.");
         return "account/signup";
     }
 
