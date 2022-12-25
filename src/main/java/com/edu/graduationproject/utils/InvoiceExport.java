@@ -18,6 +18,7 @@ import com.lowagie.text.pdf.*;
 public class InvoiceExport {
     private Order order;
     private List<OrderDetails> listOrderDetails;
+    private NumberFormat numberFormatter = new DecimalFormat("##,###,###.00");
 
     public InvoiceExport(List<OrderDetails> listOrderDetails, Order order) {
         this.listOrderDetails = listOrderDetails;
@@ -47,14 +48,13 @@ public class InvoiceExport {
     }
 
     private void writeTableData(PdfPTable table) {
-        NumberFormat numberFormatter = new DecimalFormat("##,###,###.00");
 
         for (OrderDetails order : listOrderDetails) {
             Product p = order.getProduct();
             Double price = p.getPrice() - (p.getPrice() * (p.getSale_off() / 100));
             table.addCell(String.valueOf(p.getId()));
             table.addCell(order.getProduct().getName());
-            table.addCell(String.valueOf(numberFormatter.format(price))); 
+            table.addCell(String.valueOf(numberFormatter.format(price)));
             table.addCell(String.valueOf(order.getQuantity()));
             table.addCell(String.valueOf(numberFormatter.format(price * order.getQuantity())));
         }
@@ -82,7 +82,7 @@ public class InvoiceExport {
         SimpleDateFormat sm = new SimpleDateFormat("MMM dd yyyy");
 
         String paymentMethod = order.getPayment_method().toString().equals("cod")
-                ? order.getPayment_method() + " ( 20,000 d)"
+                ? order.getPayment_method() + " ( +20,000 d)"
                 : order.getPayment_method().toString();
 
         Paragraph p1 = new Paragraph("Code orders: " + order.getId()
@@ -103,6 +103,13 @@ public class InvoiceExport {
         document.add(p);
         document.add(p4);
         document.add(p1);
+        
+        if (order.getVoucher() != null) {
+            Paragraph p5 = new Paragraph("Voucher discount: " + order.getVoucher().getValue() +
+                    "% (-" + (numberFormatter.format(order.getTotal() * (order.getVoucher().getValue() / 100))) + ")", font1);
+            p5.setAlignment(Paragraph.ALIGN_LEFT);
+            document.add(p5);
+        }
 
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
