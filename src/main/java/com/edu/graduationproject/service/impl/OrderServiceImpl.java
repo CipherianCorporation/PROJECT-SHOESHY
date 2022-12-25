@@ -27,16 +27,12 @@ import com.edu.graduationproject.service.PersonalAccessTokenService;
 import com.edu.graduationproject.service.ProductService;
 import com.edu.graduationproject.service.UserService;
 import com.edu.graduationproject.service.VoucherService;
-import com.edu.graduationproject.utils.CommonUtils;
 import com.edu.graduationproject.utils.DateUtils;
 import com.edu.graduationproject.utils.URLUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.transaction.annotation.Transactional;
-
 import net.bytebuddy.utility.RandomString;
 
 @Service
@@ -64,14 +60,14 @@ public class OrderServiceImpl implements OrderService {
     VoucherService voucherService;
 
     @Override
-    @Transactional(rollbackFor = { Exception.class, Throwable.class })
+    @Transactional(rollbackFor = { Exception.class, Throwable.class, RuntimeException.class })
     public Order create(JsonNode orderData) {
         ObjectMapper mapper = new ObjectMapper();
         Order order = mapper.convertValue(orderData, Order.class);
+        Double oldTotal = order.getTotal();
         User user = userService.findByUsername(order.getUser().getUsername()).get();
         order.setCreatedAt(new Date());
         order.setUser(user);
-        orderRepo.save(order); // 1. save order
         if (order.getVoucher() != null) {
             // if voucher is present then set isUsed to true
             Optional<Voucher> optV = voucherService.findById(order.getVoucher().getId());
@@ -87,12 +83,21 @@ public class OrderServiceImpl implements OrderService {
                 .stream().peek(o -> o.setOrder(order)).collect(Collectors.toList());
         // increment product sold, decrease product stock
         list.forEach((detail) -> {
+            if (detail.getQuantity() <= 0) {
+                throw new RuntimeException("Quantity must be greater than 0");
+            }
             Product product = productService.findById(detail.getProduct().getId());
+            if (product.getSale_off() != null && product.getSale_off() > 0) {
+                detail.setPrice(product.getPrice() * (100 - product.getSale_off()) / 100);
+            } else {
+                detail.setPrice(product.getPrice());
+            }
             Long oldSold = product.getSold();
             Long oldStock = product.getStock();
             product.setSold(oldSold + detail.getQuantity());
             product.setStock(oldStock < 0 ? 0 : oldStock - detail.getQuantity()); // prevent stock < 0
         });
+        orderRepo.save(order); // 1. save order
         orderDetailRepo.saveAll(list); // 3. save order details
         return order;
     }
@@ -178,7 +183,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(rollbackFor = {Exception.class, Throwable.class})
+    @Transactional(rollbackFor = { Exception.class, Throwable.class })
     public int updateStatus(String orderStatus, Long orderId, List<OrderDetails> orderDetails) {
         Optional<Order> orderOpt = orderRepo.findById(orderId);
         Order orderData = orderOpt.get();

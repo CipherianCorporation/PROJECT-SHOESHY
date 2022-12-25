@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.graduationproject.entity.Product;
 import com.edu.graduationproject.service.ProductService;
-import com.nimbusds.openid.connect.sdk.assurance.evidences.Name;
 
 @CrossOrigin("*")
 @RestController
@@ -41,11 +40,11 @@ public class ProductRestController {
                 return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
             }
             if (sort.get().equalsIgnoreCase("price_asc")) {
-                return new ResponseEntity<>(productService.findAll(Sort.by(Direction.ASC,"price")),
+                return new ResponseEntity<>(productService.findAll(Sort.by(Direction.ASC, "price")),
                         HttpStatus.OK);
             }
             if (sort.get().equalsIgnoreCase("price_desc")) {
-                return new ResponseEntity<>(productService.findAll(Sort.by(Direction.DESC,"price")),
+                return new ResponseEntity<>(productService.findAll(Sort.by(Direction.DESC, "price")),
                         HttpStatus.OK);
             }
             if (sort.get().equalsIgnoreCase("date_newest")) {
@@ -57,7 +56,7 @@ public class ProductRestController {
                         HttpStatus.OK);
             }
         }
-        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(productService.findAllIsDeletedFalse(), HttpStatus.OK);
     }
 
     @GetMapping("/rest/products/{id}")
@@ -65,7 +64,7 @@ public class ProductRestController {
         try {
             Product product = productService.findById(id);
             return new ResponseEntity<Product>(product, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
             LOGGER.error("Error when getting product by id", e);
             return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
         }
@@ -76,7 +75,7 @@ public class ProductRestController {
         try {
             List<Product> product = productService.findByName(name);
             return new ResponseEntity<List<Product>>(product, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
             LOGGER.error("Error when getting product by name like", e);
             return new ResponseEntity<List<Product>>(HttpStatus.NOT_FOUND);
         }
@@ -86,20 +85,35 @@ public class ProductRestController {
     @GetMapping("/rest/products/category/{categoryId}")
     public ResponseEntity<List<Product>> findProductByCategory(
             @PathVariable("categoryId") Optional<Integer> categoryId) {
-        return ResponseEntity.ok(productService.findByCategoryId(categoryId.get()));
+        try {
+            return ResponseEntity.ok(productService.findByCategoryId(categoryId.get()));
+        } catch (Exception e) {
+            LOGGER.error("Error when getting product by category id", e);
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // return all products by sub-category id
     @GetMapping("/rest/products/sub-category/{subCategoryId}")
     public ResponseEntity<List<Product>> findProductBySubCategory(
             @PathVariable("subCategoryId") Optional<Integer> subCategoryId) {
-        return ResponseEntity.ok(productService.findBySubCategoryId(subCategoryId.get()));
+        try {
+            return ResponseEntity.ok(productService.findBySubCategoryId(subCategoryId.get()));
+        } catch (Exception e) {
+            LOGGER.error("Error when getting product by sub-category id", e);
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // return all products if sale_off field isn't null or not equal to 0
     @GetMapping("/rest/products/sale-off")
     public ResponseEntity<List<Product>> findProductBySaleOff() {
-        return ResponseEntity.ok(productService.findAllBySaleOff());
+        try {
+            return ResponseEntity.ok(productService.findAllBySaleOff());
+        } catch (Exception e) {
+            LOGGER.error("Error when getting product by sale off", e);
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // return all products by price range
@@ -115,10 +129,15 @@ public class ProductRestController {
     }
 
     // for admin only, basic CRUD
-    
+
     @PostMapping("/rest/products")
     public ResponseEntity<Product> create(@RequestBody Product product) {
-        return ResponseEntity.ok(productService.create(product));
+        try {
+            return ResponseEntity.ok(productService.create(product));
+        } catch (Exception e) {
+            LOGGER.error("Error when creating product", e);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/rest/products/{id}")
@@ -135,7 +154,11 @@ public class ProductRestController {
 
     @DeleteMapping("/rest/products/{id}")
     public void delete(@PathVariable("id") Integer id) {
-        productService.delete(id);
+        try {
+            productService.delete(id);
+        } catch (Exception e) {
+            LOGGER.error("Error when deleting product", e);
+        }
     }
 
 }

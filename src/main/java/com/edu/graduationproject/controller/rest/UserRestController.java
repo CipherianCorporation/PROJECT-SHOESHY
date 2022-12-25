@@ -50,7 +50,7 @@ public class UserRestController {
 		if (admin.orElse(false)) {
 			return ResponseEntity.ok(userService.getAdministators());
 		}
-		return ResponseEntity.ok(userService.findAll());
+		return ResponseEntity.ok(userService.findAllIsDeletedFalse());
 	}
 
 	@GetMapping("/rest/users/principal")
@@ -140,24 +140,14 @@ public class UserRestController {
 					return ResponseEntity.badRequest().build();
 				}
 			}
-			user.setUpdatedAt(new Date());
-			user.setPassword(existingUser.get().getPassword());
 			User savedUser = userService.update(user);
 			return ResponseEntity.ok(savedUser);
-
 		} catch (NoSuchElementException e) {
-			Optional<User> userByUsername = userService.findByUsername((String) idOrUsername.get());
-			Optional<User> userById = userService.findById(Integer.valueOf((String) idOrUsername.get()));
-			if (userByUsername.isPresent() || userById.isPresent()) {
-				if (user.getIsDeleted() == null) {
-					user.setIsDeleted(false);
-				}
-				User savedUser = userService.update(user);
-				return ResponseEntity.ok(savedUser);
-			}
 			return ResponseEntity.notFound().build();
 		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
+		} finally {
+			model.asMap().clear();
 		}
 	}
 

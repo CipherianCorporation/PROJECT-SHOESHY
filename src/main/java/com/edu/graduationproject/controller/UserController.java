@@ -91,8 +91,7 @@ public class UserController {
         if (loggedinUser.isPresent()) {
             forgotPasswordService.updatePassword(loggedinUser.get(), password);
         }
-        redirAttrs.addFlashAttribute("message", "Đổi mật khẩu thành công");
-        // model.addAttribute("message", "đổi mật khẩu thành công");
+        model.addAttribute("message", "Đổi mật khẩu thành công");
         return "redirect:/security/logoff";
     }
 
