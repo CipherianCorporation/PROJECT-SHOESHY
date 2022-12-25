@@ -182,16 +182,9 @@ public class OrderServiceImpl implements OrderService {
     public int updateStatus(String orderStatus, Long orderId, List<OrderDetails> orderDetails) {
         Optional<Order> orderOpt = orderRepo.findById(orderId);
         Order orderData = orderOpt.get();
-        ObjectMapper mapper = new ObjectMapper();
-        Order order = mapper.convertValue(orderData, Order.class);
         if (orderStatus.equals("cancel")) {
-            List<OrderDetails> list = mapper
-                    .convertValue(orderData.getOrder_details(), new TypeReference<List<OrderDetails>>() {
-                    })
-                    .stream().peek(o -> o.setOrder(order)).collect(Collectors.toList());
-
             // increment product sold to 1, decrease product stock to 1
-            list.forEach((detail) -> {
+            orderData.getOrder_details().forEach(detail -> {
                 Product product = productService.findById(detail.getProduct().getId());
                 Long oldSold = product.getSold();
                 Long oldStock = product.getStock();
