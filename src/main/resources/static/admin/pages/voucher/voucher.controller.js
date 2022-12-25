@@ -27,6 +27,7 @@ app.controller("voucher-ctrl", function ($scope, $http, $filter) {
 
     $scope.reset = function () {
         $scope.form = {};
+        $scope.form_new = {};
     };
 
     $scope.create = function () {

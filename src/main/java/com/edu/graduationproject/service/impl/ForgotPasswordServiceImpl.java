@@ -54,7 +54,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
                 repo.save(user);
             }
         } catch (Exception e) {
-            throw e;
+            throw new RuntimeException(e);
         }
     }
 
