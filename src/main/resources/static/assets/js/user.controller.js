@@ -34,6 +34,8 @@ function userController($scope, $http, $interval) {
     $scope.reset = function () {
         $scope.form = {
             image_url: 'default-user.jpg',
+            id: $scope.form.id,
+            username: $scope.form.username,
         };
     };
 
