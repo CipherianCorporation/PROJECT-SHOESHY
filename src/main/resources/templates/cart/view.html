@@ -36,7 +36,7 @@
                                                     <div class="col-md-3 col-lg-3 col-xl-3 mb-2">
                                                         <h6 class="text-muted">{{item.name}}</h6>
                                                         <h6 class="text-black mb-0">{{item.category.name}}</h6>
-                                                        <h6 class="text-black mb-0"><sup>đ</sup> {{item.price | number:0}}</h6>
+                                                        <h6 class="text-black mb-0"><sup>đ</sup> {{ (item.price - (item.price * item.sale_off / 100)) | number:0}}</h6>
                                                     </div>
                                                     <div class="col-md-3 col-lg-3 col-xl-2 d-flex  mb-2">
 
@@ -56,7 +56,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1  mb-2">
-                                                        <h6 class="mb-0">Tổng: <sup>đ</sup> {{item.qty * item.price | number:0}}</h6>
+                                                        <h6 class="mb-0">Tổng: <sup>đ</sup> {{item.qty * (item.price - (item.price * item.sale_off / 100)) | number:0}}</h6>
                                                     </div>
                                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end  mb-2">
                                                         <!-- remove button -->

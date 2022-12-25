@@ -2,6 +2,7 @@ package com.edu.graduationproject.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -13,10 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.edu.graduationproject.entity.Order;
 import com.edu.graduationproject.entity.OrderDetails;
+import com.edu.graduationproject.entity.OrderStatus;
 import com.edu.graduationproject.entity.PersonalAccessToken;
 import com.edu.graduationproject.entity.Product;
 import com.edu.graduationproject.entity.User;
 import com.edu.graduationproject.entity.Voucher;
+import com.edu.graduationproject.model.EOrderStatus;
+import com.edu.graduationproject.model.EPaypalPaymentMethod;
 import com.edu.graduationproject.model.IOrderTypeCount;
 import com.edu.graduationproject.model.MailInfo;
 import com.edu.graduationproject.repository.OrderDetailRepository;
@@ -61,51 +65,67 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(rollbackFor = { Exception.class, Throwable.class, RuntimeException.class })
-    public Order create(JsonNode orderData) {
+    public Order create(HttpServletRequest req, Map<String, Object> orderMap) {
+        // mapping from json data to appropriate objects
         ObjectMapper mapper = new ObjectMapper();
-        Order order = mapper.convertValue(orderData, Order.class);
-        Double oldTotal = order.getTotal();
-        User user = userService.findByUsername(order.getUser().getUsername()).get();
+        Double total = 0.0;
+        JsonNode orderJson = mapper.convertValue(orderMap, JsonNode.class);
+        Order order = mapper.convertValue(orderMap, Order.class);
         order.setCreatedAt(new Date());
-        order.setUser(user);
-        if (order.getVoucher() != null) {
-            // if voucher is present then set isUsed to true
-            Optional<Voucher> optV = voucherService.findById(order.getVoucher().getId());
-            if (optV.isPresent()) {
-                Voucher v = optV.get();
-                v.setIsUsed(true);
-                voucherService.update(v.getId(), v); // 2. update voucher
-            }
-        }
+        // mapping order details json array to Java List
         List<OrderDetails> list = mapper
-                .convertValue(orderData.get("order_details"), new TypeReference<List<OrderDetails>>() {
+                .convertValue(orderJson.get("order_details"), new TypeReference<List<OrderDetails>>() {
                 })
                 .stream().peek(o -> o.setOrder(order)).collect(Collectors.toList());
-        // increment product sold, decrease product stock
-        list.forEach((detail) -> {
+        for (OrderDetails detail : list) {
             if (detail.getQuantity() <= 0) {
                 throw new RuntimeException("Quantity must be greater than 0");
             }
             Product product = productService.findById(detail.getProduct().getId());
+            // set subtracted price if product has sale off
             if (product.getSale_off() != null && product.getSale_off() > 0) {
                 detail.setPrice(product.getPrice() * (100 - product.getSale_off()) / 100);
             } else {
                 detail.setPrice(product.getPrice());
             }
+            total += detail.getPrice() * detail.getQuantity();
+            // increment product sold, decrease product stock
             Long oldSold = product.getSold();
             Long oldStock = product.getStock();
             product.setSold(oldSold + detail.getQuantity());
             product.setStock(oldStock < 0 ? 0 : oldStock - detail.getQuantity()); // prevent stock < 0
-        });
-        orderRepo.save(order); // 1. save order
+            detail.setProduct(product);
+        }
+        // if voucher is present then calculate discount and set voucher isUsed to true
+        if (order.getVoucher() != null) {
+            Optional<Voucher> optV = voucherService.findById(order.getVoucher().getId());
+            if (!optV.isPresent()) {
+                optV = voucherService.findByCodeIsNotDeleted(order.getVoucher().getCode());
+            }
+            if (optV.isPresent()) {
+                Voucher v = optV.get();
+                v.setIsUsed(true);
+                voucherService.update(v.getId(), v); // 1. update voucher
+                total -= (total * (v.getValue() / 100));
+            }
+        }
+        if(order.getPayment_method() == EPaypalPaymentMethod.cod) {
+            order.setOrderStatus(new OrderStatus(EOrderStatus.processing.name()));
+            // add more 20k for shipping fee
+            total += 20000;
+        } else {
+            order.setOrderStatus(new OrderStatus(EOrderStatus.success.name()));
+        }
+        order.setTotal(total);
+        order.setAddress(order.getUser().getAddress());
+        Order createdOrder = orderRepo.save(order); // 2. save order
         orderDetailRepo.saveAll(list); // 3. save order details
-        return order;
+        this.sendEmailReceipt(createdOrder, req); // 4. send email receipt
+        return createdOrder;
     }
 
     @Override
-    public void sendEmailReceipt(JsonNode orderData, HttpServletRequest request) {
-        Order order = new ObjectMapper().convertValue(orderData, Order.class);
-
+    public void sendEmailReceipt(Order order, HttpServletRequest request) {
         // create accessToken
         String randomStr = RandomString.make(30);
         String abilities = "DOWNLOAD";
