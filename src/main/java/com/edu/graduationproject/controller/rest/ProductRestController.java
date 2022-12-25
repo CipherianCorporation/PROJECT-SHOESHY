@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edu.graduationproject.entity.Product;
+import com.edu.graduationproject.entity.Size;
 import com.edu.graduationproject.service.ProductService;
 
 @CrossOrigin("*")
@@ -133,6 +134,22 @@ public class ProductRestController {
     @PostMapping("/rest/products")
     public ResponseEntity<Product> create(@RequestBody Product product) {
         try {
+            if (product.getSize() == null) {
+                product.setSize(new Size(0));
+            }
+            if (product.getSale_off() == null || product.getSale_off() <= 0) {
+                product.setSale_off((double) 0);
+            }
+            if (product.getPrice() == null || product.getPrice() <= 0) {
+                return ResponseEntity.badRequest().build();
+            }
+            if (product.getStock() == null || product.getStock() <= 0) {
+                return ResponseEntity.badRequest().build();
+            }
+            if (product.getName() == null || product.getName().isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+
             return ResponseEntity.ok(productService.create(product));
         } catch (Exception e) {
             LOGGER.error("Error when creating product", e);
@@ -143,6 +160,21 @@ public class ProductRestController {
     @PutMapping("/rest/products/{id}")
     public ResponseEntity<Product> update(@PathVariable("id") Integer id, @RequestBody Product product) {
         try {
+            if (product.getSize() == null) {
+                product.setSize(new Size(0));
+            }
+            if (product.getSale_off() == null || product.getSale_off() <= 0) {
+                product.setSale_off((double) 0);
+            }
+            if (product.getPrice() == null || product.getPrice() <= 0) {
+                return ResponseEntity.badRequest().build();
+            }
+            if (product.getStock() == null || product.getStock() <= 0) {
+                return ResponseEntity.badRequest().build();
+            }
+            if (product.getName() == null || product.getName().isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
             Product existProduct = productService.findById(id);
             productService.update(product);
             return new ResponseEntity<Product>(HttpStatus.OK);
